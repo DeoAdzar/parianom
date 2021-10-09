@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="#E7E7E7"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp">
+            <View
+                android:layout_width="70dp"
+                android:layout_height="16dp"
+                style="@style/fontTitleContent"
+                android:text="Bu Yuni"
+                android:background="#E7E7E7"/>
+            <View
+                android:layout_width="150dp"
+                android:layout_height="14dp"
+                style="@style/fontMasuk"
+                android:textSize="12dp"
+                android:text="Terimakasih"
+                android:background="#E7E7E7"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+            <View
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:text="16 Sep"
+                style="@style/fontMasuk"
+                android:textSize="12dp"
+                android:layout_gravity="center"
+                android:gravity="end"
+                android:background="#E7E7E7"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="#E7E7E7"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp">
+            <View
+                android:layout_width="70dp"
+                android:layout_height="16dp"
+                style="@style/fontTitleContent"
+                android:text="Bu Yuni"
+                android:background="#E7E7E7"/>
+            <View
+                android:layout_width="150dp"
+                android:layout_height="14dp"
+                style="@style/fontMasuk"
+                android:textSize="12dp"
+                android:text="Terimakasih"
+                android:background="#E7E7E7"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+            <View
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:text="16 Sep"
+                style="@style/fontMasuk"
+                android:textSize="12dp"
+                android:layout_gravity="center"
+                android:gravity="end"
+                android:background="#E7E7E7"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

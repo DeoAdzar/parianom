@@ -19,7 +19,7 @@ public class EditProfil extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profil);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        toolbar.setTitle("Edit Profil");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
