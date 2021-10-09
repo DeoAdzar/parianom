@@ -37,10 +37,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pesanRv"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_pesan">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPesan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/shimmer_pesan"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </LinearLayout>

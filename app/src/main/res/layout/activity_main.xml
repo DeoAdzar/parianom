@@ -22,6 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation" />
+        app:menu="@menu/bottom_navigation"
+        app:itemTextAppearanceInactive="@font/poppins"
+        app:itemTextAppearanceActive="@font/poppins_semibold"
+        app:labelVisibilityMode="labeled"/>
 
 </RelativeLayout>

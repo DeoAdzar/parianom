@@ -18,22 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
             android:layout_marginLeft="5dp"
-            android:theme="@style/ToolbarColoredBackArrow">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-                <TextView
-                    android:id="@+id/titleBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/edit_profil"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    style="@style/fontTitleContent"
-                    android:textSize="16dp"/>
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
+            android:theme="@style/ToolbarColoredBackArrow"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
