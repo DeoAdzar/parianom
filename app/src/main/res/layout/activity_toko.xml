@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.Toko">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:background="@color/white">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:theme="@style/ToolbarColoredBackArrow">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/titleBar"
+                    style="@style/fontTitleContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/toko_saya"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo_putih"/>
+            <TextView
+                android:id="@+id/namaToko"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/fontTitleContent"
+                android:gravity="center"
+                android:text="Toko Bu Yuli"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_marginVertical="5dp"
+                android:paddingHorizontal="10dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/jualPangan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="170dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/card_profil"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="5dp"
+                    android:elevation="5dp"
+                    android:gravity="center"
+                    android:layout_gravity="center">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_makanan"
+                        android:layout_marginVertical="10dp"
+                        app:tint="@color/primer" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/fontMasuk"
+                        android:gravity="center"
+                        android:text="Jual Pangan"
+                        android:textColor="@color/primer"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/jualKriya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="170dp"
+                    android:layout_weight="1.6"
+                    android:orientation="vertical"
+                    android:background="@drawable/card_profil"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="5dp"
+                    android:elevation="5dp"
+                    android:gravity="center"
+                    android:layout_gravity="center">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_hasil_kriya"
+                        android:layout_marginVertical="10dp"
+                        app:tint="@color/primer" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/fontMasuk"
+                        android:gravity="center"
+                        android:text="Jual Kriya"
+                        android:textColor="@color/primer"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginVertical="10dp">
+                <LinearLayout
+                    android:id="@+id/btnDftrJual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginHorizontal="10dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:paddingLeft="9dp">
+
+                        <TextView
+                            android:id="@+id/daftarJualan"
+                            style="@style/fontMasuk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_daftar_jualan"
+                            android:drawablePadding="10dp"
+                            android:text="@string/daftar_jualan"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black" />
+                        <ImageButton
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_right"
+                            android:tint="@color/black"
+                            android:scaleType="fitXY"
+                            tools:ignore="UseAppTint" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_below="@+id/daftarJualan"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#E6E5E5" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btnTransaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginHorizontal="10dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:paddingLeft="9dp">
+
+                        <TextView
+                            android:id="@+id/transaksi"
+                            style="@style/fontMasuk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_transaksi"
+                            android:drawablePadding="10dp"
+                            android:text="@string/transaksi"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black" />
+                        <ImageButton
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_right"
+                            android:tint="@color/black"
+                            android:scaleType="fitXY"
+                            tools:ignore="UseAppTint" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_below="@+id/transaksi"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#E6E5E5" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btnQr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginHorizontal="10dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:paddingLeft="9dp">
+
+                        <TextView
+                            android:id="@+id/qr"
+                            style="@style/fontMasuk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_qr"
+                            android:drawablePadding="10dp"
+                            android:text="@string/scan_code_qr"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black" />
+                        <ImageButton
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_right"
+                            android:tint="@color/black"
+                            android:scaleType="fitXY"
+                            tools:ignore="UseAppTint" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_below="@+id/qr"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#E6E5E5" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

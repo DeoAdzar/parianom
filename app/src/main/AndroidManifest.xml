@@ -10,7 +10,50 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Parianom">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.LupaPassword"
+            android:exported="true" />
+        <activity
+            android:name=".activity.EditProfil"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Toko"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Konfirmasi"
+            android:exported="true" />
+        <activity
+            android:name=".activity.FormBukaToko"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Chat"
+            android:exported="true" />
+        <activity
+            android:name=".activity.DetailBarang"
+            android:exported="true" />
+        <activity
+            android:name=".activity.BukaToko"
+            android:exported="true" />
+        <activity
+            android:name=".activity.DetailTransaksi"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Otp"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Daftar"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Masuk"
+            android:exported="true" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".activity.Board"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Splashscreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,6 +61,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
