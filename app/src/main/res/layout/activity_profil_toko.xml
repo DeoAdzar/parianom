@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.EditProfil"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.ProfilToko">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                     android:id="@+id/titleBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/edit_profil"
+                    android:text="@string/edit_profil_toko"
                     android:layout_gravity="center"
                     android:gravity="center"
                     style="@style/fontTitleContent"
@@ -48,12 +48,12 @@
             android:layout_gravity="center"
             android:layout_marginVertical="10dp">
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgUser"
+                android:id="@+id/imgToko"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@color/primer"/>
             <ImageButton
-                android:id="@+id/btnEdtImg"
+                android:id="@+id/btnEdtImgTk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
@@ -66,12 +66,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="4dp"
-            android:text="@string/nama"
+            android:text="@string/nama_toko"
             android:textAllCaps="true"
             style="@style/fontMasuk"
             android:inputType="text"/>
         <EditText
-            android:id="@+id/namaUser"
+            android:id="@+id/edtNamaToko"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
@@ -85,26 +85,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="4dp"
-            android:text="@string/email"
+            android:text="@string/alamat"
             android:textAllCaps="true"
             style="@style/fontMasuk"/>
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/edtAlamatTk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
             style="@style/fontMasuk"
-            android:text="yulilestari23@gmail.com"
+            android:text="Sidorejo Jl. Lawu No. 30 Wungu"
             android:textColor="@color/black"
             android:backgroundTint="@color/label_input"
             android:singleLine="true"
-            android:inputType="textEmailAddress"/>
+            android:inputType="text"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="4dp"
-            android:text="@string/hp"
+            android:text="@string/kecamatan"
             android:textAllCaps="true"
             style="@style/fontMasuk"/>
         <EditText
@@ -115,30 +115,11 @@
             style="@style/fontMasuk"
             android:textColor="@color/black"
             android:backgroundTint="@color/label_input"
-            android:text="+62 0123456789"
-            android:inputType="number"
-            android:singleLine="true"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="4dp"
-            android:text="@string/alamat"
-            android:textAllCaps="true"
-            style="@style/fontMasuk"/>
-        <EditText
-            android:id="@+id/alamat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="3dp"
-            style="@style/fontMasuk"
-            android:text="Sidorejo Jl. Lawu No. 30 Wungu"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/label_input"
+            android:text="Wungu"
             android:inputType="text"
             android:singleLine="true"/>
         <Button
-            android:id="@+id/btnSimpan"
+            android:id="@+id/btnSimpanEdtTk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button"

@@ -10,6 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Parianom">
         <activity
+            android:name=".activity.TentangKami"
+            android:exported="true" />
+        <activity
+            android:name=".activity.PusatBantuan"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ProfilToko"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ScanQr"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Transaksi"
+            android:exported="true" />
+        <activity
+            android:name=".activity.TambahProduk"
+            android:exported="true" />
+        <activity
             android:name=".activity.LupaPassword"
             android:exported="true" />
         <activity
@@ -48,7 +66,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.Board"
             android:exported="true" />

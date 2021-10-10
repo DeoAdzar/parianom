@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import com.parianom.R;
 import com.parianom.activity.BukaToko;
 import com.parianom.activity.EditProfil;
+import com.parianom.activity.PusatBantuan;
+import com.parianom.activity.TentangKami;
 import com.parianom.activity.Toko;
 
 public class ProfilFragment extends Fragment {
@@ -36,6 +38,14 @@ public class ProfilFragment extends Fragment {
 
         namaUser = (TextView) v.findViewById(R.id.namaUser);
 
+        toko();
+        profil();
+        pusatBantuan();
+        tentangKami();
+        return v;
+    }
+
+    public void toko() {
         toko.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +58,9 @@ public class ProfilFragment extends Fragment {
                 }
             }
         });
+    }
 
+    public void profil() {
         profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +68,25 @@ public class ProfilFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
 
-        return v;
+    private void pusatBantuan() {
+        bantuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), PusatBantuan.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void tentangKami() {
+        ttg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), TentangKami.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -66,4 +66,30 @@
     <string name="tanggal">Tanggal</string>
     <string name="jumlah">Jumlah</string>
     <string name="makanan">Makanan</string>
+    <string name="tambah_produk">Tambah Produk</string>
+    <string name="profil_toko">Profil Toko</string>
+    <string name="edit_profil_toko">Edit Profil Toko</string>
+    <string name="scan_kode_qr">Scan Kode QR</string>
+    <string name="foto_produk">Foto Produk</string>
+    <string name="jenis_produk">Jenis Produk</string>
+    <string name="nama_produk">Nama Produk</string>
+
+    <string-array name="kecamatan">
+        <item>Dagangan</item>
+        <item>Wungu</item>
+    </string-array>
+    <string-array name="kategori">
+        <item>Pangan</item>
+        <item>Kriya</item>
+    </string-array>
+    <string-array name="jenisPangan">
+        <item>Makanan</item>
+        <item>Minuman</item>
+        <item>Camilan</item>
+        <item>Bahan Baku</item>
+    </string-array>
+    <string-array name="jenisKriya">
+        <item>Hasil Kriya</item>
+        <item>Bahan Baku</item>
+    </string-array>
 </resources>

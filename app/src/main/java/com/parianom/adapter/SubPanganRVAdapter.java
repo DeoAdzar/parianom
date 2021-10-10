@@ -1,9 +1,6 @@
 package com.parianom.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.VectorEnabledTintResources;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.parianom.R;
-import com.parianom.fragment.KriyaFragment;
-import com.parianom.fragment.PanganFragment;
 import com.parianom.model.SubPanganModel;
 
 import java.util.List;
@@ -50,8 +38,10 @@ public class SubPanganRVAdapter extends RecyclerView.Adapter<SubPanganRVAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder,int position) {
-        holder.imgSubmenu.setImageResource(mSubmenu.get(position).getImgSubmenu());
-        holder.namaSubmenu.setText(mSubmenu.get(position).getNamaSubmenu());
+        holder.imgData.setImageResource(mSubmenu.get(position).getImgData());
+        holder.namaData.setText(mSubmenu.get(position).getNamaData());
+        holder.kecData.setText(mSubmenu.get(position).getKecData());
+        holder.hargaData.setText(mSubmenu.get(position).getHargaData());
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,16 +71,18 @@ public class SubPanganRVAdapter extends RecyclerView.Adapter<SubPanganRVAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView imgSubmenu;
-        private TextView namaSubmenu;
+        private ImageView imgData;
+        private TextView namaData, hargaData, kecData;
         private LinearLayout layout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            imgSubmenu = (ImageView) itemView.findViewById(R.id.imgSubmenu);
-            namaSubmenu = (TextView) itemView.findViewById(R.id.namaSubmenu);
-            layout = (LinearLayout) itemView.findViewById(R.id.btnSubmenu);
+            imgData = (ImageView) itemView.findViewById(R.id.imgPr);
+            namaData = (TextView) itemView.findViewById(R.id.jdlPr);
+            kecData = (TextView) itemView.findViewById(R.id.kecPr);
+            hargaData = (TextView) itemView.findViewById(R.id.hargaPr);
+            layout = (LinearLayout) itemView.findViewById(R.id.pilihCard);
         }
     }
 }

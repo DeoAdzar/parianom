@@ -265,15 +265,6 @@
                 android:text="@string/keluar"
                 android:textAllCaps="false"
                 android:textColor="@color/black" />
-            <ImageButton
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_right"
-                android:tint="@color/black"
-                android:scaleType="fitXY"
-                tools:ignore="UseAppTint" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
