@@ -7,153 +7,92 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.BerandaFragment">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_bg_pangan_kriya"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/fontTitleContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="@string/pangan"
+                android:textColor="@color/white" />
+        </androidx.appcompat.widget.Toolbar>
+        <include layout="@layout/bar_filter"/>
+    </FrameLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:fillViewport="true"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="170dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_bg_main"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="99dp"
-                    android:src="@drawable/logo_putih"
-                    android:padding="6dp"
-                    android:layout_gravity="center|bottom"
-                    android:elevation="5dp"
-                    android:layout_margin="5dp"/>
-            </FrameLayout>
-
+            android:layout_height="wrap_content"
+            android:gravity="center|top">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="5dp"
-                android:layout_marginHorizontal="10dp"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:id="@+id/btnPangan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="5dp"
+                android:gravity="center">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/fontTitleContent"
-                        android:layout_marginHorizontal="10dp"
-                        android:textColor="@color/black"
-                        android:text="@string/top_of_the_day"/>
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    android:layout_margin="10dp">
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="175dp"
-                        android:scaleType="fitXY"
-                        android:elevation="5dp"
-                        android:src="@drawable/top"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginVertical="10dp"
-                    android:orientation="vertical">
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/fontTitleContent"
-                        android:layout_marginHorizontal="10dp"
-                        android:textColor="@color/black"
-                        android:text="@string/kategori"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                        android:src="@drawable/ic_makanan"
+                        android:layout_gravity="center"
+                        android:padding="15dp"/>
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pangan"
+                    style="@style/fontMasuk" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnKriya"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="5dp"
+                android:gravity="center">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    android:layout_margin="10dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginHorizontal="15dp"
-                        android:orientation="horizontal">
-                        <LinearLayout
-                            android:id="@+id/pangan"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:background="@drawable/kategori_card">
-                            <TextView
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="20dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/fontMasuk"
-                                android:textColor="@color/white"
-                                android:text="Pangan"/>
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-                                <androidx.cardview.widget.CardView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:cardCornerRadius="17dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_alignParentRight="true"
-                                    app:cardElevation="0dp"
-                                    android:backgroundTint="@android:color/transparent">
-                                    <ImageView
-                                        android:layout_width="130dp"
-                                        android:layout_height="140dp"
-                                        android:layout_alignParentRight="true"
-                                        android:scaleType="fitXY"
-                                        android:layout_alignParentBottom="true"
-                                        android:src="@drawable/menu_pangan" />
-                                </androidx.cardview.widget.CardView>
-                            </RelativeLayout>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/kriya"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="vertical"
-                            android:background="@drawable/kategori_card">
-                            <TextView
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="20dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/fontMasuk"
-                                android:textColor="@color/white"
-                                android:text="Kriya"/>
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-                                <androidx.cardview.widget.CardView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:cardCornerRadius="17dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_alignParentRight="true"
-                                    app:cardElevation="0dp"
-                                    android:backgroundTint="@android:color/transparent">
-                                    <ImageView
-                                        android:layout_width="130dp"
-                                        android:layout_height="150dp"
-                                        android:layout_alignParentRight="true"
-                                        android:scaleType="fitXY"
-                                        android:src="@drawable/menu_kriya" />
-                                </androidx.cardview.widget.CardView>
-
-                            </RelativeLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
+                        android:src="@drawable/ic_hasil_kriya"
+                        android:layout_gravity="center"
+                        android:paddingHorizontal="20.5dp"
+                        android:paddingVertical="18dp"/>
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kriya"
+                    style="@style/fontMasuk" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

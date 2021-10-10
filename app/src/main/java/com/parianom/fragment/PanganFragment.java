@@ -2,7 +2,6 @@ package com.parianom.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,21 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PanganFragment extends Fragment {
-
     View v;
-    private RecyclerView rv;
-    private List<SubPanganModel> mSubmenu;
+    RecyclerView rv;
+    List<SubPanganModel> mData;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_pangan, container, false);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-        rv = (RecyclerView) v.findViewById(R.id.subMenuRV);
-        SubPanganRVAdapter adapter = new SubPanganRVAdapter(getContext(), mSubmenu);
-        rv.setLayoutManager(linearLayoutManager);
+        rv = (RecyclerView) v.findViewById(R.id.panganRv);
+        SubPanganRVAdapter adapter = new SubPanganRVAdapter(getContext(), mData);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(adapter);
 
         return v;
@@ -44,11 +40,9 @@ public class PanganFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSubmenu = new ArrayList<>();
+        mData = new ArrayList<>();
 
-        mSubmenu.add(new SubPanganModel(R.drawable.ic_makanan, "Makanan"));
-        mSubmenu.add(new SubPanganModel(R.drawable.ic_minuman, "Minuman"));
-        mSubmenu.add(new SubPanganModel(R.drawable.ic_camilan, "Camilan"));
-        mSubmenu.add(new SubPanganModel(R.drawable.ic_bahan_pangan, "Bahan Baku"));
+        mData.add(new SubPanganModel(R.drawable.top, "Jamur Blothong", "Wungu", "Rp. 10.000"));
     }
+
 }

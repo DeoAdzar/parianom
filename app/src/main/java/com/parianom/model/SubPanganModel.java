@@ -2,27 +2,45 @@ package com.parianom.model;
 
 public class SubPanganModel {
 
-    private int imgSubmenu;
-    private String namaSubmenu;
+    private int imgData;
+    private String namaData, hargaData, kecData;
 
-    public SubPanganModel(int imgSubmenu, String namaSubmenu) {
-        this.imgSubmenu = imgSubmenu;
-        this.namaSubmenu = namaSubmenu;
+    public SubPanganModel(int imgData, String namaData, String hargaData, String kecData) {
+        this.imgData = imgData;
+        this.namaData = namaData;
+        this.hargaData = hargaData;
+        this.kecData = kecData;
     }
 
-    public int getImgSubmenu() {
-        return imgSubmenu;
+    public int getImgData() {
+        return imgData;
     }
 
-    public void setImgSubmenu(int imgSubmenu) {
-        this.imgSubmenu = imgSubmenu;
+    public void setImgData(int imgData) {
+        this.imgData = imgData;
     }
 
-    public String getNamaSubmenu() {
-        return namaSubmenu;
+    public String getNamaData() {
+        return namaData;
     }
 
-    public void setNamaSubmenu(String namaSubmenu) {
-        this.namaSubmenu = namaSubmenu;
+    public void setNamaData(String namaData) {
+        this.namaData = namaData;
+    }
+
+    public String getHargaData() {
+        return hargaData;
+    }
+
+    public void setHargaData(String hargaData) {
+        this.hargaData = hargaData;
+    }
+
+    public String getKecData() {
+        return kecData;
+    }
+
+    public void setKecData(String kecData) {
+        this.kecData = kecData;
     }
 }

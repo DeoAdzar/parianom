@@ -28,9 +28,9 @@ public class BerandaFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_beranda, container, false);
 
         fragment = (FrameLayout) v.findViewById(R.id.fragment_container);
-        pangan = (LinearLayout) v.findViewById(R.id.pangan);
-        kriya = (LinearLayout) v.findViewById(R.id.kriya);
-
+        pangan = (LinearLayout) v.findViewById(R.id.btnPangan);
+        kriya = (LinearLayout) v.findViewById(R.id.btnKriya);
+//
         pangan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +52,7 @@ public class BerandaFragment extends Fragment {
         PanganFragment fr = new PanganFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, fr);
+        transaction.replace(R.id.fragment, fr);
         transaction.addToBackStack(fr.getClass().getName());
         transaction.commit();
     }
@@ -61,7 +61,7 @@ public class BerandaFragment extends Fragment {
         KriyaFragment fr = new KriyaFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, fr);
+        transaction.replace(R.id.fragment, fr);
         transaction.addToBackStack(fr.getClass().getName());
         transaction.commit();
     }

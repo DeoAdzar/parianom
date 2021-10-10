@@ -7,16 +7,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.parianom.R;
 
-public class EditProfil extends AppCompatActivity {
+public class TambahProduk extends AppCompatActivity {
     Button simpan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profil);
+        setContentView(R.layout.activity_tambah_produk);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -29,15 +30,13 @@ public class EditProfil extends AppCompatActivity {
             }
         });
 
-        simpanData();
-    }
-
-    public void simpanData() {
-        simpan = (Button) findViewById(R.id.btnSimpan);
-
+        simpan = (Button) findViewById(R.id.btnSimpanPr);
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(TambahProduk.this, "Produk berhasil ditambahkan", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(TambahProduk.this, Toko.class);
+                startActivity(intent);
                 finish();
             }
         });
