@@ -14,16 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.R;
 import com.parianom.activity.DetailTransaksi;
-import com.parianom.model.RiwayatModel;
+import com.parianom.model.PenjualanModel;
 
 import java.util.List;
 
 public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyViewHolder> {
 
     Context mContext;
-    List<RiwayatModel> mData;
+    List<PenjualanModel> mData;
 
-    public RiwayatRVAdapter(Context mContext, List<RiwayatModel> mData) {
+    public RiwayatRVAdapter(Context mContext, List<PenjualanModel> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -40,12 +40,12 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final RiwayatModel riwayatModel = mData.get(position);
+        final PenjualanModel penjualanModel = mData.get(position);
 
         holder.titleProduk.setText(mData.get(position).getTitleProduk());
         holder.wktBeli.setText(mData.get(position).getWaktuBelanja());
-        holder.titleRwyt.setText(mData.get(position).getTitleRiwayat());
-        holder.almtPenjual.setText(mData.get(position).getAlamatPenjual());
+        holder.titleRwyt.setText(mData.get(position).getTitleProduk());
+        holder.kecProduk.setText(mData.get(position).getKecPenjual());
         holder.hargaProduk.setText(mData.get(position).getHargaProduk());
         holder.imgProduk.setImageResource(mData.get(position).getImgProduk());
 
@@ -53,9 +53,9 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, DetailTransaksi.class);
-                intent.putExtra("waktuBelanja", riwayatModel.getWaktuBelanja());
-                intent.putExtra("titlePembelian", riwayatModel.getTitleProduk());
-                intent.putExtra("totalBelanja", riwayatModel.getHargaProduk());
+                intent.putExtra("waktuBelanja", penjualanModel.getWaktuBelanja());
+                intent.putExtra("titlePembelian", penjualanModel.getTitleProduk());
+                intent.putExtra("totalBelanja", penjualanModel.getHargaProduk());
                 mContext.startActivity(intent);
             }
         });
@@ -68,17 +68,17 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView titleProduk, wktBeli, titleRwyt, almtPenjual, hargaProduk;
+        private TextView titleProduk, wktBeli, titleRwyt, kecProduk, hargaProduk;
         private ImageView imgProduk;
         private LinearLayout layout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            titleProduk = (TextView) itemView.findViewById(R.id.titleProduk);
+            titleProduk = (TextView) itemView.findViewById(R.id.namaProduk);
             wktBeli = (TextView) itemView.findViewById(R.id.waktuBelanja);
-            titleRwyt = (TextView) itemView.findViewById(R.id.titleRiwayat);
-            almtPenjual = (TextView) itemView.findViewById(R.id.alamatPenjual);
+            titleRwyt = (TextView) itemView.findViewById(R.id.subNamaProduk);
+            kecProduk = (TextView) itemView.findViewById(R.id.kecProduk);
             hargaProduk = (TextView) itemView.findViewById(R.id.hargaProduk);
             imgProduk = (ImageView) itemView.findViewById(R.id.imgProduk);
             layout = (LinearLayout) itemView.findViewById(R.id.cardRiwayat);

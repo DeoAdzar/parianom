@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.parianom.R;
 
 public class Toko extends AppCompatActivity {
-    LinearLayout tambah, transaksi, qr, profil;
+    LinearLayout tambah, dfJualan, transaksi, qr, profil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class Toko extends AppCompatActivity {
         });
 
         tambah();
+        daftarJualan();
         transaksi();
         qR();
         profilToko();
@@ -41,6 +42,18 @@ public class Toko extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, TambahProduk.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    public void daftarJualan(){
+        dfJualan = (LinearLayout) findViewById(R.id.btnDftrJual);
+        dfJualan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Toko.this, DaftarJualan.class);
                 startActivity(intent);
                 finish();
             }

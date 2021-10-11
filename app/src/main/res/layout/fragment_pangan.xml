@@ -78,6 +78,6 @@
         android:padding="5dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/item_pangan" />
+        tools:listitem="@layout/item_beranda" />
 
 </LinearLayout>

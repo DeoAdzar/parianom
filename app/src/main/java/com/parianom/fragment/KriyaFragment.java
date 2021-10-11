@@ -8,21 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.R;
-import com.parianom.adapter.SubPanganRVAdapter;
-import com.parianom.model.SubPanganModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KriyaFragment extends Fragment {
 
     View v;
-    private RecyclerView rv;
-    private List<SubPanganModel> mSubmenu;
+//    private RecyclerView rv;
+//    private List<SubPanganModel> mSubmenu;
 
     @Nullable
     @Override
@@ -32,7 +28,7 @@ public class KriyaFragment extends Fragment {
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 //
 //        rv = (RecyclerView) v.findViewById(R.id.subMenuRV);
-//        SubPanganRVAdapter adapter = new SubPanganRVAdapter(getContext(), mSubmenu);
+//        BerandaRvAdapter adapter = new BerandaRvAdapter(getContext(), mSubmenu);
 //        rv.setLayoutManager(linearLayoutManager);
 //        rv.setAdapter(adapter);
 
