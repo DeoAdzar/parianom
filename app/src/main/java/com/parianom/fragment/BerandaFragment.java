@@ -13,12 +13,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.R;
+import com.parianom.adapter.BerandaRvAdapter;
+import com.parianom.adapter.RiwayatRVAdapter;
+import com.parianom.model.PenjualanModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BerandaFragment extends Fragment {
 
     View v;
+    private RecyclerView rv;
+    private List<PenjualanModel> listData;
+
     private FrameLayout fragment;
     private LinearLayout pangan, kriya;
 
@@ -30,39 +41,56 @@ public class BerandaFragment extends Fragment {
         fragment = (FrameLayout) v.findViewById(R.id.fragment_container);
         pangan = (LinearLayout) v.findViewById(R.id.btnPangan);
         kriya = (LinearLayout) v.findViewById(R.id.btnKriya);
-//
-        pangan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                panganFragment();
-            }
-        });
 
-        kriya.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                kriyaFragment();
-            }
-        });
+        add();
+        rv = (RecyclerView) v.findViewById(R.id.berandaRv);
+        BerandaRvAdapter adapter = new BerandaRvAdapter(getContext(), listData);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setAdapter(adapter);
+
+//
+//        pangan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                panganFragment();
+//            }
+//        });
+//
+//        kriya.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                kriyaFragment();
+//            }
+//        });
 
         return v;
     }
 
-    public void panganFragment() {
-        PanganFragment fr = new PanganFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment, fr);
-        transaction.addToBackStack(fr.getClass().getName());
-        transaction.commit();
+    public void add() {
+        listData = new ArrayList<>();
+        listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
+                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
+                "Pangan", "Makanan", R.drawable.top, 2));
+        listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
+                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
+                "Pangan", "Makanan", R.drawable.top, 2));
     }
 
-    public void kriyaFragment() {
-        KriyaFragment fr = new KriyaFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment, fr);
-        transaction.addToBackStack(fr.getClass().getName());
-        transaction.commit();
-    }
+    //    public void panganFragment() {
+//        PanganFragment fr = new PanganFragment();
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.fragment, fr);
+//        transaction.addToBackStack(fr.getClass().getName());
+//        transaction.commit();
+//    }
+
+//    public void kriyaFragment() {
+//        KriyaFragment fr = new KriyaFragment();
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.fragment, fr);
+//        transaction.addToBackStack(fr.getClass().getName());
+//        transaction.commit();
+//    }
 }

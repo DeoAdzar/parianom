@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Parianom">
         <activity
+            android:name=".activity.DaftarJualan"
+            android:exported="true" />
+        <activity
             android:name=".activity.TentangKami"
             android:exported="true" />
         <activity

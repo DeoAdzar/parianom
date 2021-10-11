@@ -1,16 +1,20 @@
 package com.parianom.model;
 
-public class RiwayatModel {
+public class PenjualanModel {
 
-    private String titleProduk, waktuBelanja, titleRiwayat, alamatPenjual, hargaProduk;
+    private String titleProduk, waktuBelanja, kecPenjual, alamatPenjual, hargaProduk, pembeli, penjual, kategori, jenis;
     private int imgProduk, jumlahBelanja;
 
-    public RiwayatModel(String titleProduk, String waktuBelanja, String titleRiwayat, String alamatPenjual, String hargaProduk, int imgProduk, int jumlahBelanja) {
+    public PenjualanModel(String titleProduk, String waktuBelanja, String kecPenjual, String alamatPenjual, String hargaProduk, String pembeli, String penjual, String kategori, String jenis, int imgProduk, int jumlahBelanja) {
         this.titleProduk = titleProduk;
         this.waktuBelanja = waktuBelanja;
-        this.titleRiwayat = titleRiwayat;
+        this.kecPenjual = kecPenjual;
         this.alamatPenjual = alamatPenjual;
         this.hargaProduk = hargaProduk;
+        this.pembeli = pembeli;
+        this.penjual = penjual;
+        this.kategori = kategori;
+        this.jenis = jenis;
         this.imgProduk = imgProduk;
         this.jumlahBelanja = jumlahBelanja;
     }
@@ -31,12 +35,12 @@ public class RiwayatModel {
         this.waktuBelanja = waktuBelanja;
     }
 
-    public String getTitleRiwayat() {
-        return titleRiwayat;
+    public String getKecPenjual() {
+        return kecPenjual;
     }
 
-    public void setTitleRiwayat(String titleRiwayat) {
-        this.titleRiwayat = titleRiwayat;
+    public void setKecPenjual(String kecPenjual) {
+        this.kecPenjual = kecPenjual;
     }
 
     public String getAlamatPenjual() {
@@ -53,6 +57,38 @@ public class RiwayatModel {
 
     public void setHargaProduk(String hargaProduk) {
         this.hargaProduk = hargaProduk;
+    }
+
+    public String getPembeli() {
+        return pembeli;
+    }
+
+    public void setPembeli(String pembeli) {
+        this.pembeli = pembeli;
+    }
+
+    public String getPenjual() {
+        return penjual;
+    }
+
+    public void setPenjual(String penjual) {
+        this.penjual = penjual;
+    }
+
+    public String getKategori() {
+        return kategori;
+    }
+
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
+    }
+
+    public String getJenis() {
+        return jenis;
+    }
+
+    public void setJenis(String jenis) {
+        this.jenis = jenis;
     }
 
     public int getImgProduk() {

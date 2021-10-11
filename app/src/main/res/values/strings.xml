@@ -73,7 +73,9 @@
     <string name="foto_produk">Foto Produk</string>
     <string name="jenis_produk">Jenis Produk</string>
     <string name="nama_produk">Nama Produk</string>
-
+    <string name="minuman">Minuman</string>
+    <string name="camilan">Camilan</string>
+    <string name="bahan_baku">Bahan Baku</string>
     <string-array name="kecamatan">
         <item>Dagangan</item>
         <item>Wungu</item>

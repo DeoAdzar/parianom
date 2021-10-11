@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.R;
-import com.parianom.adapter.PesanRVAdapter;
 import com.parianom.adapter.RiwayatRVAdapter;
-import com.parianom.model.PesanModel;
-import com.parianom.model.RiwayatModel;
+import com.parianom.model.PenjualanModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +21,7 @@ import java.util.List;
 public class RiwayatFragment extends Fragment {
     View v;
     private RecyclerView rv;
-    private List<RiwayatModel> listRiwayat;
+    private List<PenjualanModel> listRiwayat;
 
     @Nullable
     @Override
@@ -43,7 +41,8 @@ public class RiwayatFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         listRiwayat = new ArrayList<>();
-        listRiwayat.add(new RiwayatModel("Sayur Kol", "16 September 2021", "Sayur Kol", "Wungu", "Rp. 10.000", R.drawable.ic_person, 1));
-        listRiwayat.add(new RiwayatModel("Sayur Kol", "16 September 2021", "Sayur Kol", "Wungu", "Rp. 10.000", R.drawable.ic_person, 1));
+        listRiwayat.add(new PenjualanModel("Sayur Kol", "16 September 2021",
+                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
+                "Pangan", "Makanan", R.drawable.top, 2));
     }
 }

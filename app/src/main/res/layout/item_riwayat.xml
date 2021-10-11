@@ -30,7 +30,7 @@
                     android:src="@drawable/ic_shop_bag"
                     android:layout_marginRight="10dp"/>
                 <TextView
-                    android:id="@+id/titleProduk"
+                    android:id="@+id/namaProduk"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     style="@style/fontTitleContent"
@@ -75,13 +75,13 @@
                 android:orientation="vertical"
                 android:gravity="left|center">
                 <TextView
-                    android:id="@+id/titleRiwayat"
+                    android:id="@+id/subNamaProduk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/fontTitleContent"
                     android:text="Sayur Asem"/>
                 <TextView
-                    android:id="@+id/alamatPenjual"
+                    android:id="@+id/kecProduk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/fontMasuk"
@@ -117,18 +117,16 @@
                         android:layout_height="match_parent"
                         android:outlineProvider="none">
                         <Button
-                            android:id="@+id/btnBeliLg"
+                            android:id="@+id/btnDetailRiwayat"
                             style="@style/fontBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="35dp"
                             android:layout_gravity="end"
-                            android:text="Beli Lagi"
+                            android:text="Lihat Detail"
                             android:textSize="9dp" />
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
     </LinearLayout>
 
