@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,7 +46,7 @@ public class BerandaFragment extends Fragment {
         add();
         rv = (RecyclerView) v.findViewById(R.id.berandaRv);
         BerandaRvAdapter adapter = new BerandaRvAdapter(getContext(), listData);
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rv.setAdapter(adapter);
 
 //
@@ -70,7 +71,7 @@ public class BerandaFragment extends Fragment {
         listData = new ArrayList<>();
         listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
                 "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
-                "Pangan", "Makanan", R.drawable.top, 2));
+                "Pangan", "Makanan", R.drawable.gb_board, 2));
         listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
                 "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
                 "Pangan", "Makanan", R.drawable.top, 2));

@@ -2,13 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.parianom">
 
+    <!--Permission for camera-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--Permission to vibrate-->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.Parianom">
+        <activity
+            android:name=".activity.GenerateQR"
+            android:exported="true" />
         <activity
             android:name=".activity.DaftarJualan"
             android:exported="true" />
@@ -47,7 +56,8 @@
             android:exported="true" />
         <activity
             android:name=".activity.Chat"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateUnchanged" />
         <activity
             android:name=".activity.DetailBarang"
             android:exported="true" />

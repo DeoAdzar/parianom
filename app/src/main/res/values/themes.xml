@@ -38,6 +38,13 @@
         <item name="backgroundTint">@color/label_input</item>
     </style>
 
+    <style name="fontChat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
     <style name="fontBtn">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14dp</item>

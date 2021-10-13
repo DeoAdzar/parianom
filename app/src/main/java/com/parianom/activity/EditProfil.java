@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
+import com.google.android.gms.cast.framework.media.ImagePicker;
 import com.parianom.R;
 
 public class EditProfil extends AppCompatActivity {
     Button simpan;
+    ImageButton edtImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

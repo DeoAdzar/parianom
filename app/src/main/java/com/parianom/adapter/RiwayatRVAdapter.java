@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.R;
 import com.parianom.activity.DetailTransaksi;
+import com.parianom.activity.GenerateQR;
 import com.parianom.model.PenjualanModel;
 
 import java.util.List;
@@ -52,10 +53,14 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, DetailTransaksi.class);
-                intent.putExtra("waktuBelanja", penjualanModel.getWaktuBelanja());
-                intent.putExtra("titlePembelian", penjualanModel.getTitleProduk());
-                intent.putExtra("totalBelanja", penjualanModel.getHargaProduk());
+//                Intent intent = new Intent(mContext, DetailTransaksi.class);
+//                intent.putExtra("waktuBelanja", penjualanModel.getWaktuBelanja());
+//                intent.putExtra("titlePembelian", penjualanModel.getTitleProduk());
+//                intent.putExtra("totalBelanja", penjualanModel.getHargaProduk());
+//                mContext.startActivity(intent);
+
+                Intent intent = new Intent(mContext, GenerateQR.class);
+                intent.putExtra("kode", penjualanModel.getTitleProduk());
                 mContext.startActivity(intent);
             }
         });
