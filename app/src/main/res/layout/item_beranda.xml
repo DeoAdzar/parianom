@@ -2,38 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:id="@+id/pilihData"
+    android:layout_gravity="center"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_margin="5dp"
         android:layout_gravity="center"
-        app:cardElevation="2dp">
+        app:cardElevation="5dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
             android:gravity="center"
-            android:layout_marginHorizontal="3dp"
             android:paddingBottom="10dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
                 android:padding="5dp"
                 android:layout_gravity="center">
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     app:cardCornerRadius="10dp">
                     <ImageView
                         android:id="@+id/imgPr"
                         android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:src="@drawable/top"
+                        android:layout_height="130dp"
+                        android:src="@drawable/gb_board"
                         android:layout_gravity="center"
                         android:scaleType="fitXY"/>
                 </androidx.cardview.widget.CardView>

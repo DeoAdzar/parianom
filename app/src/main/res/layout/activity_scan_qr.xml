@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".activity.ScanQr">
 
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,30 +38,10 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-    
-    <LinearLayout
+
+    <eu.livotov.labs.android.camview.ScannerLiveView
+        android:id="@+id/camScanQr"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:gravity="center">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:src="@drawable/wait"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Coming Soon"
-                style="@style/fontMasuk"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="25dp"/>
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

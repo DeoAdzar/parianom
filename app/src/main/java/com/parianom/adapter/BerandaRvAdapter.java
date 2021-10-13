@@ -40,6 +40,8 @@ public class BerandaRvAdapter extends RecyclerView.Adapter<BerandaRvAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder,int position) {
+        final PenjualanModel model = mData.get(position);
+
         holder.imgData.setImageResource(mData.get(position).getImgProduk());
         holder.namaData.setText(mData.get(position).getTitleProduk());
         holder.kecData.setText(mData.get(position).getKecPenjual());
@@ -49,6 +51,10 @@ public class BerandaRvAdapter extends RecyclerView.Adapter<BerandaRvAdapter.MyVi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, DetailBarang.class);
+                intent.putExtra("imgPrBeranda", model.getImgProduk());
+                intent.putExtra("namaPrBeranda", model.getTitleProduk());
+                intent.putExtra("Wungu", model.getKecPenjual());
+                intent.putExtra("hargaPrBeranda", model.getHargaProduk());
                 mContext.startActivity(intent);
 //                DrawableCompat.setTint(holder.imgSubmenu.getDrawable(), ContextCompat.getColor(mContext, R.color.buttonClicked));
 //              Fragment Tujuan

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="50dp"
+    android:gravity="center"
+    tools:context=".activity.GenerateQR">
+
+    <ImageView
+        android:id="@+id/qrCode"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="@string/terimakasih_telah_memesan"
+        style="@style/fontBesar"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/primer"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tunggu_sampai_pesanan_datang"
+        style="@style/fontMasuk"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/primer"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Scan QR Code ketika Anda telah selesai melakukan transaksi dengan penjual"
+        style="@style/fontMasuk"/>
+
+</LinearLayout>
