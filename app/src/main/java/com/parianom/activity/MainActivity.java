@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,6 +20,7 @@ import com.parianom.fragment.PesanFragment;
 import com.parianom.fragment.ProfilFragment;
 import com.parianom.fragment.RiwayatFragment;
 import com.parianom.fragment.BerandaFragment;
+import com.parianom.utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout pangan, kriya;
     private FragmentManager fragmentManager;
     boolean doubleBack = false;
-
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        sessionManager = new SessionManager(getApplicationContext());
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -56,8 +58,14 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new RiwayatFragment();
                             break;
                         case R.id.profil:
-                            selectedFragment = new ProfilFragment();
-                            break;
+                            if (sessionManager.checkLogin()==1){
+                                selectedFragment = new ProfilFragment();
+                                break;
+                            }else{
+                                Intent i = new Intent(MainActivity.this,Masuk.class);
+                                startActivity(i);
+                                break;
+                            }
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                     return true;
