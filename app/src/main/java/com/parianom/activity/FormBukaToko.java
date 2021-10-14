@@ -3,6 +3,7 @@ package com.parianom.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -13,15 +14,25 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.parianom.R;
+import com.parianom.api.BaseApiService;
+import com.parianom.api.UtilsApi;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FormBukaToko extends AppCompatActivity {
     Button bkToko, ktp;
@@ -29,11 +40,16 @@ public class FormBukaToko extends AppCompatActivity {
     Spinner kec;
     Bitmap bitmap;
     Uri selectedImage;
+    Context context;
+    BaseApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_buka_toko);
+
+        context = this;
+        mApiService = UtilsApi.getApiService();
 
         namaToko = (EditText) findViewById(R.id.namaBukaToko);
         nik = (EditText) findViewById(R.id.nik);
@@ -42,6 +58,7 @@ public class FormBukaToko extends AppCompatActivity {
         bkToko = (Button) findViewById(R.id.btnSimpanToko);
         ktp = (Button) findViewById(R.id.ktp);
 
+        // Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -53,16 +70,36 @@ public class FormBukaToko extends AppCompatActivity {
             }
         });
 
+        //  spinner Kecamatan
+        initKecamatan();
+        kec.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedName = parent.getItemAtPosition(position).toString();
+//                requestDetailDosen(selectedName);
+                Toast.makeText(context, "Kamu memilih " + selectedName, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        // Pilih foto dari galeri
         ktp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gallery();
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent, 1);
             }
         });
 
         bukaToko();
     }
 
+    //
     private void bukaToko() {
         bkToko.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +123,24 @@ public class FormBukaToko extends AppCompatActivity {
         });
     }
 
+    // API data kecamatan
+    private void initKecamatan(){
+//        loading = ProgressDialog.show(mContext, null, "harap tunggu...", true, false);
+        mApiService.getKecamatan().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
 //    protected void uploadTask() {
 //        // TODO Auto-generated method stub
 //        ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -96,18 +151,7 @@ public class FormBukaToko extends AppCompatActivity {
 //        new ImageUploadTask(file).execute();
 //    }
 
-    public void gallery() {
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"),
-//                1);
-
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, 1);
-    }
-
+    // Galeri
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

@@ -79,6 +79,7 @@
     <string name="terimakasih_telah_memesan">Terimakasih Telah Memesan</string>
     <string name="tunggu_sampai_pesanan_datang">Tunggu sampai pesanan datang</string>
     <string name="stok">Stok</string>
+    <string name="silahkan_masuk_terlebih_dahulu">Silahkan Masuk Terlebih Dahulu</string>
     <string-array name="kecamatan">
         <item>Dagangan</item>
         <item>Wungu</item>

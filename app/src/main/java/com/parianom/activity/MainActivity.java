@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parianom.R;
+import com.parianom.fragment.BoardMasukFragment;
 import com.parianom.fragment.PesanFragment;
 import com.parianom.fragment.ProfilFragment;
 import com.parianom.fragment.RiwayatFragment;
@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
                                 selectedFragment = new ProfilFragment();
                                 break;
                             }else{
-                                Intent i = new Intent(MainActivity.this,Masuk.class);
-                                startActivity(i);
+                                selectedFragment = new BoardMasukFragment();
                                 break;
                             }
                     }

@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center|left"
     android:paddingHorizontal="16dp"
     android:paddingVertical="10dp"
     tools:context=".activity.Daftar">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:layout_marginBottom="10dp"
         android:autoSizeMaxTextSize="24dp"
         android:autoSizeMinTextSize="16dp"
@@ -30,10 +30,25 @@
         android:layout_marginTop="10dp">
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
+            android:hint="Nama Lengkap"
+            android:layout_marginVertical="5dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etNamaLengkap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                style="@style/fontMasuk"
+                android:textColor="@color/black"
+                android:singleLine="true"
+                android:inputType="textPersonName"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:hint="@string/username"
             android:layout_marginVertical="5dp"
-            android:layout_height="wrap_content"
-            app:startIconDrawable="@drawable/ic_person">
+            android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
@@ -50,8 +65,7 @@
             android:layout_width="match_parent"
             android:hint="@string/email"
             android:layout_marginVertical="5dp"
-            android:layout_height="wrap_content"
-            app:startIconDrawable="@drawable/ic_email">
+            android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
@@ -66,10 +80,26 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
+            android:hint="@string/username"
+            android:layout_marginVertical="5dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etAlamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                style="@style/fontMasuk"
+                android:textColor="@color/black"
+                android:singleLine="true"
+                android:inputType="textPersonName"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:hint="@string/hp"
             android:layout_marginVertical="5dp"
-            android:layout_height="wrap_content"
-            app:startIconDrawable="@drawable/ic_phone">
+            android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/etHp"
                 android:layout_width="match_parent"
@@ -87,7 +117,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/password"
             app:passwordToggleEnabled="true"
-            app:startIconDrawable="@drawable/ic_lock"
             android:layout_marginVertical="5dp">
             <EditText
                 android:id="@+id/etPassword"
