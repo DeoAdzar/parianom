@@ -9,21 +9,25 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.parianom.R;
+import com.parianom.utils.SessionManager;
 
 public class Masuk extends AppCompatActivity {
     Button btnMasuk;
     TextView daftar, lupaPass;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masuk);
-
+        sessionManager=new SessionManager(getApplicationContext());
         btnMasuk = (Button) findViewById(R.id.btnMasuk);
         btnMasuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Masuk.this, MainActivity.class);
                 startActivity(intent);
+                finish();
+                sessionManager.createSession("id_user");
             }
         });
 

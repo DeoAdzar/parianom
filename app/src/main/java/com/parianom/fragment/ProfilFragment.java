@@ -19,12 +19,13 @@ import com.parianom.activity.EditProfil;
 import com.parianom.activity.PusatBantuan;
 import com.parianom.activity.TentangKami;
 import com.parianom.activity.Toko;
+import com.parianom.utils.SessionManager;
 
 public class ProfilFragment extends Fragment {
     View v;
     LinearLayout toko, profil, bantuan, ttg, keluar;
     TextView namaUser, email;
-
+    SessionManager sessionManager;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,9 +36,14 @@ public class ProfilFragment extends Fragment {
         bantuan = (LinearLayout) v.findViewById(R.id.btnBantuan);
         ttg = (LinearLayout) v.findViewById(R.id.btnTtgKami);
         keluar = (LinearLayout) v.findViewById(R.id.btnKeluar);
-
+        sessionManager = new SessionManager(getContext());
         namaUser = (TextView) v.findViewById(R.id.namaUser);
-
+        keluar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sessionManager.logout();
+            }
+        });
         toko();
         profil();
         pusatBantuan();

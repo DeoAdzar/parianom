@@ -8,22 +8,22 @@ import android.os.Handler;
 import android.view.WindowManager;
 
 import com.parianom.R;
+import com.parianom.utils.SessionManagerSplash;
 
 public class Splashscreen extends AppCompatActivity {
-
+    SessionManagerSplash sessionManagerSplash;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
         //fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        sessionManagerSplash = new SessionManagerSplash(Splashscreen.this);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Splashscreen.this, MainActivity.class);
-                startActivity(intent);
+                sessionManagerSplash.checkLogin();
                 finish();
             }
         }, 2000);
