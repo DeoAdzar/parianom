@@ -35,14 +35,14 @@ import com.parianom.model.PenjualanModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BerandaFragment extends Fragment implements View.OnClickListener {
+public class BerandaFragment extends Fragment {
 
     View v;
     private RecyclerView rv;
     private List<PenjualanModel> listData;
 
     private FrameLayout fragment;
-    private LinearLayout pangan, kriya;
+    private LinearLayout pangan, kriya, jenisPangan, jenisKriya;
     private ImageView dPangan, dKriya;
     CardView makanan, minuman, camilan, bBPangan, hasilKriya, bBKriya;
     private TextView titlePangan, titleKriya, jnsMakanan, jnsMinuman, jnsCamilan, jnsBBPangan, jnsHasilKriya, jnsBBKriya;
@@ -55,10 +55,18 @@ public class BerandaFragment extends Fragment implements View.OnClickListener {
         fragment = (FrameLayout) v.findViewById(R.id.fragment_container);
         pangan = (LinearLayout) v.findViewById(R.id.btnPangan);
         kriya = (LinearLayout) v.findViewById(R.id.btnKriya);
+        jenisPangan = (LinearLayout) v.findViewById(R.id.jenisPangan);
+        jenisKriya = (LinearLayout) v.findViewById(R.id.jenisKriya);
         dPangan = (ImageView) v.findViewById(R.id.drawablePangan);
         dKriya = (ImageView) v.findViewById(R.id.drawableKriya);
         titlePangan = (TextView) v.findViewById(R.id.titlePangan);
         titleKriya = (TextView) v.findViewById(R.id.titleKriya);
+        makanan = (CardView) v.findViewById(R.id.makanan);
+        minuman = (CardView) v.findViewById(R.id.minuman);
+        camilan = (CardView) v.findViewById(R.id.camilan);
+        bBPangan = (CardView) v.findViewById(R.id.bahanBakuPangan);
+        hasilKriya = (CardView) v.findViewById(R.id.hasilKriya);
+        bBKriya = (CardView) v.findViewById(R.id.bahanBakuKriya);
         jnsMakanan = (TextView) v.findViewById(R.id.textMakanan);
         jnsMinuman = (TextView) v.findViewById(R.id.textMinuman);
         jnsCamilan = (TextView) v.findViewById(R.id.textCamilan);
@@ -66,23 +74,98 @@ public class BerandaFragment extends Fragment implements View.OnClickListener {
         jnsHasilKriya = (TextView) v.findViewById(R.id.textHasilKriya);
         jnsBBKriya = (TextView) v.findViewById(R.id.textBBakuKriya);
 
+        int nonAktif = ContextCompat.getColor(getContext(), R.color.label_input);
+        int aktif = ContextCompat.getColor(getContext(), R.color.primer);
 
-//        pangan.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DrawableCompat.setTint(dPangan.getDrawable(), ContextCompat.getColor(getContext(), R.color.primer));
-//                titlePangan.setTextColor(ContextCompat.getColor(getContext(), R.color.primer));
-//            }
-//        });
-//        kriya.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DrawableCompat.setTint(dKriya.getDrawable(), ContextCompat.getColor(getContext(), R.color.primer));
-//                titleKriya.setTextColor(ContextCompat.getColor(getContext(), R.color.primer));
-//            }
-//        });
-        pangan.setOnClickListener(this);
-        kriya.setOnClickListener(this);
+        // button pangan
+        pangan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawableCompat.setTint(dPangan.getDrawable(), aktif);
+                titlePangan.setTextColor(aktif);
+                DrawableCompat.setTint(dKriya.getDrawable(), nonAktif);
+                titleKriya.setTextColor(nonAktif);
+                jnsMakanan.setTextColor(aktif);
+                jnsMinuman.setTextColor(nonAktif);
+                jnsCamilan.setTextColor(nonAktif);
+                jnsBBPangan.setTextColor(nonAktif);
+
+                jenisPangan.setVisibility(View.VISIBLE);
+                jenisKriya.setVisibility(View.GONE);
+            }
+        });
+
+        // button kriya
+        kriya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawableCompat.setTint(dKriya.getDrawable(), aktif);
+                titleKriya.setTextColor(aktif);
+                DrawableCompat.setTint(dPangan.getDrawable(), nonAktif);
+                titlePangan.setTextColor(nonAktif);
+                jnsHasilKriya.setTextColor(aktif);
+                jnsBBKriya.setTextColor(nonAktif);
+
+                jenisKriya.setVisibility(View.VISIBLE);
+                jenisPangan.setVisibility(View.GONE);
+            }
+        });
+
+        makanan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jnsMakanan.setTextColor(aktif);
+                jnsMinuman.setTextColor(nonAktif);
+                jnsCamilan.setTextColor(nonAktif);
+                jnsBBPangan.setTextColor(nonAktif);
+            }
+        });
+
+        minuman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jnsMinuman.setTextColor(aktif);
+                jnsMakanan.setTextColor(nonAktif);
+                jnsCamilan.setTextColor(nonAktif);
+                jnsBBPangan.setTextColor(nonAktif);
+            }
+        });
+
+        camilan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jnsCamilan.setTextColor(aktif);
+                jnsMakanan.setTextColor(nonAktif);
+                jnsMinuman.setTextColor(nonAktif);
+                jnsBBPangan.setTextColor(nonAktif);
+            }
+        });
+
+        jnsBBPangan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jnsBBPangan.setTextColor(aktif);
+                jnsMakanan.setTextColor(nonAktif);
+                jnsMinuman.setTextColor(nonAktif);
+                jnsCamilan.setTextColor(nonAktif);
+            }
+        });
+
+        jnsHasilKriya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jnsHasilKriya.setTextColor(aktif);
+                jnsBBKriya.setTextColor(nonAktif);
+            }
+        });
+
+        jnsBBKriya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jnsBBKriya.setTextColor(aktif);
+                jnsHasilKriya.setTextColor(nonAktif);
+            }
+        });
 
         add();
         rv = (RecyclerView) v.findViewById(R.id.berandaRv);
@@ -101,23 +184,5 @@ public class BerandaFragment extends Fragment implements View.OnClickListener {
         listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
                 "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
                 "Pangan", "Makanan", R.drawable.top, 2));
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnPangan:
-                DrawableCompat.setTint(dPangan.getDrawable(), ContextCompat.getColor(getContext(), R.color.primer));
-                titlePangan.setTextColor(ContextCompat.getColor(getContext(), R.color.primer));
-                DrawableCompat.setTint(dKriya.getDrawable(), ContextCompat.getColor(getContext(), R.color.label_input));
-                titleKriya.setTextColor(ContextCompat.getColor(getContext(), R.color.label_input));
-                break;
-            case R.id.btnKriya:
-                DrawableCompat.setTint(dKriya.getDrawable(), ContextCompat.getColor(getContext(), R.color.primer));
-                titleKriya.setTextColor(ContextCompat.getColor(getContext(), R.color.primer));
-                DrawableCompat.setTint(dPangan.getDrawable(), ContextCompat.getColor(getContext(), R.color.label_input));
-                titlePangan.setTextColor(ContextCompat.getColor(getContext(), R.color.label_input));
-                break;
-        }
     }
 }
