@@ -53,7 +53,7 @@
             style="@style/fontMasuk"
             android:inputType="text"/>
         <EditText
-            android:id="@+id/namaToko"
+            android:id="@+id/namaBukaToko"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
@@ -88,7 +88,7 @@
             android:textAllCaps="true"
             style="@style/fontMasuk"/>
         <EditText
-            android:id="@+id/alamat"
+            android:id="@+id/alamatBukaToko"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
@@ -108,31 +108,14 @@
             style="@style/fontMasuk"/>
 
         <Spinner
-            android:id="@+id/kecamatan"
+            android:id="@+id/kecamatanBukaToko"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
             android:entries="@array/kecamatan"
+            android:paddingVertical="15dp"
             android:theme="@style/fontEdit"
-            android:backgroundTint="@color/label_input"/>
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginVertical="3dp"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">-->
-<!--            <AutoCompleteTextView-->
-<!--                android:id="@+id/kec"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:inputType="text"-->
-<!--                android:text="Madiun"-->
-<!--                style="@style/fontMasuk"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:singleLine="true"-->
-<!--                android:imeOptions="actionDone"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+            android:spinnerMode="dialog"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
 
         <TextView
             android:layout_width="wrap_content"

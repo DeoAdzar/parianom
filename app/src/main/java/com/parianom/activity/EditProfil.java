@@ -33,6 +33,7 @@ public class EditProfil extends AppCompatActivity {
         });
 
         simpanData();
+        editImage();
     }
 
     public void simpanData() {
@@ -42,6 +43,17 @@ public class EditProfil extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+    }
+
+    private void editImage() {
+        edtImage = (ImageButton) findViewById(R.id.btnEdtImgUser);
+        edtImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 1);
             }
         });
     }

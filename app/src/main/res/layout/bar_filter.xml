@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:paddingBottom="8dp"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="10dp"
             android:hint="@string/cari_kecamatan"
@@ -29,15 +30,6 @@
             android:textColorHint="@color/label_input"
             android:capitalize="words"
             android:textSize="14dp"/>
-
-        <ImageButton
-            android:id="@+id/btnFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/primer"
-            android:src="@drawable/ic_filter"
-            android:paddingVertical="12dp"
-            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
 </LinearLayout>
