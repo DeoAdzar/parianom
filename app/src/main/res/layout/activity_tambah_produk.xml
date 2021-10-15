@@ -58,12 +58,14 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardImgTambahPr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cardElevation="6dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="5dp">
                     <ImageButton
+                        android:id="@+id/imgTambahPr"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_foto_produk"
@@ -157,6 +159,7 @@
                     android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
                     android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:inputType="number"/>
                 <Button
                     android:id="@+id/btnSimpanPr"

@@ -68,12 +68,12 @@
                     android:layout_below="@+id/namaUser"
                     android:text="yulilestari23@gmail.com" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_edit" />
+<!--                <ImageButton-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:backgroundTint="@android:color/transparent"-->
+<!--                    android:src="@drawable/ic_edit" />-->
             </RelativeLayout>
         </LinearLayout>
     </FrameLayout>

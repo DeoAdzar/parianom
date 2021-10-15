@@ -96,6 +96,7 @@
                                 android:backgroundTint="#EEF3FC"
                                 style="@style/fontMasuk"
                                 android:text="-"
+                                android:onClick="decrement"
                                 android:textSize="15dp"
                                 android:textStyle="bold"/>
                             <Button
@@ -103,7 +104,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:clickable="false"
-                                android:text="2"
+                                android:text="1"
                                 style="@style/fontMasuk"
                                 android:textSize="15dp"
                                 android:backgroundTint="#EEF3FC"/>
@@ -114,6 +115,7 @@
                                 android:backgroundTint="#EEF3FC"
                                 style="@style/fontMasuk"
                                 android:text="+"
+                                android:onClick="increment"
                                 android:textStyle="bold"
                                 android:textSize="15dp"/>
                         </LinearLayout>

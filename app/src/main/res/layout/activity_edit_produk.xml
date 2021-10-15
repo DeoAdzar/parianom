@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.EditProfil"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".EditProduk">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -25,172 +25,154 @@
                 android:layout_gravity="center">
                 <TextView
                     android:id="@+id/titleBar"
+                    style="@style/fontTitleContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/edit_profil"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    style="@style/fontTitleContent"
-                    android:textSize="16dp"/>
+                    android:text="Edit Produk"
+                    android:textSize="16dp" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fillViewport="true">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginHorizontal="20dp">
-                <FrameLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="10dp">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imgUser"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@color/primer"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/foto_produk"
+                    android:textAllCaps="true"
+                    style="@style/fontMasuk"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/etCardImgEditPr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="6dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp">
                     <ImageButton
-                        android:id="@+id/btnEdtImgUser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:src="@drawable/ic_edit_img"
-                        android:background="@android:color/transparent"
-                        android:layout_gravity="bottom|right"/>
-                </FrameLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="4dp"
-                    android:text="@string/nama"
-                    android:textAllCaps="true"
-                    style="@style/fontMasuk"
-                    android:inputType="text"/>
-                <EditText
-                    android:id="@+id/namaUser"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    style="@style/fontMasuk"
-                    android:text="Yuli Lestari"
-                    android:textColor="@color/black"
-                    android:backgroundTint="@color/label_input"
-                    android:singleLine="true"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="4dp"
-                    android:text="@string/username"
-                    android:textAllCaps="true"
-                    style="@style/fontMasuk"
-                    android:inputType="text"/>
-                <EditText
-                    android:id="@+id/usernameUser"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    style="@style/fontMasuk"
-                    android:text="Yuli Lestari"
-                    android:textColor="@color/black"
-                    android:backgroundTint="@color/label_input"
-                    android:singleLine="true"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="4dp"
-                    android:text="@string/email"
-                    android:textAllCaps="true"
-                    style="@style/fontMasuk"/>
-                <EditText
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    style="@style/fontMasuk"
-                    android:text="yulilestari23@gmail.com"
-                    android:textColor="@color/black"
-                    android:backgroundTint="@color/label_input"
-                    android:singleLine="true"
-                    android:inputType="textEmailAddress"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="4dp"
-                    android:text="@string/hp"
-                    android:textAllCaps="true"
-                    style="@style/fontMasuk"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="3dp"
-                        android:allowClickWhenDisabled="true"
-                        style="@style/fontMasuk"
-                        android:textColor="@color/black"
-                        android:text="(ID)+62"
-                        android:backgroundTint="@color/label_input"/>
-                    <EditText
-                        android:id="@+id/etNmrHp"
+                        android:id="@+id/etImgEditPr"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="3dp"
-                        style="@style/fontMasuk"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/label_input"
-                        android:text="+62 0123456789"
-                        android:inputType="number"
-                        android:singleLine="true"/>
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_foto_produk"
+                        android:layout_margin="20dp"
+                        android:backgroundTint="@color/white"/>
+                </androidx.cardview.widget.CardView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="4dp"
-                    android:text="@string/alamat"
+                    android:text="@string/kategori"
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
+                <Spinner
+                    android:id="@+id/etKategoriEditPr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="10dp"
+                    android:layout_marginVertical="3dp"
+                    android:entries="@array/kategori"
+                    android:theme="@style/fontEdit"
+                    android:backgroundTint="@color/label_input"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/jenis_produk"
+                    android:textAllCaps="true"
+                    style="@style/fontMasuk"/>
+                <Spinner
+                    android:id="@+id/etJenisEditPr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="10dp"
+                    android:layout_marginVertical="3dp"
+                    android:entries="@array/jenisPangan"
+                    android:theme="@style/fontEdit"
+                    android:backgroundTint="@color/label_input"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/nama_produk"
+                    android:textAllCaps="true"
+                    style="@style/fontMasuk"
+                    android:inputType="text"/>
                 <EditText
-                    android:id="@+id/alamat"
+                    android:id="@+id/etNamaEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="3dp"
                     style="@style/fontMasuk"
-                    android:text="Sidorejo Jl. Lawu No. 30 Wungu"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
-                    android:inputType="text"
+                    android:singleLine="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/harga"
+                    android:textAllCaps="true"
+                    style="@style/fontMasuk"/>
+                <EditText
+                    android:id="@+id/etHargaEditPr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="3dp"
+                    style="@style/fontMasuk"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/label_input"
                     android:singleLine="true"
-                    android:imeOptions="actionDone"/>
+                    android:inputType="text"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/stok"
+                    android:textAllCaps="true"
+                    style="@style/fontMasuk"/>
+                <EditText
+                    android:id="@+id/etStokEditPr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="3dp"
+                    style="@style/fontMasuk"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/label_input"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"/>
                 <Button
-                    android:id="@+id/btnSimpan"
+                    android:id="@+id/btnSimpanEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button"
-                    android:text="@string/simpan_perubahan"
+                    android:text="@string/simpan"
                     style="@style/fontBtn"
                     android:layout_marginTop="30dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="50dp"
                     android:textSize="12dp"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
 </LinearLayout>

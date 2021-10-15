@@ -54,7 +54,7 @@
     <string name="tunggu_konfirmasi">Tunggu Kondirmasi dari Admin (max. 2 x 24 jam)</string>
     <string name="selesai">Selesai</string>
     <string name="daftar_jualan">Daftar Jualan</string>
-    <string name="scan_code_qr">Scan Code QR</string>
+    <string name="scan_qr_code">Scan QR Code</string>
     <string name="transaksi">Transaksi</string>
     <string name="nama">NAMA</string>
     <string name="simpan_perubahan">Simpan Perubahan</string>
