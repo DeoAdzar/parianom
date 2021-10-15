@@ -24,6 +24,7 @@ import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -121,9 +122,12 @@ public class EditProfil extends AppCompatActivity {
                             String no_hps = jsonResult.getJSONObject("data").getString("no_hp");
                             String usernames = jsonResult.getJSONObject("data").getString("username");
                             String images= jsonResult.getJSONObject("data").getString("foto_profil");
-                            Glide.with(EditProfil.this.getApplicationContext())
-                                    .load(UtilsApi.IMAGES_PROFIL + images)
-                                    .apply(new RequestOptions().circleCrop())
+//                            Glide.with(EditProfil.this.getApplicationContext())
+//                                    .load(UtilsApi.IMAGES_PROFIL + images)
+//                                    .apply(new RequestOptions().circleCrop())
+//                                    .placeholder(R.drawable.ic_person)
+//                                    .into(Image);
+                            Picasso.get().load(UtilsApi.IMAGES_PROFIL + images)
                                     .placeholder(R.drawable.ic_person)
                                     .into(Image);
                             email.setText(emails);

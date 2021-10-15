@@ -25,6 +25,7 @@ import com.parianom.activity.Toko;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,11 +87,8 @@ public class ProfilFragment extends Fragment {
                             String emails = jsonResult.getJSONObject("data").getString("email");
                             String namas = jsonResult.getJSONObject("data").getString("nama_lengkap");
                             String images= jsonResult.getJSONObject("data").getString("foto_profil");
-                            Glide.with(getContext())
-                                    .load(UtilsApi.IMAGES_PROFIL + images)
-                                    .apply(new RequestOptions().circleCrop())
-                                    .placeholder(R.drawable.ic_person)
-                                    .into(img);
+                            Picasso.get().load(UtilsApi.IMAGES_PROFIL + images)
+                                    .placeholder(R.drawable.ic_person).into(img);
                             email.setText(emails);
                             namaUser.setText(namas);
                         }else{
