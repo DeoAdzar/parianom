@@ -1,4 +1,4 @@
-package com.parianom.activity;
+package com.parianom;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,9 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.parianom.R;
+import com.parianom.activity.TambahProduk;
+import com.parianom.activity.Toko;
 
-public class TambahProduk extends AppCompatActivity {
+public class EditProduk extends AppCompatActivity {
     Button simpan;
     CardView cardImg;
     ImageView img;
@@ -26,7 +27,7 @@ public class TambahProduk extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tambah_produk);
+        setContentView(R.layout.activity_edit_produk);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -39,16 +40,16 @@ public class TambahProduk extends AppCompatActivity {
             }
         });
 
-        img = (ImageView) findViewById(R.id.imgTambahPr);
-        cardImg = (CardView) findViewById(R.id.cardImgTambahPr);
+        img = (ImageView) findViewById(R.id.etImgEditPr);
+        cardImg = (CardView) findViewById(R.id.etCardImgEditPr);
 
-        simpan = (Button) findViewById(R.id.btnSimpanPr);
+        simpan = (Button) findViewById(R.id.btnSimpanEditPr);
 
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TambahProduk.this, "Produk berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(TambahProduk.this, Toko.class);
+                Toast.makeText(EditProduk.this, "Produk berhasil ditambahkan", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(EditProduk.this, Toko.class);
                 startActivity(intent);
                 finish();
             }
@@ -72,17 +73,16 @@ public class TambahProduk extends AppCompatActivity {
             }
         });
     }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && null != data) {
-            if (resultCode == TambahProduk.this.RESULT_OK) {
+            if (resultCode == EditProduk.this.RESULT_OK) {
                 selectedImage = data.getData();
                 Log.i("selectedImage", "selectedImage: " + selectedImage.toString());
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                Cursor cursor = TambahProduk.this.getContentResolver().query(selectedImage,
+                Cursor cursor = EditProduk.this.getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
                 cursor.moveToFirst();
                 int columnIndex = cursor

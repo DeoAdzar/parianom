@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.parianom.EditProduk;
 import com.parianom.R;
 import com.parianom.activity.TambahProduk;
 import com.parianom.model.DaftarJualanModel;
@@ -53,7 +54,7 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, TambahProduk.class);
+                Intent intent = new Intent(mContext, EditProduk.class);
                 intent.putExtra("namaPr", dfJualanModel.getNamaProdukJual());
                 intent.putExtra("imgPr", dfJualanModel.getImgProdukJual());
                 intent.putExtra("hargaPr", dfJualanModel.getHargaProdukJual());

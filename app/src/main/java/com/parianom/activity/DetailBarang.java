@@ -8,13 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parianom.R;
 import com.parianom.utils.SessionManager;
 
 public class DetailBarang extends AppCompatActivity {
     Button decrement, increment, chat;
-    int quantity = 1;
+    int quantity = 0;
     ImageView imgDetailPr;
     TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda;
     SessionManager sessionManager;
@@ -36,6 +37,7 @@ public class DetailBarang extends AppCompatActivity {
         namaPenjual.setText(getIntent().getStringExtra("penjualPr"));
         alamatPrBeranda.setText(getIntent().getStringExtra("alamat"));
         hargaProduk.setText(getIntent().getStringExtra("hargaPrBeranda"));
+
 //        jumlah.setText(getIntent().getStringExtra("namaPrBeranda"));
 
         chat.setOnClickListener(new View.OnClickListener() {
@@ -54,11 +56,32 @@ public class DetailBarang extends AppCompatActivity {
 
     }
 
-    private void increment(View view) {
+    public void increment(View view){//perintah tombol tambah
+        if(quantity==100){
+            Toast.makeText(this,"pesanan maximal 100",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        quantity = quantity+1 ;
+        display(quantity);
     }
-
-    private void decrement() {
+    public void decrement(View view){//perintah tombol tambah
+        if (quantity==1){
+            Toast.makeText(this,"pesanan minimal 1",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        quantity = quantity -1;
+        display(quantity);
     }
-
-
+//    private int calculateprice(){//jumlah pesanan * harga
+//        String hargaTotal = hargaProduk.getText().toString();
+//
+//        return quantity * harga;
+//    }
+    private void display(int number) {
+        jumlah.setText("" + number);
+    }
+//    private void displayPrice(int number) {
+//        TextView priceTextView = (TextView) findViewById(R.id.price_textview);
+//        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+//    }
 }

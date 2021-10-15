@@ -180,9 +180,12 @@ public class BerandaFragment extends Fragment {
         listData = new ArrayList<>();
         listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
                 "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
-                "Pangan", "Makanan", R.drawable.gb_board, 2));
+                "Pangan", "Makanan", R.drawable.demo, 2));
         listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
                 "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
-                "Pangan", "Makanan", R.drawable.top, 2));
+                "Pangan", "Makanan", R.drawable.demo, 2));
+        listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
+                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
+                "Pangan", "Makanan", R.drawable.demo, 2));
     }
 }

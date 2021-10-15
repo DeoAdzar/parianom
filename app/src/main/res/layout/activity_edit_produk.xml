@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.TambahProduk">
+    tools:context=".EditProduk">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="@string/tambah_produk"
+                    android:text="Edit Produk"
                     android:textSize="16dp" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -58,14 +58,14 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardImgTambahPr"
+                    android:id="@+id/etCardImgEditPr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cardElevation="6dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="5dp">
                     <ImageButton
-                        android:id="@+id/imgTambahPr"
+                        android:id="@+id/etImgEditPr"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_foto_produk"
@@ -81,7 +81,7 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <Spinner
-                    android:id="@+id/kategori"
+                    android:id="@+id/etKategoriEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingVertical="10dp"
@@ -98,7 +98,7 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <Spinner
-                    android:id="@+id/jenisPr"
+                    android:id="@+id/etJenisEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingVertical="10dp"
@@ -116,7 +116,7 @@
                     style="@style/fontMasuk"
                     android:inputType="text"/>
                 <EditText
-                    android:id="@+id/edtNamaPr"
+                    android:id="@+id/etNamaEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="3dp"
@@ -133,7 +133,7 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <EditText
-                    android:id="@+id/edtHargaPr"
+                    android:id="@+id/etHargaEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="3dp"
@@ -151,7 +151,7 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <EditText
-                    android:id="@+id/edtStokPr"
+                    android:id="@+id/etStokEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="3dp"
@@ -162,7 +162,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="number"/>
                 <Button
-                    android:id="@+id/btnSimpanPr"
+                    android:id="@+id/btnSimpanEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button"

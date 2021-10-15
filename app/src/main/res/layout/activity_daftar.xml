@@ -100,8 +100,8 @@
             android:hint="@string/hp"
             android:layout_marginVertical="5dp"
             app:prefixText="(ID)+62"
-            app:prefixTextColor="@color/black"
             app:prefixTextAppearance="@style/fontMasuk"
+            app:prefixTextColor="@color/black"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/etHp"

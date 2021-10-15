@@ -26,6 +26,7 @@
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="10dp"
             android:hint="@string/cari_kecamatan"
+            android:singleLine="true"
             android:background="@android:color/transparent"
             android:textColorHint="@color/label_input"
             android:capitalize="words"

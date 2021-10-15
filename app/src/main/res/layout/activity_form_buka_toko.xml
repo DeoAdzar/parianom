@@ -105,7 +105,8 @@
             android:layout_marginLeft="4dp"
             android:text="@string/kecamatan"
             android:textAllCaps="true"
-            style="@style/fontMasuk"/>
+            style="@style/fontMasuk"
+            android:imeOptions="actionDone"/>
 
         <Spinner
             android:id="@+id/kecamatanBukaToko"
