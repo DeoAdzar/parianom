@@ -5,10 +5,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.parianom.R;
 
 public class Chat extends AppCompatActivity {
+    TextView namaUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +27,8 @@ public class Chat extends AppCompatActivity {
                 finish();
             }
         });
+
+        namaUser = (TextView) findViewById(R.id.namaUserChat);
+        namaUser.setText(getIntent().getStringExtra("pembeli"));
     }
 }

@@ -1,6 +1,8 @@
 package com.parianom.api;
 
 
+import com.parianom.model.KecamatanModel;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;

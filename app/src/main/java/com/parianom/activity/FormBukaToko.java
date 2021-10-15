@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
+import com.parianom.model.KecamatanModel;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -71,7 +72,7 @@ public class FormBukaToko extends AppCompatActivity {
         });
 
         //  spinner Kecamatan
-        initKecamatan();
+//        initKecamatan();
         kec.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -124,22 +125,22 @@ public class FormBukaToko extends AppCompatActivity {
     }
 
     // API data kecamatan
-    private void initKecamatan(){
-//        loading = ProgressDialog.show(mContext, null, "harap tunggu...", true, false);
-        mApiService.getKecamatan().enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-    }
+//    private void initKecamatan(){
+////        loading = ProgressDialog.show(mContext, null, "harap tunggu...", true, false);
+//        mApiService.getKecamatan().enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                if (response.isSuccessful()) {
+//                    List<KecamatanModel> kecamatanModels = ne
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
 //    protected void uploadTask() {
 //        // TODO Auto-generated method stub

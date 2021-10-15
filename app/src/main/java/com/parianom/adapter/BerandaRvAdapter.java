@@ -53,7 +53,9 @@ public class BerandaRvAdapter extends RecyclerView.Adapter<BerandaRvAdapter.MyVi
                 Intent intent = new Intent(mContext, DetailBarang.class);
                 intent.putExtra("imgPrBeranda", model.getImgProduk());
                 intent.putExtra("namaPrBeranda", model.getTitleProduk());
-                intent.putExtra("Wungu", model.getKecPenjual());
+                intent.putExtra("penjualPr", model.getPenjual());
+                intent.putExtra("alamat", model.getAlamatPenjual());
+                intent.putExtra("jumlah", model.getJumlahBelanja());
                 intent.putExtra("hargaPrBeranda", model.getHargaProduk());
                 mContext.startActivity(intent);
 //                DrawableCompat.setTint(holder.imgSubmenu.getDrawable(), ContextCompat.getColor(mContext, R.color.buttonClicked));

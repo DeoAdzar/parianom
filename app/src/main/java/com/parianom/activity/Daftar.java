@@ -48,7 +48,6 @@ public class Daftar extends AppCompatActivity {
             public void onClick(View view) {
                 if (cekEmail==false){
                     email.setError("Email sudah digunakan");
-
                 }else if (cekPhone==false){
                     no_hp.setError("Nomer sudah digunakan");
                 }else if (cekUsername==false){

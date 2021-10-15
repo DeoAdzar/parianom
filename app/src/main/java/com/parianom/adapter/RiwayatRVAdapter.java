@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,11 +47,25 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
         holder.titleProduk.setText(mData.get(position).getTitleProduk());
         holder.wktBeli.setText(mData.get(position).getWaktuBelanja());
         holder.titleRwyt.setText(mData.get(position).getTitleProduk());
-        holder.kecProduk.setText(mData.get(position).getKecPenjual());
-        holder.hargaProduk.setText(mData.get(position).getHargaProduk());
+        holder.alamat.setText(mData.get(position).getAlamatPenjual());
+        holder.totalHarga.setText(mData.get(position).getHargaProduk());
         holder.imgProduk.setImageResource(mData.get(position).getImgProduk());
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(mContext, DetailTransaksi.class);
+//                intent.putExtra("waktuBelanja", penjualanModel.getWaktuBelanja());
+//                intent.putExtra("titlePembelian", penjualanModel.getTitleProduk());
+//                intent.putExtra("totalBelanja", penjualanModel.getHargaProduk());
+//                mContext.startActivity(intent);
+
+                Intent intent = new Intent(mContext, GenerateQR.class);
+                intent.putExtra("kode", penjualanModel.getTitleProduk());
+                mContext.startActivity(intent);
+            }
+        });
+        holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Intent intent = new Intent(mContext, DetailTransaksi.class);
@@ -73,9 +88,10 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView titleProduk, wktBeli, titleRwyt, kecProduk, hargaProduk;
+        private TextView titleProduk, wktBeli, titleRwyt, alamat, totalHarga;
         private ImageView imgProduk;
         private LinearLayout layout;
+        private Button detail;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -83,10 +99,11 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
             titleProduk = (TextView) itemView.findViewById(R.id.namaProduk);
             wktBeli = (TextView) itemView.findViewById(R.id.waktuBelanja);
             titleRwyt = (TextView) itemView.findViewById(R.id.subNamaProduk);
-            kecProduk = (TextView) itemView.findViewById(R.id.kecProduk);
-            hargaProduk = (TextView) itemView.findViewById(R.id.hargaProduk);
+            alamat = (TextView) itemView.findViewById(R.id.alamatProduk);
+            totalHarga = (TextView) itemView.findViewById(R.id.totalHarga);
             imgProduk = (ImageView) itemView.findViewById(R.id.imgProduk);
             layout = (LinearLayout) itemView.findViewById(R.id.cardRiwayat);
+            detail = (Button) itemView.findViewById(R.id.btnDetailRiwayat);
         }
     }
 }
