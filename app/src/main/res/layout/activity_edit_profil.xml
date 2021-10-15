@@ -148,7 +148,7 @@
                         android:text="(ID)+62"
                         android:backgroundTint="@color/label_input"/>
                     <EditText
-                        android:id="@+id/etNmrHp"
+                        android:id="@+id/nmrHp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="3dp"
