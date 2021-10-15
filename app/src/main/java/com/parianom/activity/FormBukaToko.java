@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
+import com.parianom.model.KecamatanModel;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -130,7 +131,10 @@ public class FormBukaToko extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    List<KecamatanModel> semuadosenItems = response.body().
+                    for (int i = 0; i <= kecamatan.; i++) {
 
+                    }
                 }
             }
 

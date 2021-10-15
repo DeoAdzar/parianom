@@ -16,7 +16,7 @@ public class DetailBarang extends AppCompatActivity {
     Button decrement, increment, chat;
     int quantity = 1;
     ImageView imgDetailPr;
-    TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamat;
+    TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda;
     SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +28,13 @@ public class DetailBarang extends AppCompatActivity {
         imgDetailPr = (ImageView) findViewById(R.id.imgDetailPr);
         namaProduk = (TextView) findViewById(R.id.namaProduk);
         namaPenjual = (TextView) findViewById(R.id.namaPenjual);
+        alamatPrBeranda = (TextView) findViewById(R.id.alamatPrBeranda);
         hargaProduk = (TextView) findViewById(R.id.hargaProduk);
         jumlah = (TextView) findViewById(R.id.jumlah);
 
-        namaProduk.setText(getIntent().getStringExtra("namaProduk"));
-        namaPenjual.setText(getIntent().getStringExtra("namaPrBeranda"));
-        alamat.setText(getIntent().getStringExtra("alamat"));
+        namaProduk.setText(getIntent().getStringExtra("namaPrBeranda"));
+        namaPenjual.setText(getIntent().getStringExtra("penjualPr"));
+        alamatPrBeranda.setText(getIntent().getStringExtra("alamat"));
         hargaProduk.setText(getIntent().getStringExtra("hargaPrBeranda"));
 //        jumlah.setText(getIntent().getStringExtra("namaPrBeranda"));
 
@@ -42,6 +43,7 @@ public class DetailBarang extends AppCompatActivity {
             public void onClick(View view) {
                 if (sessionManager.checkLogin()==1){
                     Intent intent = new Intent(DetailBarang.this, Chat.class);
+                    intent.putExtra("pembeli", namaPenjual.getText());
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(DetailBarang.this, Masuk.class);
