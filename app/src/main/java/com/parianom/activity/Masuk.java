@@ -76,9 +76,7 @@ public class Masuk extends AppCompatActivity {
                         JSONObject jsonResult =new JSONObject(response.body().string());
                         if (jsonResult.getString("message").equals("success")){
                             String id_user = jsonResult.getString("id_user");
-                            String email = jsonResult.getString("email");
-                            String nama = jsonResult.getString("nama_lengkap");
-                            sessionManager.createSession(id_user,nama,email);
+                            sessionManager.createSession(id_user);
                             finish();
                         }else{
                             Toast.makeText(Masuk.this, "Username Atau Password Salah", Toast.LENGTH_SHORT).show();

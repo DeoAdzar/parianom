@@ -57,7 +57,7 @@
                     style="@style/fontTitleContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Yuli Lestari"
+                    android:text="------"
                     android:textSize="16dp" />
 
                 <TextView
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/namaUser"
-                    android:text="yulilestari23@gmail.com" />
+                    android:text="-----" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
