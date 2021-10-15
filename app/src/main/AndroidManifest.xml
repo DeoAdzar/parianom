@@ -29,7 +29,8 @@
             android:exported="true" />
         <activity
             android:name=".activity.ProfilToko"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
         <activity
             android:name=".activity.ScanQr"
             android:exported="true" />
@@ -38,13 +39,16 @@
             android:exported="true" />
         <activity
             android:name=".activity.TambahProduk"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
         <activity
             android:name=".activity.LupaPassword"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
         <activity
             android:name=".activity.EditProfil"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
         <activity
             android:name=".activity.Toko"
             android:exported="true" />
@@ -53,7 +57,8 @@
             android:exported="true" />
         <activity
             android:name=".activity.FormBukaToko"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
         <activity
             android:name=".activity.Chat"
             android:exported="true"

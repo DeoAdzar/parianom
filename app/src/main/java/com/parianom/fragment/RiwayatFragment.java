@@ -1,6 +1,7 @@
 package com.parianom.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parianom.R;
 import com.parianom.adapter.RiwayatRVAdapter;
 import com.parianom.model.PenjualanModel;
@@ -24,6 +26,7 @@ public class RiwayatFragment extends Fragment {
     private RecyclerView rv;
     private List<PenjualanModel> listRiwayat;
     TextView namaPr, namaPr2, waktuTransaksi, alamat, totalHarga;
+    ShimmerFrameLayout shimmer;
 
     @Nullable
     @Override
@@ -34,6 +37,17 @@ public class RiwayatFragment extends Fragment {
         RiwayatRVAdapter adapter = new RiwayatRVAdapter(getContext(), listRiwayat);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(adapter);
+
+        shimmer = (ShimmerFrameLayout) v.findViewById(R.id.shimmerRiwayat);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rv.setVisibility(View.VISIBLE);
+                shimmer.stopShimmer();
+                shimmer.hideShimmer();
+                shimmer.setVisibility(View.GONE);
+            }
+        }, 5000);
 
         return v;
     }

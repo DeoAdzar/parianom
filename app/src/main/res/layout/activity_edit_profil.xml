@@ -155,7 +155,7 @@
                         style="@style/fontMasuk"
                         android:textColor="@color/black"
                         android:backgroundTint="@color/label_input"
-                        android:text="+62 0123456789"
+                        android:text="8912345678"
                         android:inputType="number"
                         android:singleLine="true"/>
                 </LinearLayout>

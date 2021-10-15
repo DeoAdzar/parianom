@@ -73,19 +73,19 @@ public class FormBukaToko extends AppCompatActivity {
 
         //  spinner Kecamatan
 //        initKecamatan();
-        kec.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedName = parent.getItemAtPosition(position).toString();
-//                requestDetailDosen(selectedName);
-                Toast.makeText(context, "Kamu memilih " + selectedName, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        kec.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String selectedName = parent.getItemAtPosition(position).toString();
+////                requestDetailDosen(selectedName);
+//                Toast.makeText(context, "Kamu memilih " + selectedName, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         // Pilih foto dari galeri
         ktp.setOnClickListener(new View.OnClickListener() {

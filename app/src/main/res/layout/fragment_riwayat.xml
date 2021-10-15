@@ -20,9 +20,17 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/riwayatRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_riwayat"/>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerRiwayat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/shimmer_riwayat"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </LinearLayout>
