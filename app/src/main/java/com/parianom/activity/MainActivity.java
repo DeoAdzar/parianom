@@ -87,4 +87,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BerandaFragment()).commit();
+    }
 }

@@ -155,13 +155,27 @@
                     android:layout_height="wrap_content"
                     android:text="Tidak menerima kode OTP ? "
                     style="@style/fontMasuk"/>
-                <TextView
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/primer"
-                    android:text="@string/resend"
-                    android:clickable="true"
-                    style="@style/fontMasuk"/>
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/resend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primer"
+                        android:text="@string/resend"
+                        android:visibility="gone"
+                        style="@style/fontMasuk"/>
+                    <TextView
+                        android:id="@+id/countdown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="01:00"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textColor="@color/black"
+                        />
+                </FrameLayout>
+
             </LinearLayout>
             <Button
                 android:id="@+id/btnVerif"
