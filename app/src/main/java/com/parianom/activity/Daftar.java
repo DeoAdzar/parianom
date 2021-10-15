@@ -85,7 +85,10 @@ public class Daftar extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Daftar.this, Masuk.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         });
     }
