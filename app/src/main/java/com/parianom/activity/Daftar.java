@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class Daftar extends AppCompatActivity {
     TextView masuk;
     EditText nama_lengkap, username,email,no_hp,alamat,kata_sandi;
     boolean cekEmail,cekUsername,cekPhone;
+    ProgressBar loading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,15 +48,35 @@ public class Daftar extends AppCompatActivity {
         btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (cekEmail==false){
-                    email.setError("Email sudah digunakan");
+                btnDaftar.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
+                if (nama_lengkap.getText().toString().isEmpty()
+                        ||username.getText().toString().isEmpty()
+                        ||email.getText().toString().isEmpty()
+                        ||no_hp.getText().toString().isEmpty()
+                        ||alamat.getText().toString().isEmpty()
+                        ||kata_sandi.getText().toString().isEmpty()){
+                    Toast.makeText(Daftar.this, "Mohon isi data", Toast.LENGTH_SHORT).show();
+                    btnDaftar.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                 }else if (cekPhone==false){
-                    no_hp.setError("Nomer sudah digunakan");
+                    Toast.makeText(Daftar.this, "Nomer HP Sudah digunakan", Toast.LENGTH_SHORT).show();
+                    btnDaftar.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                 }else if (cekUsername==false){
-                    username.setError("Username sudah digunakan");
-                }else {
+                    btnDaftar.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
+                    Toast.makeText(Daftar.this, "Username Sudah digunakan", Toast.LENGTH_SHORT).show();
+                }else if (cekEmail==false){
+                    btnDaftar.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
+                    Toast.makeText(Daftar.this, "email Sudah digunakan", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
                     auth();
                 }
+                setupEditText();
             }
         });
 
@@ -72,16 +94,21 @@ public class Daftar extends AppCompatActivity {
                 TimeUnit.SECONDS, Daftar.this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
+                        btnDaftar.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
+                        btnDaftar.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
                         Toast.makeText(Daftar.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        btnDaftar.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
                         Intent i = new Intent(Daftar.this,Otp.class);
                         i.putExtra("verificationId",verificationId);
                         i.putExtra("username",username.getText().toString());
@@ -114,10 +141,14 @@ public class Daftar extends AppCompatActivity {
                             try {
                                 JSONObject jsonResult =new JSONObject(response.body().string());
                                 if (jsonResult.getString("message").equals("exist")){
-                                    username.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
+                                    username.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
                                     cekUsername = false;
-                                }else{
-                                    username.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_true,0);
+                                }else if (charSequence.toString().isEmpty()){
+                                    username.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
+                                    cekUsername = false;
+                                }
+                                else{
+                                    username.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_true,0);
                                     cekUsername = true;
                                 }
                             }catch (JSONException e ){
@@ -157,10 +188,13 @@ public class Daftar extends AppCompatActivity {
                             try {
                                 JSONObject jsonResult =new JSONObject(response.body().string());
                                 if (jsonResult.getString("message").equals("exist")){
-                                    email.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
+                                    email.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
+                                    cekEmail=false;
+                                }else if (charSequence.toString().isEmpty()){
+                                    email.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
                                     cekEmail=false;
                                 }else{
-                                    email.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_true,0);
+                                    email.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_true,0);
                                     cekEmail=true;
                                 }
                             }catch (JSONException e ){
@@ -168,7 +202,6 @@ public class Daftar extends AppCompatActivity {
                             }catch (IOException e){
                                 e.printStackTrace();
                             }
-
                         }
                     }
 
@@ -200,10 +233,13 @@ public class Daftar extends AppCompatActivity {
                             try {
                                 JSONObject jsonResult =new JSONObject(response.body().string());
                                 if (jsonResult.getString("message").equals("exist")){
-                                    no_hp.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
+                                    no_hp.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
                                     cekPhone = false;
+                                }else if (charSequence.toString().isEmpty()){
+                                    no_hp.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
+                                    cekPhone=false;
                                 }else{
-                                    no_hp.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_true,0);
+                                    no_hp.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_true,0);
                                     cekPhone = true;
                                 }
                             }catch (JSONException e ){
@@ -236,5 +272,6 @@ public class Daftar extends AppCompatActivity {
         alamat = findViewById(R.id.etAlamat);
         no_hp = findViewById(R.id.etHp);
         kata_sandi = findViewById(R.id.etPassword);
+        loading = findViewById(R.id.progress_daftar);
     }
 }

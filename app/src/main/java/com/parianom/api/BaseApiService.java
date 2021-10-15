@@ -3,12 +3,16 @@ package com.parianom.api;
 
 import com.parianom.model.KecamatanModel;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface BaseApiService {
     @GET("kecamatan")
@@ -18,6 +22,17 @@ public interface BaseApiService {
     @POST("getUser")
     Call<ResponseBody> getUser(
             @Field("id") int id
+    );
+    @Multipart
+    @POST("updateProfile")
+    Call<ResponseBody> updateUser(
+            @Part MultipartBody.Part foto_profil
+            ,@Part("nama_lengkap") RequestBody nama_lengkap
+            ,@Part("username") RequestBody username
+            ,@Part("email") RequestBody email
+            ,@Part("alamat") RequestBody alamat
+            ,@Part("no_hp") RequestBody no_hp
+            ,@Part("id") RequestBody id
     );
 
     @FormUrlEncoded
@@ -55,5 +70,10 @@ public interface BaseApiService {
             @Field("no_hp") String no_hp,
             @Field("alamat") String alamat,
             @Field("kata_sandi") String kata_sandi
+    );
+    @FormUrlEncoded
+    @POST("getImgUser")
+    Call<ResponseBody> getImgUser(
+            @Field("id") int id
     );
 }
