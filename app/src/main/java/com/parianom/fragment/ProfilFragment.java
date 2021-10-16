@@ -129,16 +129,16 @@ public class ProfilFragment extends Fragment {
                             try {
                                 JSONObject jsonResult = new JSONObject(response.body().string());
                                 if (jsonResult.getString("message").equals("exist")) {
-                                    String status = jsonResult.getJSONObject("data").getString("status_toko");
+                                    Integer status = jsonResult.getJSONObject("data").getInt("status_toko");
                                     String id_penjual = jsonResult.getJSONObject("data").getString("id");
-                                    if (status=="null"){
+                                    if (status==null){
                                         Intent i = new Intent(getContext(), Konfirmasi.class);
                                         startActivity(i);
-                                    }else if (status == "1") {
+                                    }else if (status == 1) {
                                         Intent intent = new Intent(getContext(), Toko.class);
                                         intent.putExtra("id_penjual",id_penjual);
                                         startActivity(intent);
-                                    } else if (status == "0") {
+                                    } else if (status == 0) {
                                         Toast.makeText(getContext(), "Maaf anda bukan masyarakat kabupaten madiun, anda tidak dapat menjadi penjual", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
@@ -150,8 +150,6 @@ public class ProfilFragment extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        } else {
-
                         }
                     }
 

@@ -6,18 +6,36 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.parianom.R;
+import com.parianom.api.BaseApiService;
+import com.parianom.api.UtilsApi;
+import com.parianom.utils.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Toko extends AppCompatActivity {
     LinearLayout tambah, dfJualan, transaksi, qr, profil;
-
+    EditText namaToko;
+    SessionManager sessionManager;
+    private String id_penjual = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toko);
-
+        sessionManager = new SessionManager(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -28,12 +46,47 @@ public class Toko extends AppCompatActivity {
                 finish();
             }
         });
-
+        namaToko = findViewById(R.id.namaToko);
+        getData();
         tambah();
         daftarJualan();
         transaksi();
         qR();
         profilToko();
+    }
+
+    private void getData() {
+        HashMap<String, String> user = sessionManager.getUserDetails();
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<ResponseBody> get = mApiService.getPenjual(Integer.parseInt(user.get(SessionManager.kunci_id_user)));
+        get.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonResult = new JSONObject(response.body().string());
+                        if (jsonResult.getString("message").equals("exist")) {
+                            String nama = jsonResult.getJSONObject("data").getString("nama_toko");
+                            Integer id = jsonResult.getJSONObject("data").getInt("id");
+                            id_penjual = String.valueOf(id);
+                            namaToko.setText(nama);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Tidak ada data", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Tidak ada data", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     public void tambah(){
@@ -42,8 +95,8 @@ public class Toko extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, TambahProduk.class);
+                intent.putExtra("id_penjual",id_penjual);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -55,7 +108,6 @@ public class Toko extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, DaftarJualan.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -67,7 +119,6 @@ public class Toko extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, Transaksi.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -79,7 +130,6 @@ public class Toko extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, ScanQr.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -91,7 +141,6 @@ public class Toko extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, ProfilToko.class);
                 startActivity(intent);
-                finish();
             }
         });
     }

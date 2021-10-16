@@ -33,6 +33,7 @@ public class SessionManager {
         editor.putString(kunci_id_user,id);
         editor.commit();
     }
+
     public Integer checkLogin(){
         int a;
         if(!this.is_login()){
@@ -57,7 +58,6 @@ public class SessionManager {
         HashMap<String, String> user = new HashMap<String, String>();
         user.put(pref_name, pref.getString(pref_name, null));
         user.put(kunci_id_user, pref.getString(kunci_id_user, null));
-
         return user;
     }
 }

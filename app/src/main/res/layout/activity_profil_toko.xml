@@ -53,7 +53,6 @@
                 android:layout_height="100dp"
                 android:src="@color/primer"/>
             <ImageButton
-                android:id="@+id/btnEdtImgTk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
@@ -107,17 +106,14 @@
             android:text="@string/kecamatan"
             android:textAllCaps="true"
             style="@style/fontMasuk"/>
-        <EditText
-            android:id="@+id/nmrHp"
+        <AutoCompleteTextView
+            android:id="@+id/kecamatanProfilToko"
+            style="@style/fontMasuk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="3dp"
-            style="@style/fontMasuk"
+            android:maxLines="1"
             android:textColor="@color/black"
-            android:backgroundTint="@color/label_input"
-            android:text="Wungu"
-            android:inputType="text"
-            android:singleLine="true"/>
+            android:theme="@style/fontEdit" />
         <Button
             android:id="@+id/btnSimpanEdtTk"
             android:layout_width="match_parent"

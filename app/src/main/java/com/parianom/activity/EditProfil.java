@@ -49,7 +49,7 @@ public class EditProfil extends AppCompatActivity {
     private static final int REQUEST_PICK_PHOTO = 2;
     private static final int REQUEST_WRITE_PERMISSION = 786;
     SessionManager sessionManager;
-        String mediaPath,postPath;
+    String mediaPath,postPath;
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -82,13 +82,13 @@ public class EditProfil extends AppCompatActivity {
         alamat = findViewById(R.id.alamat);
         getDataUser(user.get(SessionManager.kunci_id_user));
         Image = findViewById(R.id.imgUser);
-        Image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galery, REQUEST_PICK_PHOTO );
-            }
-        });
+            Image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(galery, REQUEST_PICK_PHOTO );
+                }
+            });
         simpan = (Button) findViewById(R.id.btnSimpan);
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,11 +122,6 @@ public class EditProfil extends AppCompatActivity {
                             String no_hps = jsonResult.getJSONObject("data").getString("no_hp");
                             String usernames = jsonResult.getJSONObject("data").getString("username");
                             String images= jsonResult.getJSONObject("data").getString("foto_profil");
-//                            Glide.with(EditProfil.this.getApplicationContext())
-//                                    .load(UtilsApi.IMAGES_PROFIL + images)
-//                                    .apply(new RequestOptions().circleCrop())
-//                                    .placeholder(R.drawable.ic_person)
-//                                    .into(Image);
                             Picasso.get().load(UtilsApi.IMAGES_PROFIL + images)
                                     .placeholder(R.drawable.ic_person)
                                     .into(Image);
