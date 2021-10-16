@@ -50,7 +50,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/activity_daftar.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/activity_daftar_jualan.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/activity_detail_barang.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/activity_edit_profil.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/activity_edit_profil.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/activity_form_buka_toko.xml" value="0.37471264367816093" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/activity_generate_qr.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/activity_konfirmasi.xml" value="0.16666666666666666" />
@@ -88,7 +88,6 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/item_riwayat.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/item_sub_menu.xml" value="0.6" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/item_transaksi.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/shimmer_edit_profil.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/shimmer_pesan.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/shimmer_riwayat.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/parianom/app/src/main/res/layout/tab_custom.xml" value="0.4466666666666667" />

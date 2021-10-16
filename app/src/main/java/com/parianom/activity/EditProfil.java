@@ -10,19 +10,16 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -52,9 +49,6 @@ public class EditProfil extends AppCompatActivity {
     private static final int REQUEST_WRITE_PERMISSION = 786;
     SessionManager sessionManager;
     String mediaPath,postPath;
-    ShimmerFrameLayout shimmer;
-    LinearLayout layout;
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -68,7 +62,6 @@ public class EditProfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profil);
         sessionManager = new SessionManager(getApplicationContext());
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -79,19 +72,6 @@ public class EditProfil extends AppCompatActivity {
                 finish();
             }
         });
-
-        shimmer = (ShimmerFrameLayout) findViewById(R.id.shimmerEditProfil);
-        layout = findViewById(R.id.layoutEditProfil);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                layout.setVisibility(View.VISIBLE);
-                shimmer.stopShimmer();
-                shimmer.hideShimmer();
-                shimmer.setVisibility(View.GONE);
-            }
-        }, 5000);
-
         HashMap<String, String> user = sessionManager.getUserDetails();
         nama = findViewById(R.id.namaUser);
 
@@ -231,4 +211,5 @@ public class EditProfil extends AppCompatActivity {
             }
         }
     }
+
 }

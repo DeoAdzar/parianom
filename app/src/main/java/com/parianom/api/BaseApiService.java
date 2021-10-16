@@ -2,6 +2,7 @@ package com.parianom.api;
 
 
 import com.parianom.model.KecamatanModel;
+import com.parianom.model.KecamatanResponseModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -16,7 +17,7 @@ import retrofit2.http.Part;
 
 public interface BaseApiService {
     @GET("kecamatan")
-    Call<ResponseBody> getKecamatan();
+    Call<KecamatanResponseModel> getKecamatan();
 
     @FormUrlEncoded
     @POST("getUser")
@@ -33,6 +34,16 @@ public interface BaseApiService {
             ,@Part("alamat") RequestBody alamat
             ,@Part("no_hp") RequestBody no_hp
             ,@Part("id") RequestBody id
+    );
+    @Multipart
+    @POST("registerPenjual")
+    Call<ResponseBody> registerPenjual(
+            @Part MultipartBody.Part foto_ktp
+            ,@Part("id_user") RequestBody id_user
+            ,@Part("nama_toko") RequestBody nama_toko
+            ,@Part("nik") RequestBody nik
+            ,@Part("alamat") RequestBody alamat
+            ,@Part("kec") RequestBody kec
     );
 
     @FormUrlEncoded
@@ -60,6 +71,11 @@ public interface BaseApiService {
     @POST("cekEmail")
     Call<ResponseBody> cekEmail(
             @Field("email") String email
+    );
+    @FormUrlEncoded
+    @POST("cekNik")
+    Call<ResponseBody> cekNik(
+            @Field("nik") String nik
     );
     @FormUrlEncoded
     @POST("register")

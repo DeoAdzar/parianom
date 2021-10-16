@@ -49,6 +49,7 @@ public class DetailBarang extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(DetailBarang.this, Masuk.class);
+                    intent.putExtra("site","2");
                     startActivity(intent);
                 }
             }

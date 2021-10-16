@@ -22,8 +22,6 @@ public class Konfirmasi extends AppCompatActivity {
         selesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Konfirmasi.this, Toko.class);
-                startActivity(intent);
                 finish();
             }
         });
