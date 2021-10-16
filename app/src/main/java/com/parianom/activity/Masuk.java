@@ -31,6 +31,7 @@ public class Masuk extends AppCompatActivity {
     TextView daftar, lupaPass;
     SessionManager sessionManager;
     EditText etUsername,etPassword;
+    String site;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class Masuk extends AppCompatActivity {
         sessionManager=new SessionManager(getApplicationContext());
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
+        site = getIntent().getStringExtra("site");
         btnMasuk = (Button) findViewById(R.id.btnMasuk);
         btnMasuk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +79,16 @@ public class Masuk extends AppCompatActivity {
                         if (jsonResult.getString("message").equals("success")){
                             String id_user = jsonResult.getString("id_user");
                             sessionManager.createSession(id_user);
-                            finish();
+                            switch (site){
+                                case "1":
+                                    Intent i = new Intent(Masuk.this,MainActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                    break;
+                                case "2":
+                                    finish();
+                                    break;
+                            }
                         }else{
                             Toast.makeText(Masuk.this, "Username Atau Password Salah", Toast.LENGTH_SHORT).show();
                         }

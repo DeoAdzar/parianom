@@ -49,7 +49,7 @@ public class EditProfil extends AppCompatActivity {
     private static final int REQUEST_PICK_PHOTO = 2;
     private static final int REQUEST_WRITE_PERMISSION = 786;
     SessionManager sessionManager;
-    String mediaPath,postPath;
+        String mediaPath,postPath;
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -167,29 +167,35 @@ public class EditProfil extends AppCompatActivity {
         }else {
             HashMap<String, String> user = sessionManager.getUserDetails();
             File imagefile = new File(mediaPath);
-            RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
-            MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_profil", imagefile.getName(), reqBody);
-            BaseApiService mApiService = UtilsApi.getApiService();
-            Call<ResponseBody> update = mApiService.updateUser(partImage
-                    ,RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
-                    ,RequestBody.create(MediaType.parse("text/plain"), username.getText().toString())
-                    ,RequestBody.create(MediaType.parse("text/plain"), email.getText().toString())
-                    ,RequestBody.create(MediaType.parse("text/plain"), alamat.getText().toString())
-                    ,RequestBody.create(MediaType.parse("text/plain"), no_hp.getText().toString())
-                    ,RequestBody.create(MediaType.parse("text/plain"),user.get(SessionManager.kunci_id_user)));
-            update.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Toast.makeText(EditProfil.this, "Berhasil Update Data", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+            long length = imagefile.length();
+            int size = (int) length/1024;
+            if (size>4096){
+                Toast.makeText(EditProfil.this, "ukuran Gambar terlalu besar"+size, Toast.LENGTH_SHORT).show();
+            }else {
+                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
+                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_profil", imagefile.getName(), reqBody);
+                BaseApiService mApiService = UtilsApi.getApiService();
+                Call<ResponseBody> update = mApiService.updateUser(partImage
+                        , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), username.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), email.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), alamat.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), no_hp.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), user.get(SessionManager.kunci_id_user)));
+                update.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Toast.makeText(EditProfil.this, "Berhasil Update Data", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
 
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.e("debug","OnFailure : Error -> "+t.getMessage());
-                    Toast.makeText(EditProfil.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("debug", "OnFailure : Error -> " + t.getMessage());
+                        Toast.makeText(EditProfil.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
     @Override

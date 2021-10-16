@@ -1,15 +1,19 @@
 package com.parianom.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
@@ -19,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,10 +31,22 @@ import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
 import com.parianom.model.KecamatanModel;
+import com.parianom.model.KecamatanResponseModel;
+import com.parianom.utils.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,26 +55,41 @@ import retrofit2.Response;
 public class FormBukaToko extends AppCompatActivity {
     Button bkToko, ktp;
     EditText namaToko, nik, alamatToko;
-    Spinner kec;
-    Bitmap bitmap;
-    Uri selectedImage;
+    AutoCompleteTextView kec;
+//    Bitmap bitmap;
+//    Uri selectedImage;
+    String mediaPath,postPath;
+    private static final int REQUEST_PICK_PHOTO = 2;
+    private static final int REQUEST_WRITE_PERMISSION = 786;
     Context context;
+    ImageView imgKtp;
     BaseApiService mApiService;
+    boolean cekNik;
+    SessionManager sessionManager;
+    List<KecamatanModel> kecamatanModelList = new ArrayList<>();
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_WRITE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            inputItem();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_buka_toko);
-
+        sessionManager = new SessionManager(getApplicationContext());
         context = this;
         mApiService = UtilsApi.getApiService();
 
-        namaToko = (EditText) findViewById(R.id.namaBukaToko);
+        namaToko = findViewById(R.id.namaBukaToko);
         nik = (EditText) findViewById(R.id.nik);
         alamatToko = (EditText) findViewById(R.id.alamatBukaToko);
-        kec = (Spinner) findViewById(R.id.kecamatanBukaToko);
+        kec = findViewById(R.id.kecamatanBukaToko);
         bkToko = (Button) findViewById(R.id.btnSimpanToko);
         ktp = (Button) findViewById(R.id.ktp);
+        imgKtp = findViewById(R.id.imgKtp);
 
         // Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,110 +102,203 @@ public class FormBukaToko extends AppCompatActivity {
                 finish();
             }
         });
-
-        //  spinner Kecamatan
-//        initKecamatan();
-//        kec.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                String selectedName = parent.getItemAtPosition(position).toString();
-////                requestDetailDosen(selectedName);
-//                Toast.makeText(context, "Kamu memilih " + selectedName, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-
-        // Pilih foto dari galeri
-        ktp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galleryIntent, 1);
-            }
-        });
-
-        bukaToko();
-    }
-
-    //
-    private void bukaToko() {
         bkToko.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (namaToko.getText().toString().equals("a")) {
-                    namaToko.setError("Nama toko sudah digunakan");
-                } else if (namaToko.getText().toString().isEmpty()){
-                    namaToko.setError("Wajib diisi");
-                } else if (nik.getText().toString().equals("1")){
-                    nik.setError("Nik sudah digunakan");
-                } else if (nik.getText().toString().isEmpty()){
-                    nik.setError("Wajib diisi");
-                } else if (alamatToko.getText().toString().isEmpty()){
-                    alamatToko.setError("Wajib diisi");
+                requestPermission();
+            }
+        });
+        getDataKecamatan();
+        action();
+
+    }
+    public void action(){
+        nik.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                BaseApiService mApiService = UtilsApi.getApiService();
+                Call<ResponseBody> cek = mApiService.cekNik(charSequence.toString());
+                cek.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()){
+                            try {
+                                JSONObject jsonResult =new JSONObject(response.body().string());
+                                if (jsonResult.getString("message").equals("exist")){
+                                    nik.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
+                                    cekNik = false;
+                                }else if (charSequence.toString().isEmpty()){
+                                    nik.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_false,0);
+                                    cekNik = false;
+                                }
+                                else{
+                                    nik.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_true,0);
+                                    cekNik = true;
+                                }
+                            }catch (JSONException e ){
+                                e.printStackTrace();
+                            }catch (IOException e){
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        kec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                kec.showDropDown();
+            }
+        });
+        kec.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                kec.showDropDown();
+            }
+        });
+        kec.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                kec.showDropDown();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        ktp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galery, REQUEST_PICK_PHOTO );
+            }
+        });
+    }
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+        }else {
+            inputItem();
+        }
+    }
+    private void inputItem() {
+        if (namaToko.getText().toString().isEmpty()
+                ||nik.getText().toString().isEmpty()
+                ||alamatToko.getText().toString().isEmpty()
+                ||kec.getText().toString().isEmpty()){
+            Toast.makeText(FormBukaToko.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
+        }else if(cekNik==false){
+            Toast.makeText(FormBukaToko.this, "Nik Sudah digunakan", Toast.LENGTH_SHORT).show();
+        }else if(nik.getText().length()<16){
+            Toast.makeText(FormBukaToko.this, "Isi Nik dengan benar", Toast.LENGTH_SHORT).show();
+        }else {
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            File imagefile = new File(mediaPath);
+            long length = imagefile.length();
+            int size = (int) length/1024;
+            if (size>4096){
+                Toast.makeText(FormBukaToko.this, "ukuran Gambar terlalu besar"+size, Toast.LENGTH_SHORT).show();
+            }else {
+                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
+                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_ktp", imagefile.getName(), reqBody);
+                BaseApiService mApiService = UtilsApi.getApiService();
+                Call<ResponseBody> update = mApiService.registerPenjual(partImage
+                        , RequestBody.create(MediaType.parse("text/plain"), user.get(SessionManager.kunci_id_user))
+                        , RequestBody.create(MediaType.parse("text/plain"), namaToko.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), nik.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), alamatToko.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), kec.getText().toString()));
+                update.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            Intent i = new Intent(FormBukaToko.this,Konfirmasi.class);
+                            startActivity(i);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("debug", "OnFailure : Error -> " + t.getMessage());
+                        Toast.makeText(FormBukaToko.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+    }
+    private void getDataKecamatan() {
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<KecamatanResponseModel> get = mApiService.getKecamatan();
+        get.enqueue(new Callback<KecamatanResponseModel>() {
+            @Override
+            public void onResponse(Call<KecamatanResponseModel> call, Response<KecamatanResponseModel> response) {
+                if (response.isSuccessful()) {
+                    kecamatanModelList = response.body().getData();
+                    List<String> listAdmin = new ArrayList<String>();
+                    for (int i = 0; i < kecamatanModelList.size(); i++){
+                        listAdmin.add(kecamatanModelList.get(i).getNama());
+                    }
+                    // Set hasil result json ke dalam adapter spinner
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(FormBukaToko.this,
+                            R.layout.custom_spinner, listAdmin);
+                    adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+                    kec.setThreshold(0);
+                    kec.setAdapter(adapter);
                 } else {
-                    Intent intent = new Intent(FormBukaToko.this, Konfirmasi.class);
-                    startActivity(intent);
-                    finish();
+                    Toast.makeText(FormBukaToko.this, "Gagal mengambil data", Toast.LENGTH_SHORT).show();
                 }
+            }
+
+            @Override
+            public void onFailure(Call<KecamatanResponseModel> call, Throwable t) {
+
             }
         });
     }
 
-    // API data kecamatan
-//    private void initKecamatan(){
-////        loading = ProgressDialog.show(mContext, null, "harap tunggu...", true, false);
-//        mApiService.getKecamatan().enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                if (response.isSuccessful()) {
-//                    List<KecamatanModel> kecamatanModels = ne
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
-//    }
-
-//    protected void uploadTask() {
-//        // TODO Auto-generated method stub
-//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-//        byte[] data = bos.toByteArray();
-//        String file = Base64.encodeToString(data, 0);
-//        Log.i("base64 string", "base64 string: " + file);
-//        new ImageUploadTask(file).execute();
-//    }
-
-    // Galeri
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == REQUEST_PICK_PHOTO){
+                if (data != null){
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-        if (requestCode == 1 && null != data) {
-            if (resultCode == FormBukaToko.this.RESULT_OK) {
-                selectedImage = data.getData();
-                Log.i("selectedImage", "selectedImage: " + selectedImage.toString());
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn,null,null,null);
+                    assert cursor != null;
+                    cursor.moveToFirst();
 
-                Cursor cursor = FormBukaToko.this.getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
-                cursor.moveToFirst();
-                int columnIndex = cursor
-                        .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                cursor.moveToFirst();
+                    int columnIndex= cursor.getColumnIndex(filePathColumn[0]);
+                    mediaPath = cursor.getString(columnIndex);
+                    imgKtp.setVisibility(View.VISIBLE);
+                    imgKtp.setImageURI(data.getData());
+                    cursor.close();
 
-                Log.i("columnIndex", "columnIndex: " + columnIndex);
-
-                String picturePath = cursor.getString(columnIndex);
-                Log.i("picturePath", "picturePath: " + picturePath);
-                cursor.close();
+                    postPath = mediaPath;
+                }
             }
         }
     }

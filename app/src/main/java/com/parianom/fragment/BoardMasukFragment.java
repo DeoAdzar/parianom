@@ -30,11 +30,12 @@ public class BoardMasukFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Masuk.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("site","1");
                 startActivity(intent);
+
             }
         });
-
         return v;
     }
 }
