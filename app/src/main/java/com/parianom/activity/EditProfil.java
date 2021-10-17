@@ -51,13 +51,6 @@ public class EditProfil extends AppCompatActivity {
     SessionManager sessionManager;
     String mediaPath, postPath;
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_WRITE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            inputItem();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,14 +147,36 @@ public class EditProfil extends AppCompatActivity {
 
 
     private void inputItem() {
+        HashMap<String, String> user = sessionManager.getUserDetails();
         if (nama.getText().toString().isEmpty()
                 || username.getText().toString().isEmpty()
                 || email.getText().toString().isEmpty()
                 || no_hp.getText().toString().isEmpty()
                 || alamat.getText().toString().isEmpty()) {
             Toast.makeText(EditProfil.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
+        } else if (mediaPath == null) {
+            BaseApiService mApiService = UtilsApi.getApiService();
+            Call<ResponseBody> update = mApiService.updateUser2(
+                    nama.getText().toString()
+                    , username.getText().toString()
+                    , email.getText().toString()
+                    , alamat.getText().toString()
+                    , no_hp.getText().toString()
+                    , Integer.parseInt(user.get(SessionManager.kunci_id_user)));
+            update.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Toast.makeText(EditProfil.this, "Berhasil Update Data", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e("debug", "OnFailure : Error -> " + t.getMessage());
+                    Toast.makeText(EditProfil.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
-            HashMap<String, String> user = sessionManager.getUserDetails();
             File imagefile = new File(mediaPath);
             long length = imagefile.length();
             int size = (int) length / 1024;
@@ -219,4 +234,11 @@ public class EditProfil extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_WRITE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            inputItem();
+        }
+    }
 }

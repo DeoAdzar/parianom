@@ -37,6 +37,16 @@ public interface BaseApiService {
             ,@Part("no_hp") RequestBody no_hp
             ,@Part("id") RequestBody id
     );
+    @FormUrlEncoded
+    @POST("updateProfile")
+    Call<ResponseBody> updateUser2(
+            @Field("nama_lengkap") String nama_lengkap
+            ,@Field("username") String username
+            ,@Field("email") String email
+            ,@Field("alamat") String alamat
+            ,@Field("no_hp") String no_hp
+            ,@Field("id") int id
+    );
     @Multipart
     @POST("registerPenjual")
     Call<ResponseBody> registerPenjual(
