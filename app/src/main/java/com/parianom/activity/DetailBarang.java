@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 public class DetailBarang extends AppCompatActivity {
     Button decrement, increment, chat;
-    int quantity = 0;
+    int quantity = 1;
     ImageView imgDetailPr;
     TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda,stok;
     SessionManager sessionManager;
@@ -52,6 +52,8 @@ public class DetailBarang extends AppCompatActivity {
                 if (sessionManager.checkLogin()==1){
                     Intent intent = new Intent(DetailBarang.this, Chat.class);
                     intent.putExtra("penjual", namaPenjual.getText());
+                    intent.putExtra("jumlah", jumlah.getText());
+                    intent.putExtra("harga", hargaProduk.getText());
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(DetailBarang.this, Masuk.class);
@@ -79,11 +81,7 @@ public class DetailBarang extends AppCompatActivity {
         quantity = quantity -1;
         display(quantity);
     }
-//    private int calculateprice(){//jumlah pesanan * harga
-//        String hargaTotal = hargaProduk.getText().toString();
-//
-//        return quantity * harga;
-//    }
+
     private void display(int number) {
         jumlah.setText("" + number);
     }
