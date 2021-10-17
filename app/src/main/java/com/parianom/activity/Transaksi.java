@@ -35,7 +35,7 @@ public class Transaksi extends AppCompatActivity {
             }
         });
 
-        addData();
+//        addData();
         rv = (RecyclerView) findViewById(R.id.transaksiRv);
 
         TransaksiRVAdapter adapter = new TransaksiRVAdapter(Transaksi.this, listTransaksi);
@@ -43,10 +43,10 @@ public class Transaksi extends AppCompatActivity {
         rv.setAdapter(adapter);
     }
 
-    public void addData() {
-        listTransaksi = new ArrayList<>();
-        listTransaksi.add(new PenjualanModel("Sayur Kol", "16 September 2021",
-                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
-                "Pangan", "Makanan", R.drawable.top, 2));
-    }
+//    public void addData() {
+//        listTransaksi = new ArrayList<>();
+//        listTransaksi.add(new PenjualanModel("Sayur Kol", "16 September 2021",
+//                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
+//                "Pangan", "Makanan", R.drawable.top, 2));
+//    }
 }

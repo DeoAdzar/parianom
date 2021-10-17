@@ -17,9 +17,6 @@ import android.widget.Toast;
 
 import com.parianom.R;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
 public class TambahProduk extends AppCompatActivity {
     Button simpan;
     CardView cardImg;
@@ -74,12 +71,6 @@ public class TambahProduk extends AppCompatActivity {
                 startActivityForResult(galleryIntent, 1);
             }
         });
-    }
-
-    private String formatRupiah(Double number) {
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat format = NumberFormat.getCurrencyInstance(localeID);
-        return format.format(number);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

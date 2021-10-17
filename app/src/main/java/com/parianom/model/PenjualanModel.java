@@ -2,108 +2,110 @@ package com.parianom.model;
 
 public class PenjualanModel {
 
-    private String titleProduk, waktuBelanja, kecPenjual, alamatPenjual, hargaProduk, pembeli, penjual, kategori, jenis;
-    private int imgProduk, jumlahBelanja;
+   String kategori,kategori_sub,nama,foto_produk,timestamp,nama_toko,alamat,kec;
+   int id,id_penjual,harga,stok,id_user;
 
-    public PenjualanModel(String titleProduk, String waktuBelanja, String kecPenjual, String alamatPenjual, String hargaProduk, String pembeli, String penjual, String kategori, String jenis, int imgProduk, int jumlahBelanja) {
-        this.titleProduk = titleProduk;
-        this.waktuBelanja = waktuBelanja;
-        this.kecPenjual = kecPenjual;
-        this.alamatPenjual = alamatPenjual;
-        this.hargaProduk = hargaProduk;
-        this.pembeli = pembeli;
-        this.penjual = penjual;
-        this.kategori = kategori;
-        this.jenis = jenis;
-        this.imgProduk = imgProduk;
-        this.jumlahBelanja = jumlahBelanja;
-    }
+   public String getKategori() {
+      return kategori;
+   }
 
-    public String getTitleProduk() {
-        return titleProduk;
-    }
+   public void setKategori(String kategori) {
+      this.kategori = kategori;
+   }
 
-    public void setTitleProduk(String titleProduk) {
-        this.titleProduk = titleProduk;
-    }
+   public String getKategori_sub() {
+      return kategori_sub;
+   }
 
-    public String getWaktuBelanja() {
-        return waktuBelanja;
-    }
+   public void setKategori_sub(String kategori_sub) {
+      this.kategori_sub = kategori_sub;
+   }
 
-    public void setWaktuBelanja(String waktuBelanja) {
-        this.waktuBelanja = waktuBelanja;
-    }
+   public String getNama() {
+      return nama;
+   }
 
-    public String getKecPenjual() {
-        return kecPenjual;
-    }
+   public void setNama(String nama) {
+      this.nama = nama;
+   }
 
-    public void setKecPenjual(String kecPenjual) {
-        this.kecPenjual = kecPenjual;
-    }
+   public String getFoto_produk() {
+      return foto_produk;
+   }
 
-    public String getAlamatPenjual() {
-        return alamatPenjual;
-    }
+   public void setFoto_produk(String foto_produk) {
+      this.foto_produk = foto_produk;
+   }
 
-    public void setAlamatPenjual(String alamatPenjual) {
-        this.alamatPenjual = alamatPenjual;
-    }
+   public String getTimestamp() {
+      return timestamp;
+   }
 
-    public String getHargaProduk() {
-        return hargaProduk;
-    }
+   public void setTimestamp(String timestamp) {
+      this.timestamp = timestamp;
+   }
 
-    public void setHargaProduk(String hargaProduk) {
-        this.hargaProduk = hargaProduk;
-    }
+   public String getNama_toko() {
+      return nama_toko;
+   }
 
-    public String getPembeli() {
-        return pembeli;
-    }
+   public void setNama_toko(String nama_toko) {
+      this.nama_toko = nama_toko;
+   }
 
-    public void setPembeli(String pembeli) {
-        this.pembeli = pembeli;
-    }
+   public String getAlamat() {
+      return alamat;
+   }
 
-    public String getPenjual() {
-        return penjual;
-    }
+   public void setAlamat(String alamat) {
+      this.alamat = alamat;
+   }
 
-    public void setPenjual(String penjual) {
-        this.penjual = penjual;
-    }
+   public String getKec() {
+      return kec;
+   }
 
-    public String getKategori() {
-        return kategori;
-    }
+   public void setKec(String kec) {
+      this.kec = kec;
+   }
 
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
-    }
+   public int getId() {
+      return id;
+   }
 
-    public String getJenis() {
-        return jenis;
-    }
+   public void setId(int id) {
+      this.id = id;
+   }
 
-    public void setJenis(String jenis) {
-        this.jenis = jenis;
-    }
+   public int getId_penjual() {
+      return id_penjual;
+   }
 
-    public int getImgProduk() {
-        return imgProduk;
-    }
+   public void setId_penjual(int id_penjual) {
+      this.id_penjual = id_penjual;
+   }
 
-    public void setImgProduk(int imgProduk) {
-        this.imgProduk = imgProduk;
-    }
+   public int getHarga() {
+      return harga;
+   }
 
-    public int getJumlahBelanja() {
-        return jumlahBelanja;
-    }
+   public void setHarga(int harga) {
+      this.harga = harga;
+   }
 
-    public void setJumlahBelanja(int jumlahBelanja) {
-        this.jumlahBelanja = jumlahBelanja;
-    }
+   public int getStok() {
+      return stok;
+   }
+
+   public void setStok(int stok) {
+      this.stok = stok;
+   }
+
+   public int getId_user() {
+      return id_user;
+   }
+
+   public void setId_user(int id_user) {
+      this.id_user = id_user;
+   }
 }

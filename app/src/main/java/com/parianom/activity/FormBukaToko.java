@@ -210,9 +210,11 @@ public class FormBukaToko extends AppCompatActivity {
                 ||alamatToko.getText().toString().isEmpty()
                 ||kec.getText().toString().isEmpty()){
             Toast.makeText(FormBukaToko.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
+        }else if (mediaPath==null){
+            Toast.makeText(FormBukaToko.this, "Mohon upload foto ktp anda", Toast.LENGTH_SHORT).show();
         }else if(cekNik==false){
             Toast.makeText(FormBukaToko.this, "Nik Sudah digunakan", Toast.LENGTH_SHORT).show();
-        }else if(nik.getText().length()<16){
+        }else if(nik.getText().length()<16||nik.getText().length()>16){
             Toast.makeText(FormBukaToko.this, "Isi Nik dengan benar", Toast.LENGTH_SHORT).show();
         }else {
             HashMap<String, String> user = sessionManager.getUserDetails();
@@ -257,7 +259,7 @@ public class FormBukaToko extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     kecamatanModelList = response.body().getData();
                     List<String> listAdmin = new ArrayList<String>();
-                    for (int i = 0; i < kecamatanModelList.size(); i++){
+                     for (int i = 0; i < kecamatanModelList.size(); i++){
                         listAdmin.add(kecamatanModelList.get(i).getNama());
                     }
                     // Set hasil result json ke dalam adapter spinner

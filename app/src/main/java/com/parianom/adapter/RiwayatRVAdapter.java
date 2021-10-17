@@ -44,12 +44,12 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final PenjualanModel penjualanModel = mData.get(position);
 
-        holder.titleProduk.setText(mData.get(position).getTitleProduk());
-        holder.wktBeli.setText(mData.get(position).getWaktuBelanja());
-        holder.titleRwyt.setText(mData.get(position).getTitleProduk());
-        holder.alamat.setText(mData.get(position).getAlamatPenjual());
-        holder.totalHarga.setText(mData.get(position).getHargaProduk());
-        holder.imgProduk.setImageResource(mData.get(position).getImgProduk());
+//        holder.titleProduk.setText(mData.get(position).getTitleProduk());
+//        holder.wktBeli.setText(mData.get(position).getWaktuBelanja());
+//        holder.titleRwyt.setText(mData.get(position).getTitleProduk());
+//        holder.alamat.setText(mData.get(position).getAlamatPenjual());
+//        holder.totalHarga.setText(mData.get(position).getHargaProduk());
+//        holder.imgProduk.setImageResource(mData.get(position).getImgProduk());
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,26 +59,26 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
 //                intent.putExtra("titlePembelian", penjualanModel.getTitleProduk());
 //                intent.putExtra("totalBelanja", penjualanModel.getHargaProduk());
 //                mContext.startActivity(intent);
-
-                Intent intent = new Intent(mContext, GenerateQR.class);
-                intent.putExtra("kode", penjualanModel.getTitleProduk());
-                mContext.startActivity(intent);
-            }
-        });
-        holder.detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(mContext, DetailTransaksi.class);
-//                intent.putExtra("waktuBelanja", penjualanModel.getWaktuBelanja());
-//                intent.putExtra("titlePembelian", penjualanModel.getTitleProduk());
-//                intent.putExtra("totalBelanja", penjualanModel.getHargaProduk());
+//
+//                Intent intent = new Intent(mContext, GenerateQR.class);
+//                intent.putExtra("kode", penjualanModel.getTitleProduk());
 //                mContext.startActivity(intent);
-
-                Intent intent = new Intent(mContext, GenerateQR.class);
-                intent.putExtra("kode", penjualanModel.getTitleProduk());
-                mContext.startActivity(intent);
             }
         });
+//        holder.detail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(mContext, DetailTransaksi.class);
+////                intent.putExtra("waktuBelanja", penjualanModel.getWaktuBelanja());
+////                intent.putExtra("titlePembelian", penjualanModel.getTitleProduk());
+////                intent.putExtra("totalBelanja", penjualanModel.getHargaProduk());
+////                mContext.startActivity(intent);
+//
+//                Intent intent = new Intent(mContext, GenerateQR.class);
+//                intent.putExtra("kode", penjualanModel.getTitleProduk());
+//                mContext.startActivity(intent);
+//            }
+//        });
     }
 
     @Override

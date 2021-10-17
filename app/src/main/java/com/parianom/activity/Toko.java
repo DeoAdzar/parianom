@@ -6,18 +6,37 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parianom.R;
+import com.parianom.api.BaseApiService;
+import com.parianom.api.UtilsApi;
+import com.parianom.utils.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Toko extends AppCompatActivity {
     LinearLayout tambah, dfJualan, transaksi, qr, profil;
-
+    TextView namaToko;
+    SessionManager sessionManager;
+    String id_penjual,nama,kecamatan,alamat ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toko);
-
+        sessionManager = new SessionManager(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -28,7 +47,12 @@ public class Toko extends AppCompatActivity {
                 finish();
             }
         });
-
+        namaToko = findViewById(R.id.namaToko);
+        id_penjual = getIntent().getStringExtra("id_penjual");
+        nama = getIntent().getStringExtra("nama_toko");
+        kecamatan = getIntent().getStringExtra("kecamatan");
+        alamat = getIntent().getStringExtra("alamat");
+        namaToko.setText(nama);
         tambah();
         daftarJualan();
         transaksi();
@@ -42,8 +66,8 @@ public class Toko extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, TambahProduk.class);
+                intent.putExtra("id_penjual",id_penjual);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -55,7 +79,6 @@ public class Toko extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, DaftarJualan.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -67,7 +90,6 @@ public class Toko extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, Transaksi.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -79,7 +101,6 @@ public class Toko extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, ScanQr.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -91,7 +112,6 @@ public class Toko extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, ProfilToko.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
