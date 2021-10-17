@@ -102,7 +102,7 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <Spinner
-                    android:id="@+id/jenisPr"
+                    android:id="@+id/jenis"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingVertical="10dp"

@@ -10,16 +10,20 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -45,10 +49,12 @@ import retrofit2.Response;
 public class EditProfil extends AppCompatActivity {
     Button simpan;
     CircleImageView Image;
-    EditText nama,username,email,no_hp,alamat,password;
+    EditText nama,username,email,no_hp,alamat, password;
     private static final int REQUEST_PICK_PHOTO = 2;
     private static final int REQUEST_WRITE_PERMISSION = 786;
     SessionManager sessionManager;
+    private ShimmerFrameLayout shimmer;
+    private LinearLayout layout;
         String mediaPath,postPath;
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -82,6 +88,10 @@ public class EditProfil extends AppCompatActivity {
         alamat = findViewById(R.id.alamat);
         getDataUser(user.get(SessionManager.kunci_id_user));
         Image = findViewById(R.id.imgUser);
+        password = findViewById(R.id.ubahPwd);
+        shimmer = (ShimmerFrameLayout) findViewById(R.id.shimmerEditProfil);
+        layout = findViewById(R.id.layoutEditProfil);
+
         Image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +99,26 @@ public class EditProfil extends AppCompatActivity {
                 startActivityForResult(galery, REQUEST_PICK_PHOTO );
             }
         });
+
+//        password.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
+        password.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    Intent intent = new Intent(EditProfil.this, UbahKataSandi.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         simpan = (Button) findViewById(R.id.btnSimpan);
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +165,10 @@ public class EditProfil extends AppCompatActivity {
                             alamat.setText(alamats);
                             no_hp.setText(no_hps);
                             username.setText(usernames);
+                            layout.setVisibility(View.VISIBLE);
+                            shimmer.stopShimmer();
+                            shimmer.hideShimmer();
+                            shimmer.setVisibility(View.GONE);
                         }else{
                             Toast.makeText(EditProfil.this, "Tidak ada Data", Toast.LENGTH_SHORT).show();
                         }
@@ -159,12 +193,12 @@ public class EditProfil extends AppCompatActivity {
 
     private void inputItem() {
         if (nama.getText().toString().isEmpty()
-                ||username.getText().toString().isEmpty()
-                ||email.getText().toString().isEmpty()
-                ||no_hp.getText().toString().isEmpty()
-                ||alamat.getText().toString().isEmpty()){
+                || username.getText().toString().isEmpty()
+                || email.getText().toString().isEmpty()
+                || no_hp.getText().toString().isEmpty()
+                || alamat.getText().toString().isEmpty()) {
             Toast.makeText(EditProfil.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             HashMap<String, String> user = sessionManager.getUserDetails();
             File imagefile = new File(mediaPath);
             long length = imagefile.length();

@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.parianom.R;
@@ -22,6 +24,7 @@ public class TambahProduk extends AppCompatActivity {
     CardView cardImg;
     ImageView img;
     Uri selectedImage;
+    Spinner kategori, jenis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,18 @@ public class TambahProduk extends AppCompatActivity {
 
         img = (ImageView) findViewById(R.id.imgTambahPr);
         cardImg = (CardView) findViewById(R.id.cardImgTambahPr);
+        kategori = (Spinner) findViewById(R.id.kategori);
+        jenis = (Spinner) findViewById(R.id.jenis);
+        
+        if (kategori.getSelectedItem().equals("Pangan")) {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
+            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+            jenis.setAdapter(adapter);
+        } else {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisKriya, R.layout.custom_spinner);
+            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+            jenis.setAdapter(adapter);
+        }
 
         simpan = (Button) findViewById(R.id.btnSimpanPr);
 

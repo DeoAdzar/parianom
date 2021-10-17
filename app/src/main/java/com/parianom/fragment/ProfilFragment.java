@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,10 +44,11 @@ import retrofit2.Response;
 
 public class ProfilFragment extends Fragment {
     View v;
-    LinearLayout toko, profil, bantuan, ttg, keluar;
+    LinearLayout toko, profil, bantuan, ttg, keluar, cardProfil;
     TextView namaUser, email;
     CircleImageView img;
     SessionManager sessionManager;
+    private ProgressBar loading;
 
     @Nullable
     @Override
@@ -60,6 +62,8 @@ public class ProfilFragment extends Fragment {
         keluar = (LinearLayout) v.findViewById(R.id.btnKeluar);
         sessionManager = new SessionManager(getContext());
         namaUser = (TextView) v.findViewById(R.id.namaUser);
+        cardProfil = (LinearLayout) v.findViewById(R.id.layoutCardProfil);
+        loading = (ProgressBar) v.findViewById(R.id.progress_profil);
         img = v.findViewById(R.id.imgUser);
         email = v.findViewById(R.id.emailUser);
         getResourceProfil();
@@ -94,6 +98,8 @@ public class ProfilFragment extends Fragment {
                                     .placeholder(R.drawable.ic_person).into(img);
                             email.setText(emails);
                             namaUser.setText(namas);
+                            cardProfil.setVisibility(View.VISIBLE);
+                            loading.setVisibility(View.GONE);
                         } else {
                             Toast.makeText(getContext(), "Tidak ada Data", Toast.LENGTH_SHORT).show();
                         }

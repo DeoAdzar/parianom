@@ -38,7 +38,6 @@
 
     <LinearLayout
         android:id="@+id/layoutEditProfil"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -188,19 +187,22 @@
                     android:text="@string/kata_sandi"
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
-                <EditText
-                    android:id="@+id/ubahPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    android:enabled="false"
-                    style="@style/fontMasuk"
-                    android:hint="Tekan ubah kata sandi"
-                    android:textColor="@color/black"
-                    android:backgroundTint="@color/label_input"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        style="@style/fontMasuk"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:id="@+id/ubahPwd"
+                        android:hint="Tekan untuk ubah kata sandi"
+                        android:textColor="@color/black"
+                        android:backgroundTint="@color/label_input" />
+
+
                 <Button
                     android:id="@+id/btnSimpan"
                     android:layout_width="match_parent"
