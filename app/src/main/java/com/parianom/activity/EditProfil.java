@@ -10,16 +10,20 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -50,6 +54,8 @@ public class EditProfil extends AppCompatActivity {
     private static final int REQUEST_WRITE_PERMISSION = 786;
     SessionManager sessionManager;
     String mediaPath, postPath;
+    private LinearLayout layout;
+    private ShimmerFrameLayout shimmer;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -83,6 +89,10 @@ public class EditProfil extends AppCompatActivity {
         alamat = findViewById(R.id.alamat);
         getDataUser(user.get(SessionManager.kunci_id_user));
         Image = findViewById(R.id.imgUser);
+        layout = findViewById(R.id.layoutEditProfil);
+        password = findViewById(R.id.ubahPwd);
+        shimmer = (ShimmerFrameLayout) findViewById(R.id.shimmerEditProfil);
+
         Image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +105,14 @@ public class EditProfil extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 requestPermission();
+            }
+        });
+
+        password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EditProfil.this, UbahKataSandi.class);
+                startActivity(intent);
             }
         });
     }
@@ -131,6 +149,10 @@ public class EditProfil extends AppCompatActivity {
                             alamat.setText(alamats);
                             no_hp.setText(no_hps);
                             username.setText(usernames);
+                            layout.setVisibility(View.VISIBLE);
+                            shimmer.stopShimmer();
+                            shimmer.hideShimmer();
+                            shimmer.setVisibility(View.GONE);
                         } else {
                             Toast.makeText(EditProfil.this, "Tidak ada Data", Toast.LENGTH_SHORT).show();
                         }
