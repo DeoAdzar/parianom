@@ -1,16 +1,15 @@
 package com.parianom.fragment;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,26 +19,30 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parianom.R;
-import com.parianom.adapter.BerandaRvAdapter;
-import com.parianom.adapter.RiwayatRVAdapter;
+import com.parianom.adapter.PenjualanRvAdapter;
+import com.parianom.api.BaseApiService;
+import com.parianom.api.UtilsApi;
 import com.parianom.model.PenjualanModel;
+import com.parianom.model.PenjualanResponseModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BerandaFragment extends Fragment {
 
     View v;
-    private RecyclerView rv;
-    private List<PenjualanModel> listData;
+    private RecyclerView rvBeranda;
+    private RecyclerView.Adapter adBeranda;
+    private RecyclerView.LayoutManager lmBeranda;
+    private List<PenjualanModel> penjualanModelList = new ArrayList<>();
 
     private FrameLayout fragment;
     private LinearLayout pangan, kriya, jenisPangan, jenisKriya;
@@ -76,7 +79,7 @@ public class BerandaFragment extends Fragment {
 
         int nonAktif = ContextCompat.getColor(getContext(), R.color.label_input);
         int aktif = ContextCompat.getColor(getContext(), R.color.primer);
-
+        getMakanan();
         // button pangan
         pangan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +95,7 @@ public class BerandaFragment extends Fragment {
 
                 jenisPangan.setVisibility(View.VISIBLE);
                 jenisKriya.setVisibility(View.GONE);
+                getMakanan();
             }
         });
 
@@ -105,9 +109,9 @@ public class BerandaFragment extends Fragment {
                 titlePangan.setTextColor(nonAktif);
                 jnsHasilKriya.setTextColor(aktif);
                 jnsBBKriya.setTextColor(nonAktif);
-
                 jenisKriya.setVisibility(View.VISIBLE);
                 jenisPangan.setVisibility(View.GONE);
+                getHasilKriya();
             }
         });
 
@@ -118,6 +122,7 @@ public class BerandaFragment extends Fragment {
                 jnsMinuman.setTextColor(nonAktif);
                 jnsCamilan.setTextColor(nonAktif);
                 jnsBBPangan.setTextColor(nonAktif);
+                getMakanan();
             }
         });
 
@@ -128,6 +133,7 @@ public class BerandaFragment extends Fragment {
                 jnsMakanan.setTextColor(nonAktif);
                 jnsCamilan.setTextColor(nonAktif);
                 jnsBBPangan.setTextColor(nonAktif);
+                getMinuman();
             }
         });
 
@@ -138,6 +144,7 @@ public class BerandaFragment extends Fragment {
                 jnsMakanan.setTextColor(nonAktif);
                 jnsMinuman.setTextColor(nonAktif);
                 jnsBBPangan.setTextColor(nonAktif);
+                getCamilan();
             }
         });
 
@@ -148,6 +155,7 @@ public class BerandaFragment extends Fragment {
                 jnsMakanan.setTextColor(nonAktif);
                 jnsMinuman.setTextColor(nonAktif);
                 jnsCamilan.setTextColor(nonAktif);
+                getBBPangan();
             }
         });
 
@@ -156,6 +164,7 @@ public class BerandaFragment extends Fragment {
             public void onClick(View view) {
                 jnsHasilKriya.setTextColor(aktif);
                 jnsBBKriya.setTextColor(nonAktif);
+                getHasilKriya();
             }
         });
 
@@ -164,28 +173,156 @@ public class BerandaFragment extends Fragment {
             public void onClick(View view) {
                 jnsBBKriya.setTextColor(aktif);
                 jnsHasilKriya.setTextColor(nonAktif);
+                getBBKriya();
             }
         });
 
-        add();
-        rv = (RecyclerView) v.findViewById(R.id.berandaRv);
-        BerandaRvAdapter adapter = new BerandaRvAdapter(getContext(), listData);
-        rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        rv.setAdapter(adapter);
-
+        rvBeranda = (RecyclerView) v.findViewById(R.id.berandaRv);
         return v;
     }
+    public void getMakanan(){
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Makanan");
+        get.enqueue(new Callback<PenjualanResponseModel>() {
+            @Override
+            public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
+                penjualanModelList = response.body().getData();
+                if (penjualanModelList.isEmpty()){
+                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                }else{
+                    lmBeranda = new GridLayoutManager(getContext(),2);
+                    rvBeranda.setLayoutManager(lmBeranda);
+                    adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
+                    rvBeranda.setAdapter(adBeranda);
+                }
 
-    public void add() {
-        listData = new ArrayList<>();
-        listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
-                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
-                "Pangan", "Makanan", R.drawable.demo, 2));
-        listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
-                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
-                "Pangan", "Makanan", R.drawable.demo, 2));
-        listData.add(new PenjualanModel("Sayur Kol", "16 September 2021",
-                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
-                "Pangan", "Makanan", R.drawable.demo, 2));
+            }
+
+            @Override
+            public void onFailure(Call<PenjualanResponseModel> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "deo: "+t.getMessage());
+            }
+        });
+    }
+    public void getMinuman(){
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Minuman");
+        get.enqueue(new Callback<PenjualanResponseModel>() {
+            @Override
+            public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
+                penjualanModelList = response.body().getData();
+                if (penjualanModelList.isEmpty()){
+                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                }else{
+                    lmBeranda = new GridLayoutManager(getContext(),2);
+                    rvBeranda.setLayoutManager(lmBeranda);
+                    adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
+                    rvBeranda.setAdapter(adBeranda);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PenjualanResponseModel> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "deo: "+t.getMessage());
+            }
+        });
+    }
+    public void getCamilan(){
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Camilan");
+        get.enqueue(new Callback<PenjualanResponseModel>() {
+            @Override
+            public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
+                penjualanModelList = response.body().getData();
+                if (penjualanModelList.isEmpty()){
+                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                }else{
+                    lmBeranda = new GridLayoutManager(getContext(),2);
+                    rvBeranda.setLayoutManager(lmBeranda);
+                    adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
+                    rvBeranda.setAdapter(adBeranda);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PenjualanResponseModel> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "deo: "+t.getMessage());
+            }
+        });
+    }
+    public void getBBPangan(){
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Bahan Baku");
+        get.enqueue(new Callback<PenjualanResponseModel>() {
+            @Override
+            public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
+                penjualanModelList = response.body().getData();
+                if (penjualanModelList.isEmpty()){
+                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                }else{
+                    lmBeranda = new GridLayoutManager(getContext(),2);
+                    rvBeranda.setLayoutManager(lmBeranda);
+                    adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
+                    rvBeranda.setAdapter(adBeranda);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PenjualanResponseModel> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "deo: "+t.getMessage());
+            }
+        });
+    }
+    public void getHasilKriya(){
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<PenjualanResponseModel> get = mApiService.getProduk("Kriya","Hasil");
+        get.enqueue(new Callback<PenjualanResponseModel>() {
+            @Override
+            public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
+                penjualanModelList = response.body().getData();
+                if (penjualanModelList.isEmpty()){
+                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                }else{
+                    lmBeranda = new GridLayoutManager(getContext(),2);
+                    rvBeranda.setLayoutManager(lmBeranda);
+                    adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
+                    rvBeranda.setAdapter(adBeranda);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PenjualanResponseModel> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "deo: "+t.getMessage());
+            }
+        });
+    }
+    public void getBBKriya(){
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<PenjualanResponseModel> get = mApiService.getProduk("Kriya","Bahan Baku");
+        get.enqueue(new Callback<PenjualanResponseModel>() {
+            @Override
+            public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
+                penjualanModelList = response.body().getData();
+                if (penjualanModelList.isEmpty()){
+                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                }else{
+                    lmBeranda = new GridLayoutManager(getContext(),2);
+                    rvBeranda.setLayoutManager(lmBeranda);
+                    adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
+                    rvBeranda.setAdapter(adBeranda);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PenjualanResponseModel> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "deo: "+t.getMessage());
+            }
+        });
     }
 }

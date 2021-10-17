@@ -104,7 +104,8 @@ public class ProfilFragment extends Fragment {
                     }
 
                 } else {
-                    Toast.makeText(getContext(), "Cannot Connect server", Toast.LENGTH_SHORT).show();
+                    sessionManager.logout();
+                    Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -129,17 +130,23 @@ public class ProfilFragment extends Fragment {
                             try {
                                 JSONObject jsonResult = new JSONObject(response.body().string());
                                 if (jsonResult.getString("message").equals("exist")) {
-                                    Integer status = jsonResult.getJSONObject("data").getInt("status_toko");
+                                    String status = jsonResult.getJSONObject("data").getString("status_toko");
                                     String id_penjual = jsonResult.getJSONObject("data").getString("id");
-                                    if (status==null){
-                                        Intent i = new Intent(getContext(), Konfirmasi.class);
-                                        startActivity(i);
-                                    }else if (status == 1) {
+                                    String nama_toko = jsonResult.getJSONObject("data").getString("nama_toko");
+                                    String kecamatan = jsonResult.getJSONObject("data").getString("kec");
+                                    String alamat = jsonResult.getJSONObject("data").getString("alamat");
+                                    if (status.equals("1")) {
                                         Intent intent = new Intent(getContext(), Toko.class);
                                         intent.putExtra("id_penjual",id_penjual);
+                                        intent.putExtra("nama_toko",nama_toko);
+                                        intent.putExtra("kecamatan",kecamatan);
+                                        intent.putExtra("alamat",alamat);
                                         startActivity(intent);
-                                    } else if (status == 0) {
+                                    }else if (status.equals("0")) {
                                         Toast.makeText(getContext(), "Maaf anda bukan masyarakat kabupaten madiun, anda tidak dapat menjadi penjual", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Intent i = new Intent(getContext(), Konfirmasi.class);
+                                        startActivity(i);
                                     }
                                 } else {
                                     Intent intent = new Intent(getContext(), BukaToko.class);

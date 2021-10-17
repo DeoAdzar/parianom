@@ -259,7 +259,7 @@ public class FormBukaToko extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     kecamatanModelList = response.body().getData();
                     List<String> listAdmin = new ArrayList<String>();
-                    for (int i = 0; i < kecamatanModelList.size(); i++){
+                     for (int i = 0; i < kecamatanModelList.size(); i++){
                         listAdmin.add(kecamatanModelList.get(i).getNama());
                     }
                     // Set hasil result json ke dalam adapter spinner

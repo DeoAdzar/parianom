@@ -40,13 +40,13 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final PenjualanModel tr = mData.get(position);
 
-        holder.namaTransaksi.setText(mData.get(position).getTitleProduk());
-        holder.subNamaTransaksi.setText(mData.get(position).getTitleProduk());
-        holder.pembeli.setText(mData.get(position).getPembeli());
-        holder.jumlah.setText(String.valueOf(mData.get(position).getJumlahBelanja()));
-        holder.hargaTransaksi.setText(mData.get(position).getHargaProduk());
-        holder.wktTransaksi.setText(mData.get(position).getWaktuBelanja());
-        holder.imgTransaksi.setImageResource(mData.get(position).getImgProduk());
+//        holder.namaTransaksi.setText(mData.get(position).getTitleProduk());
+//        holder.subNamaTransaksi.setText(mData.get(position).getTitleProduk());
+//        holder.pembeli.setText(mData.get(position).getPembeli());
+//        holder.jumlah.setText(String.valueOf(mData.get(position).getJumlahBelanja()));
+//        holder.hargaTransaksi.setText(mData.get(position).getHargaProduk());
+//        holder.wktTransaksi.setText(mData.get(position).getWaktuBelanja());
+//        holder.imgTransaksi.setImageResource(mData.get(position).getImgProduk());
 
         holder.selesai.setOnClickListener(new View.OnClickListener() {
             @Override

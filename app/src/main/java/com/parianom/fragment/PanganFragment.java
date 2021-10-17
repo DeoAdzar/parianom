@@ -2,7 +2,6 @@ package com.parianom.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,10 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.parianom.R;
-import com.parianom.adapter.BerandaRvAdapter;
+import com.parianom.adapter.PenjualanRvAdapter;
 import com.parianom.model.PenjualanModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PanganFragment extends Fragment {
@@ -29,7 +27,7 @@ public class PanganFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_pangan, container, false);
 
         rv = (RecyclerView) v.findViewById(R.id.panganRv);
-        BerandaRvAdapter adapter = new BerandaRvAdapter(getContext(), mData);
+        PenjualanRvAdapter adapter = new PenjualanRvAdapter(getContext(), mData);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(adapter);
 

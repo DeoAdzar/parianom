@@ -79,16 +79,29 @@ public class Masuk extends AppCompatActivity {
                         if (jsonResult.getString("message").equals("success")){
                             String id_user = jsonResult.getString("id_user");
                             sessionManager.createSession(id_user);
-                            switch (site){
-                                case "1":
-                                    Intent i = new Intent(Masuk.this,MainActivity.class);
-                                    startActivity(i);
-                                    finish();
-                                    break;
-                                case "2":
-                                    finish();
-                                    break;
+                            if (site.equals(null)){
+                                finish();
+                            }else if (site.equals("2")){
+                                finish();
+                            }else if (site.equals("1")){
+                                Intent i = new Intent(Masuk.this,MainActivity.class);
+                                startActivity(i);
+                                finish();
                             }
+//                            switch (site){
+//                                case "1":
+//                                    Intent i = new Intent(Masuk.this,MainActivity.class);
+//                                    startActivity(i);
+//                                    finish();
+//                                    break;
+//                                case "2":
+//                                    finish();
+//                                    break;
+//                                default:
+//                                    Intent intent = new Intent(Masuk.this,MainActivity.class);
+//                                    startActivity(intent);
+//                                    finish();
+//                            }
                         }else{
                             Toast.makeText(Masuk.this, "Username Atau Password Salah", Toast.LENGTH_SHORT).show();
                         }

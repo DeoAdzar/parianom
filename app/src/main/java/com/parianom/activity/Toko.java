@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parianom.R;
@@ -28,9 +29,9 @@ import retrofit2.Response;
 
 public class Toko extends AppCompatActivity {
     LinearLayout tambah, dfJualan, transaksi, qr, profil;
-    EditText namaToko;
+    TextView namaToko;
     SessionManager sessionManager;
-    private String id_penjual = "";
+    String id_penjual,nama,kecamatan,alamat ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,46 +48,16 @@ public class Toko extends AppCompatActivity {
             }
         });
         namaToko = findViewById(R.id.namaToko);
-        getData();
+        id_penjual = getIntent().getStringExtra("id_penjual");
+        nama = getIntent().getStringExtra("nama_toko");
+        kecamatan = getIntent().getStringExtra("kecamatan");
+        alamat = getIntent().getStringExtra("alamat");
+        namaToko.setText(nama);
         tambah();
         daftarJualan();
         transaksi();
         qR();
         profilToko();
-    }
-
-    private void getData() {
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        BaseApiService mApiService = UtilsApi.getApiService();
-        Call<ResponseBody> get = mApiService.getPenjual(Integer.parseInt(user.get(SessionManager.kunci_id_user)));
-        get.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        JSONObject jsonResult = new JSONObject(response.body().string());
-                        if (jsonResult.getString("message").equals("exist")) {
-                            String nama = jsonResult.getJSONObject("data").getString("nama_toko");
-                            Integer id = jsonResult.getJSONObject("data").getInt("id");
-                            id_penjual = String.valueOf(id);
-                            namaToko.setText(nama);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Tidak ada data", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Tidak ada data", Toast.LENGTH_SHORT).show();
-
-            }
-        });
     }
 
     public void tambah(){

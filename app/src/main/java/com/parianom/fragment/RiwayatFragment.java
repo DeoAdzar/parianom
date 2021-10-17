@@ -52,13 +52,13 @@ public class RiwayatFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        listRiwayat = new ArrayList<>();
-        listRiwayat.add(new PenjualanModel("Sayur Kol", "16 September 2021",
-                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
-                "Pangan", "Makanan", R.drawable.top, 2));
-    }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//        listRiwayat = new ArrayList<>();
+//        listRiwayat.add(new PenjualanModel("Sayur Kol", "16 September 2021",
+//                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
+//                "Pangan", "Makanan", R.drawable.top, 2));
+//    }
 }

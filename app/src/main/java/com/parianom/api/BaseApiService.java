@@ -3,6 +3,8 @@ package com.parianom.api;
 
 import com.parianom.model.KecamatanModel;
 import com.parianom.model.KecamatanResponseModel;
+import com.parianom.model.PenjualanModel;
+import com.parianom.model.PenjualanResponseModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -45,7 +47,26 @@ public interface BaseApiService {
             ,@Part("alamat") RequestBody alamat
             ,@Part("kec") RequestBody kec
     );
-
+    @Multipart
+    @POST("inputProduk")
+    Call<ResponseBody> inputProduk(
+            @Part MultipartBody.Part foto_produk
+            ,@Part("id_penjual") RequestBody id_penjual
+            ,@Part("kategori") RequestBody kategori
+            ,@Part("kategori_sub") RequestBody kategori_sub
+            ,@Part("nama") RequestBody nama
+            ,@Part("harga") RequestBody harga
+            ,@Part("stok") RequestBody stok
+    );
+    @Multipart
+    @POST("updatePenjual")
+    Call<ResponseBody> updatePenjual(
+            @Part MultipartBody.Part foto_toko
+            ,@Part("id_user") RequestBody id_user
+            ,@Part("nama_toko") RequestBody nama_toko
+            ,@Part("kec") RequestBody kec
+            ,@Part("alamat") RequestBody alamat
+    );
     @FormUrlEncoded
     @POST("getPenjual")
     Call<ResponseBody> getPenjual(
@@ -91,5 +112,11 @@ public interface BaseApiService {
     @POST("getImgUser")
     Call<ResponseBody> getImgUser(
             @Field("id") int id
+    );
+    @FormUrlEncoded
+    @POST("getProduk")
+    Call<PenjualanResponseModel> getProduk(
+            @Field("kategori") String kategori,
+            @Field("kategori_sub") String kategori_sub
     );
 }

@@ -11,13 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parianom.R;
+import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
+import com.squareup.picasso.Picasso;
 
 public class DetailBarang extends AppCompatActivity {
     Button decrement, increment, chat;
     int quantity = 0;
     ImageView imgDetailPr;
-    TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda;
+    TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda,stok;
     SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +34,15 @@ public class DetailBarang extends AppCompatActivity {
         alamatPrBeranda = (TextView) findViewById(R.id.alamatPrBeranda);
         hargaProduk = (TextView) findViewById(R.id.hargaProduk);
         jumlah = (TextView) findViewById(R.id.jumlah);
-
-        namaProduk.setText(getIntent().getStringExtra("namaPrBeranda"));
-        namaPenjual.setText(getIntent().getStringExtra("penjualPr"));
+        stok = findViewById(R.id.stokPrBeranda);
+        namaProduk.setText(getIntent().getStringExtra("nama_produk"));
+        namaPenjual.setText(getIntent().getStringExtra("nama"));
         alamatPrBeranda.setText(getIntent().getStringExtra("alamat"));
-        hargaProduk.setText(getIntent().getStringExtra("hargaPrBeranda"));
+        hargaProduk.setText(getIntent().getStringExtra("harga_produk"));
+        stok.setText("stok : "+getIntent().getStringExtra("stok"));
+        Picasso.get().load(UtilsApi.IMAGES_PRODUK + getIntent().getStringExtra("foto_profil"))
+                .placeholder(R.drawable.ic_person)
+                .into(imgDetailPr);
 
 //        jumlah.setText(getIntent().getStringExtra("namaPrBeranda"));
 
@@ -45,7 +51,7 @@ public class DetailBarang extends AppCompatActivity {
             public void onClick(View view) {
                 if (sessionManager.checkLogin()==1){
                     Intent intent = new Intent(DetailBarang.this, Chat.class);
-                    intent.putExtra("pembeli", namaPenjual.getText());
+                    intent.putExtra("penjual", namaPenjual.getText());
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(DetailBarang.this, Masuk.class);
@@ -58,8 +64,8 @@ public class DetailBarang extends AppCompatActivity {
     }
 
     public void increment(View view){//perintah tombol tambah
-        if(quantity==100){
-            Toast.makeText(this,"pesanan maximal 100",Toast.LENGTH_SHORT).show();
+        if(quantity==Integer.parseInt(getIntent().getStringExtra("stok"))){
+            Toast.makeText(this,"pesanan maximal "+getIntent().getStringExtra("stok"),Toast.LENGTH_SHORT).show();
             return;
         }
         quantity = quantity+1 ;
