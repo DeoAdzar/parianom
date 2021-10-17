@@ -105,6 +105,7 @@ public class Otp extends AppCompatActivity {
                                     if (task.isSuccessful()){
                                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        i.putExtra("site","3");
                                         startActivity(i);
                                         addToDatabase(username,nama_lengkap,email,no_hp,alamat,kata_sandi);
                                     }else{

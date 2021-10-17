@@ -3,6 +3,7 @@ package com.parianom.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -49,6 +51,7 @@ public class ProfilFragment extends Fragment {
     CircleImageView img;
     SessionManager sessionManager;
     private ProgressBar loading;
+    CardView disapprove;
 
     @Nullable
     @Override
@@ -66,6 +69,7 @@ public class ProfilFragment extends Fragment {
         loading = (ProgressBar) v.findViewById(R.id.progress_profil);
         img = v.findViewById(R.id.imgUser);
         email = v.findViewById(R.id.emailUser);
+        disapprove = v.findViewById(R.id.notifDisapprove);
         getResourceProfil();
         keluar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,15 +141,21 @@ public class ProfilFragment extends Fragment {
                                 if (jsonResult.getString("message").equals("exist")) {
                                     String status = jsonResult.getJSONObject("data").getString("status_toko");
                                     String id_penjual = jsonResult.getJSONObject("data").getString("id");
-                                    if (status=="null"){
-                                        Intent i = new Intent(getContext(), Konfirmasi.class);
-                                        startActivity(i);
-                                    }else if (status == "1") {
+                                    if (status.equals("1")) {
                                         Intent intent = new Intent(getContext(), Toko.class);
                                         intent.putExtra("id_penjual",id_penjual);
                                         startActivity(intent);
-                                    } else if (status == "0") {
-                                        Toast.makeText(getContext(), "Maaf anda bukan masyarakat kabupaten madiun, anda tidak dapat menjadi penjual", Toast.LENGTH_SHORT).show();
+                                    } else if (status.equals("0")) {
+                                        disapprove.setVisibility(View.VISIBLE);
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                disapprove.setVisibility(View.GONE);
+                                            }
+                                        },3000);
+                                    }else{
+                                        Intent i = new Intent(getContext(), Konfirmasi.class);
+                                        startActivity(i);
                                     }
                                 } else {
                                     Intent intent = new Intent(getContext(), BukaToko.class);

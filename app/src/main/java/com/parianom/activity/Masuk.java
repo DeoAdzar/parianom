@@ -79,15 +79,17 @@ public class Masuk extends AppCompatActivity {
                         if (jsonResult.getString("message").equals("success")){
                             String id_user = jsonResult.getString("id_user");
                             sessionManager.createSession(id_user);
-                            if (site.equals(null)){
+                             if (site=="2"){
                                 finish();
-                            }else if (site.equals("2")){
-                                finish();
-                            }else if (site.equals("1")){
+                            }else if (site=="1"){
                                 Intent i = new Intent(Masuk.this,MainActivity.class);
                                 startActivity(i);
                                 finish();
-                            }
+                            }else{
+                                 Intent i = new Intent(Masuk.this,MainActivity.class);
+                                 startActivity(i);
+                                 finish();
+                             }
 //                            switch (site){
 //                                case "1":
 //                                    Intent i = new Intent(Masuk.this,MainActivity.class);

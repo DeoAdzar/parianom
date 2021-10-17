@@ -78,6 +78,14 @@ public interface BaseApiService {
             ,@Part("alamat") RequestBody alamat
     );
     @FormUrlEncoded
+    @POST("updatePenjual")
+    Call<ResponseBody> updatePenjual2(
+            @Field("id_user") int id_user
+            ,@Field("nama_toko") String nama_toko
+            ,@Field("kec") String kec
+            ,@Field("alamat") String alamat
+    );
+    @FormUrlEncoded
     @POST("getPenjual")
     Call<ResponseBody> getPenjual(
             @Field("id_user") int id
