@@ -134,7 +134,7 @@
             </LinearLayout>
 
             <FrameLayout
-                android:id="@+id/btnSend"
+                android:id="@+id/kirimChat"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -156,9 +156,10 @@
             android:layout_height="match_parent"
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp">
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            <include layout="@layout/item_buat_pesanan"/>
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
         </FrameLayout>
     </FrameLayout>
 </RelativeLayout>
