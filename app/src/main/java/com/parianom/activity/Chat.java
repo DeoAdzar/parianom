@@ -29,6 +29,6 @@ public class Chat extends AppCompatActivity {
         });
 
         namaUser = (TextView) findViewById(R.id.namaUserChat);
-        namaUser.setText(getIntent().getStringExtra("pembeli"));
+        namaUser.setText(getIntent().getStringExtra("penjual"));
     }
 }

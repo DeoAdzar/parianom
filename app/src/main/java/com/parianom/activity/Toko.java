@@ -78,6 +78,7 @@ public class Toko extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, DaftarJualan.class);
+                intent.putExtra("id_penjual",id_penjual);
                 startActivity(intent);
             }
         });
@@ -89,6 +90,7 @@ public class Toko extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, Transaksi.class);
+                intent.putExtra("id_penjual",id_penjual);
                 startActivity(intent);
             }
         });
@@ -100,6 +102,7 @@ public class Toko extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, ScanQr.class);
+                intent.putExtra("id_penjual",id_penjual);
                 startActivity(intent);
             }
         });
@@ -111,6 +114,7 @@ public class Toko extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Toko.this, ProfilToko.class);
+                intent.putExtra("id_penjual",id_penjual);
                 startActivity(intent);
             }
         });

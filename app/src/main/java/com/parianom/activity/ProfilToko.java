@@ -179,14 +179,33 @@ public class ProfilToko extends AppCompatActivity {
     }
 
     private void inputItem() {
+        HashMap<String, String> user = sessionManager.getUserDetails();
         if (nama.getText().toString().isEmpty()
                 ||alamat.getText().toString().isEmpty()
                 ||kecamatan.getText().toString().isEmpty()){
             Toast.makeText(ProfilToko.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
         }else if (mediaPath==null) {
-            Toast.makeText(ProfilToko.this, "Mohon upload foto ktp anda", Toast.LENGTH_SHORT).show();
+            BaseApiService mApiService = UtilsApi.getApiService();
+            Call<ResponseBody> update = mApiService.updatePenjual2(
+                      Integer.parseInt(user.get(SessionManager.kunci_id_user))
+                    , nama.getText().toString()
+                    , kecamatan.getText().toString()
+                    , alamat.getText().toString());
+            update.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Toast.makeText(ProfilToko.this, "Update Berhasil", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e("debug", "OnFailure : Error -> " + t.getMessage());
+                    Toast.makeText(ProfilToko.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }else {
-            HashMap<String, String> user = sessionManager.getUserDetails();
+
             File imagefile = new File(mediaPath);
             long length = imagefile.length();
             int size = (int) length/1024;

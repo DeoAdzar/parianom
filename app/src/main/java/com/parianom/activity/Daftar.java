@@ -87,6 +87,7 @@ public class Daftar extends AppCompatActivity {
                 Intent intent = new Intent(Daftar.this, Masuk.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("site","4");
                 startActivity(intent);
                 finish();
             }
