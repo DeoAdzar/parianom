@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,10 +44,11 @@ import retrofit2.Response;
 
 public class ProfilFragment extends Fragment {
     View v;
-    LinearLayout toko, profil, bantuan, ttg, keluar;
+    LinearLayout toko, profil, bantuan, ttg, keluar, cardProfil;
     TextView namaUser, email;
     CircleImageView img;
     SessionManager sessionManager;
+    private ProgressBar loading;
 
     @Nullable
     @Override
@@ -60,6 +62,8 @@ public class ProfilFragment extends Fragment {
         keluar = (LinearLayout) v.findViewById(R.id.btnKeluar);
         sessionManager = new SessionManager(getContext());
         namaUser = (TextView) v.findViewById(R.id.namaUser);
+        cardProfil = (LinearLayout) v.findViewById(R.id.layoutCardProfil);
+        loading = (ProgressBar) v.findViewById(R.id.progress_profil);
         img = v.findViewById(R.id.imgUser);
         email = v.findViewById(R.id.emailUser);
         getResourceProfil();
@@ -94,6 +98,8 @@ public class ProfilFragment extends Fragment {
                                     .placeholder(R.drawable.ic_person).into(img);
                             email.setText(emails);
                             namaUser.setText(namas);
+                            cardProfil.setVisibility(View.VISIBLE);
+                            loading.setVisibility(View.GONE);
                         } else {
                             Toast.makeText(getContext(), "Tidak ada Data", Toast.LENGTH_SHORT).show();
                         }
@@ -104,8 +110,7 @@ public class ProfilFragment extends Fragment {
                     }
 
                 } else {
-                    sessionManager.logout();
-                    Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Cannot Connect server", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -132,21 +137,15 @@ public class ProfilFragment extends Fragment {
                                 if (jsonResult.getString("message").equals("exist")) {
                                     String status = jsonResult.getJSONObject("data").getString("status_toko");
                                     String id_penjual = jsonResult.getJSONObject("data").getString("id");
-                                    String nama_toko = jsonResult.getJSONObject("data").getString("nama_toko");
-                                    String kecamatan = jsonResult.getJSONObject("data").getString("kec");
-                                    String alamat = jsonResult.getJSONObject("data").getString("alamat");
-                                    if (status.equals("1")) {
-                                        Intent intent = new Intent(getContext(), Toko.class);
-                                        intent.putExtra("id_penjual",id_penjual);
-                                        intent.putExtra("nama_toko",nama_toko);
-                                        intent.putExtra("kecamatan",kecamatan);
-                                        intent.putExtra("alamat",alamat);
-                                        startActivity(intent);
-                                    }else if (status.equals("0")) {
-                                        Toast.makeText(getContext(), "Maaf anda bukan masyarakat kabupaten madiun, anda tidak dapat menjadi penjual", Toast.LENGTH_SHORT).show();
-                                    }else{
+                                    if (status=="null"){
                                         Intent i = new Intent(getContext(), Konfirmasi.class);
                                         startActivity(i);
+                                    }else if (status == "1") {
+                                        Intent intent = new Intent(getContext(), Toko.class);
+                                        intent.putExtra("id_penjual",id_penjual);
+                                        startActivity(intent);
+                                    } else if (status == "0") {
+                                        Toast.makeText(getContext(), "Maaf anda bukan masyarakat kabupaten madiun, anda tidak dapat menjadi penjual", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     Intent intent = new Intent(getContext(), BukaToko.class);
@@ -157,6 +156,8 @@ public class ProfilFragment extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                        } else {
+
                         }
                     }
 

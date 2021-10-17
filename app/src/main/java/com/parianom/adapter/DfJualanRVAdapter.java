@@ -12,9 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.parianom.EditProduk;
+import com.parianom.activity.EditProduk;
 import com.parianom.R;
-import com.parianom.activity.TambahProduk;
 import com.parianom.model.DaftarJualanModel;
 
 import java.util.List;

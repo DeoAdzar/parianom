@@ -4,7 +4,7 @@
     <!-- Permission for camera -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- Permission to vibrate -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,8 +13,11 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Parianom">
+        android:theme="@style/Theme.Parianom"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.UbahKataSandi"
+            android:exported="true" />
         <activity
             android:name=".activity.GenerateQR"
             android:exported="true" />
@@ -30,7 +33,7 @@
         <activity
             android:name=".activity.ProfilToko"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+            android:windowSoftInputMode="adjustResize|stateUnchanged" />
         <activity
             android:name=".activity.ScanQr"
             android:exported="true" />
@@ -40,15 +43,15 @@
         <activity
             android:name=".activity.TambahProduk"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+            android:windowSoftInputMode="adjustResize|stateUnchanged" />
         <activity
             android:name=".activity.LupaPassword"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+            android:windowSoftInputMode="adjustResize|stateUnchanged" />
         <activity
             android:name=".activity.EditProfil"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+            android:windowSoftInputMode="adjustResize|stateUnchanged" />
         <activity
             android:name=".activity.Toko"
             android:exported="true" />
@@ -58,7 +61,7 @@
         <activity
             android:name=".activity.FormBukaToko"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+            android:windowSoftInputMode="adjustResize|stateUnchanged" />
         <activity
             android:name=".activity.Chat"
             android:exported="true"
