@@ -10,20 +10,16 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -49,13 +45,12 @@ import retrofit2.Response;
 public class EditProfil extends AppCompatActivity {
     Button simpan;
     CircleImageView Image;
-    EditText nama,username,email,no_hp,alamat, password;
+    EditText nama, username, email, no_hp, alamat, password;
     private static final int REQUEST_PICK_PHOTO = 2;
     private static final int REQUEST_WRITE_PERMISSION = 786;
     SessionManager sessionManager;
-    private ShimmerFrameLayout shimmer;
-    private LinearLayout layout;
-        String mediaPath,postPath;
+    String mediaPath, postPath;
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -88,37 +83,13 @@ public class EditProfil extends AppCompatActivity {
         alamat = findViewById(R.id.alamat);
         getDataUser(user.get(SessionManager.kunci_id_user));
         Image = findViewById(R.id.imgUser);
-        password = findViewById(R.id.ubahPwd);
-        shimmer = (ShimmerFrameLayout) findViewById(R.id.shimmerEditProfil);
-        layout = findViewById(R.id.layoutEditProfil);
-
         Image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galery, REQUEST_PICK_PHOTO );
+                startActivityForResult(galery, REQUEST_PICK_PHOTO);
             }
         });
-
-//        password.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-
-        password.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    Intent intent = new Intent(EditProfil.this, UbahKataSandi.class);
-                    startActivity(intent);
-                    return true;
-                }
-                return false;
-            }
-        });
-
         simpan = (Button) findViewById(R.id.btnSimpan);
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +102,7 @@ public class EditProfil extends AppCompatActivity {
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
-        }else {
+        } else {
             inputItem();
         }
     }
@@ -142,21 +113,16 @@ public class EditProfil extends AppCompatActivity {
         get.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     try {
-                        JSONObject jsonResult =new JSONObject(response.body().string());
-                        if (jsonResult.getString("message").equals("success")){
+                        JSONObject jsonResult = new JSONObject(response.body().string());
+                        if (jsonResult.getString("message").equals("success")) {
                             String emails = jsonResult.getJSONObject("data").getString("email");
                             String namas = jsonResult.getJSONObject("data").getString("nama_lengkap");
                             String alamats = jsonResult.getJSONObject("data").getString("alamat");
                             String no_hps = jsonResult.getJSONObject("data").getString("no_hp");
                             String usernames = jsonResult.getJSONObject("data").getString("username");
-                            String images= jsonResult.getJSONObject("data").getString("foto_profil");
-//                            Glide.with(EditProfil.this.getApplicationContext())
-//                                    .load(UtilsApi.IMAGES_PROFIL + images)
-//                                    .apply(new RequestOptions().circleCrop())
-//                                    .placeholder(R.drawable.ic_person)
-//                                    .into(Image);
+                            String images = jsonResult.getJSONObject("data").getString("foto_profil");
                             Picasso.get().load(UtilsApi.IMAGES_PROFIL + images)
                                     .placeholder(R.drawable.ic_person)
                                     .into(Image);
@@ -165,20 +131,16 @@ public class EditProfil extends AppCompatActivity {
                             alamat.setText(alamats);
                             no_hp.setText(no_hps);
                             username.setText(usernames);
-                            layout.setVisibility(View.VISIBLE);
-                            shimmer.stopShimmer();
-                            shimmer.hideShimmer();
-                            shimmer.setVisibility(View.GONE);
-                        }else{
+                        } else {
                             Toast.makeText(EditProfil.this, "Tidak ada Data", Toast.LENGTH_SHORT).show();
                         }
-                    }catch (JSONException e ){
+                    } catch (JSONException e) {
                         e.printStackTrace();
-                    }catch (IOException e){
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                }else {
+                } else {
                     Toast.makeText(EditProfil.this, "Cannot Connect server", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -202,10 +164,10 @@ public class EditProfil extends AppCompatActivity {
             HashMap<String, String> user = sessionManager.getUserDetails();
             File imagefile = new File(mediaPath);
             long length = imagefile.length();
-            int size = (int) length/1024;
-            if (size>4096){
-                Toast.makeText(EditProfil.this, "ukuran Gambar terlalu besar"+size, Toast.LENGTH_SHORT).show();
-            }else {
+            int size = (int) length / 1024;
+            if (size > 4096) {
+                Toast.makeText(EditProfil.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
+            } else {
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
                 MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_profil", imagefile.getName(), reqBody);
                 BaseApiService mApiService = UtilsApi.getApiService();
@@ -232,20 +194,21 @@ public class EditProfil extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            if (requestCode == REQUEST_PICK_PHOTO){
-                if (data != null){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_PICK_PHOTO) {
+                if (data != null) {
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn,null,null,null);
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                     assert cursor != null;
                     cursor.moveToFirst();
 
-                    int columnIndex= cursor.getColumnIndex(filePathColumn[0]);
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     mediaPath = cursor.getString(columnIndex);
                     Image.setImageURI(data.getData());
                     cursor.close();
