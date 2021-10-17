@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Parianom</string>
     <string name="masuk">Masuk</string>
-    <string name="username">Username</string>
+    <string name="username">USERNAME</string>
     <string name="password">Kata Sandi</string>
     <string name="email">Email</string>
     <string name="hp">No Handphone</string>
@@ -56,7 +56,7 @@
     <string name="daftar_jualan">Daftar Jualan</string>
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="transaksi">Transaksi</string>
-    <string name="nama">Nama</string>
+    <string name="nama">NAMA</string>
     <string name="simpan_perubahan">Simpan Perubahan</string>
     <string name="kabupaten_madiun">Kabupaten Madiun</string>
     <string name="kirim">Kirim</string>
@@ -80,6 +80,8 @@
     <string name="tunggu_sampai_pesanan_datang">Tunggu sampai pesanan datang</string>
     <string name="stok">Stok</string>
     <string name="silahkan_masuk_terlebih_dahulu">Silahkan Masuk Terlebih Dahulu</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="ubah_kata_sandi">Ubah Kata Sandi</string>
     <string-array name="kecamatan">
         <item>Dagangan</item>
         <item>Wungu</item>

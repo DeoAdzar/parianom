@@ -78,8 +78,7 @@
                     android:layout_marginLeft="4dp"
                     android:text="@string/nama"
                     android:textAllCaps="true"
-                    style="@style/fontMasuk"
-                    android:inputType="text"/>
+                    style="@style/fontMasuk" />
                 <EditText
                     android:id="@+id/namaUser"
                     android:layout_width="match_parent"
@@ -89,7 +88,8 @@
                     android:text="Yuli Lestari"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:inputType="textPersonName"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,8 +97,7 @@
                     android:layout_marginLeft="4dp"
                     android:text="@string/username"
                     android:textAllCaps="true"
-                    style="@style/fontMasuk"
-                    android:inputType="text"/>
+                    style="@style/fontMasuk" />
                 <EditText
                     android:id="@+id/usernameUser"
                     android:layout_width="match_parent"
@@ -176,6 +175,27 @@
                     android:layout_marginVertical="3dp"
                     style="@style/fontMasuk"
                     android:text="Sidorejo Jl. Lawu No. 30 Wungu"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/label_input"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/kata_sandi"
+                    android:textAllCaps="true"
+                    style="@style/fontMasuk"/>
+                <EditText
+                    android:id="@+id/ubahPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="3dp"
+                    android:enabled="false"
+                    style="@style/fontMasuk"
+                    android:hint="Tekan ubah kata sandi"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
                     android:inputType="text"

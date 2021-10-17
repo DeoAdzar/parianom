@@ -113,8 +113,7 @@
                     android:layout_marginLeft="4dp"
                     android:text="@string/nama_produk"
                     android:textAllCaps="true"
-                    style="@style/fontMasuk"
-                    android:inputType="text"/>
+                    style="@style/fontMasuk" />
                 <EditText
                     android:id="@+id/edtNamaPr"
                     android:layout_width="match_parent"

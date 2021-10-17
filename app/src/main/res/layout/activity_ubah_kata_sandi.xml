@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.UbahKataSandi">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:background="@color/white">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:theme="@style/ToolbarColoredBackArrow">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/titleBar"
+                    style="@style/fontTitleContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/ubah_kata_sandi"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="4dp"
+            android:text="Kata Sandi Saat Ini"
+            android:textAllCaps="true"
+            style="@style/fontMasuk" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/kataSandiLama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                style="@style/fontMasuk"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:background="@android:color/transparent"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="4dp"
+            android:text="Kata Sandi Baru"
+            android:textAllCaps="true"
+            style="@style/fontMasuk" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/kataSandiBaru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                style="@style/fontMasuk"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:background="@android:color/transparent"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="4dp"
+            android:text="Ulangi Kata Sandi Baru"
+            android:textAllCaps="true"
+            style="@style/fontMasuk" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/konfKataSandiBaru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                style="@style/fontMasuk"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:background="@android:color/transparent"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnSimpanSandi"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/fontBtn"
+            android:text="@string/simpan_perubahan"
+            android:background="@drawable/button"/>
+
+        <TextView
+            android:id="@+id/lupaKataSandi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:text="Lupa Kata Sandi?"
+            android:textAllCaps="false"
+            android:textColor="@color/primer"
+            style="@style/fontMasuk"
+            android:clickable="true"
+            android:layout_gravity="left"/>
+
+    </LinearLayout>
+
+</LinearLayout>

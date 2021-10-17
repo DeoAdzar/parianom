@@ -3,19 +3,23 @@ package com.parianom.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parianom.R;
 import com.parianom.activity.BukaToko;
 import com.parianom.activity.EditProfil;
@@ -43,10 +47,12 @@ import retrofit2.Response;
 
 public class ProfilFragment extends Fragment {
     View v;
-    LinearLayout toko, profil, bantuan, ttg, keluar;
+    LinearLayout toko, profil, bantuan, ttg, keluar, cardProfil;
     TextView namaUser, email;
     CircleImageView img;
     SessionManager sessionManager;
+    CardView notifDisapprove;
+    private ProgressBar loading;
 
     @Nullable
     @Override
@@ -58,10 +64,14 @@ public class ProfilFragment extends Fragment {
         bantuan = (LinearLayout) v.findViewById(R.id.btnBantuan);
         ttg = (LinearLayout) v.findViewById(R.id.btnTtgKami);
         keluar = (LinearLayout) v.findViewById(R.id.btnKeluar);
+        cardProfil = (LinearLayout) v.findViewById(R.id.layoutCardProfil);
         sessionManager = new SessionManager(getContext());
         namaUser = (TextView) v.findViewById(R.id.namaUser);
+        notifDisapprove = (CardView) v.findViewById(R.id.notifDisapprove);
         img = v.findViewById(R.id.imgUser);
         email = v.findViewById(R.id.emailUser);
+        loading = v.findViewById (R.id.progress_profil);
+
         getResourceProfil();
         keluar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +104,8 @@ public class ProfilFragment extends Fragment {
                                     .placeholder(R.drawable.ic_person).into(img);
                             email.setText(emails);
                             namaUser.setText(namas);
+                            cardProfil.setVisibility(View.VISIBLE);
+                            loading.setVisibility(View.GONE);
                         } else {
                             Toast.makeText(getContext(), "Tidak ada Data", Toast.LENGTH_SHORT).show();
                         }
@@ -129,17 +141,23 @@ public class ProfilFragment extends Fragment {
                             try {
                                 JSONObject jsonResult = new JSONObject(response.body().string());
                                 if (jsonResult.getString("message").equals("exist")) {
-                                    String status = jsonResult.getJSONObject("data").getString("status_toko");
+                                    Integer status = jsonResult.getJSONObject("data").getInt("status_toko");
                                     String id_penjual = jsonResult.getJSONObject("data").getString("id");
-                                    if (status=="null"){
+                                    if (status == null){
                                         Intent i = new Intent(getContext(), Konfirmasi.class);
                                         startActivity(i);
-                                    }else if (status == "1") {
+                                    }else if (status == 1) {
                                         Intent intent = new Intent(getContext(), Toko.class);
                                         intent.putExtra("id_penjual",id_penjual);
                                         startActivity(intent);
-                                    } else if (status == "0") {
-                                        Toast.makeText(getContext(), "Maaf anda bukan masyarakat kabupaten madiun, anda tidak dapat menjadi penjual", Toast.LENGTH_SHORT).show();
+                                    } else if (status == 0) {
+                                        notifDisapprove.setVisibility(View.VISIBLE);
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                notifDisapprove.setVisibility(View.GONE);
+                                            }
+                                        }, 3000);
                                     }
                                 } else {
                                     Intent intent = new Intent(getContext(), BukaToko.class);

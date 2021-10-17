@@ -1,4 +1,4 @@
-package com.parianom;
+package com.parianom.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,8 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.parianom.activity.TambahProduk;
-import com.parianom.activity.Toko;
+import com.parianom.R;
 
 public class EditProduk extends AppCompatActivity {
     Button simpan;
