@@ -94,10 +94,10 @@
             android:layout_marginVertical="3dp"
             style="@style/fontMasuk"
             android:text="Sidorejo Jl. Lawu No. 30 Wungu"
+            android:inputType="textCapWords"
             android:textColor="@color/black"
             android:backgroundTint="@color/label_input"
-            android:singleLine="true"
-            android:inputType="text"/>
+            android:singleLine="true" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

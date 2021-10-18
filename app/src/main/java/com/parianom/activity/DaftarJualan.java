@@ -2,13 +2,17 @@ package com.parianom.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.parianom.R;
 import com.parianom.adapter.DfJualanRVAdapter;
@@ -22,7 +26,8 @@ public class DaftarJualan extends AppCompatActivity {
     private List<DaftarJualanModel> listDfJualan;
 
     LinearLayout layoutPangan, layoutKriya;
-    ImageView pangan, kriya;
+    private ImageView pangan, kriya;
+    private TextView textPangan, textKriya;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +63,33 @@ public class DaftarJualan extends AppCompatActivity {
 
     public void filter() {
         layoutPangan = (LinearLayout) findViewById(R.id.DfJualPangan);
+        layoutKriya = (LinearLayout) findViewById(R.id.DfJualKriya);
         pangan = (ImageView) findViewById(R.id.filterPanganDfJual);
+        kriya = (ImageView) findViewById(R.id.filterKriyaDfJual);
+        textPangan = findViewById(R.id.textPanganDfJual);
+        textKriya = findViewById(R.id.textKriyaDfJual);
+        int nonAktif = ContextCompat.getColor(DaftarJualan.this, R.color.label_input);
+        int aktif = ContextCompat.getColor(DaftarJualan.this, R.color.primer);
+
+        DrawableCompat.setTint(pangan.getDrawable(), aktif);
+        textPangan.setTextColor(aktif);
+
         layoutPangan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                DrawableCompat.setTint(pangan.getDrawable(), ContextCompat.getColor(DaftarJualan.this, R.color.primer));
+                DrawableCompat.setTint(pangan.getDrawable(), aktif);
+                textPangan.setTextColor(aktif);
+                DrawableCompat.setTint(kriya.getDrawable(), nonAktif);
+                textKriya.setTextColor(nonAktif);
+            }
+        });
+        layoutKriya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawableCompat.setTint(kriya.getDrawable(), aktif);
+                textKriya.setTextColor(aktif);
+                DrawableCompat.setTint(pangan.getDrawable(), nonAktif);
+                textPangan.setTextColor(nonAktif);
             }
         });
     }
