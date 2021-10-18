@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="3dp"
                 android:backgroundTint="@color/label_input"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:lines="1"
                 android:singleLine="true"
                 android:textColor="@color/black" />

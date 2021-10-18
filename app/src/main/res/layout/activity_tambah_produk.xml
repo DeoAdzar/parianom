@@ -124,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="3dp"
                     style="@style/fontMasuk"
+                    android:inputType="textCapWords"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
                     android:singleLine="true"/>

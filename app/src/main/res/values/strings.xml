@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Parianom</string>
     <string name="masuk">Masuk</string>
-    <string name="username">USERNAME</string>
+    <string name="username">Username</string>
     <string name="password">Kata Sandi</string>
     <string name="email">Email</string>
     <string name="hp">No Handphone</string>
@@ -82,6 +82,7 @@
     <string name="silahkan_masuk_terlebih_dahulu">Silahkan Masuk Terlebih Dahulu</string>
     <string name="kata_sandi">Kata Sandi</string>
     <string name="ubah_kata_sandi">Ubah Kata Sandi</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
     <string-array name="kecamatan">
         <item>Dagangan</item>
         <item>Wungu</item>

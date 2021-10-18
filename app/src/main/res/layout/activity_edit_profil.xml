@@ -78,17 +78,19 @@
                     android:text="@string/nama"
                     android:textAllCaps="true"
                     style="@style/fontMasuk" />
+
                 <EditText
                     android:id="@+id/namaUser"
+                    style="@style/fontMasuk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="3dp"
-                    style="@style/fontMasuk"
-                    android:text="Yuli Lestari"
-                    android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
+                    android:inputType="textPersonName"
                     android:singleLine="true"
-                    android:inputType="textPersonName"/>
+                    android:text="Yuli Lestari"
+                    android:textColor="@color/black" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,6 +106,7 @@
                     android:layout_marginVertical="3dp"
                     style="@style/fontMasuk"
                     android:text="Yuli Lestari"
+                    android:inputType="textCapWords"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
                     android:singleLine="true"/>
@@ -176,7 +179,7 @@
                     android:text="Sidorejo Jl. Lawu No. 30 Wungu"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
-                    android:inputType="text"
+                    android:inputType="textCapWords"
                     android:singleLine="true"
                     android:imeOptions="actionDone"/>
                 <TextView

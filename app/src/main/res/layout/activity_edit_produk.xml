@@ -122,6 +122,7 @@
                     android:layout_marginVertical="3dp"
                     style="@style/fontMasuk"
                     android:textColor="@color/black"
+                    android:inputType="textCapWords"
                     android:backgroundTint="@color/label_input"
                     android:singleLine="true"/>
                 <TextView
