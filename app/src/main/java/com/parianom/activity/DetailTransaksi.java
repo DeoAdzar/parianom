@@ -5,11 +5,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.parianom.R;
 
 public class DetailTransaksi extends AppCompatActivity {
-
+    ImageView img;
+    TextView namaPr,namaPn,alamatPr,hargaPr,jumlahBeli,tglPesanan,kategoriSub,kode_pesanan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

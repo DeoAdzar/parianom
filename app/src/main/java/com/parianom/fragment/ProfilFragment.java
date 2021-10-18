@@ -141,9 +141,11 @@ public class ProfilFragment extends Fragment {
                                 if (jsonResult.getString("message").equals("exist")) {
                                     String status = jsonResult.getJSONObject("data").getString("status_toko");
                                     String id_penjual = jsonResult.getJSONObject("data").getString("id");
+                                    String nama = jsonResult.getJSONObject("data").getString("nama_toko");
                                     if (status.equals("1")) {
                                         Intent intent = new Intent(getContext(), Toko.class);
                                         intent.putExtra("id_penjual",id_penjual);
+                                        intent.putExtra("nama_toko",nama);
                                         startActivity(intent);
                                     } else if (status.equals("0")) {
                                         disapprove.setVisibility(View.VISIBLE);

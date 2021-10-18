@@ -127,14 +127,30 @@ public interface BaseApiService {
             @Field("kata_sandi") String kata_sandi
     );
     @FormUrlEncoded
-    @POST("getImgUser")
-    Call<ResponseBody> getImgUser(
-            @Field("id") int id
-    );
-    @FormUrlEncoded
     @POST("getProduk")
     Call<PenjualanResponseModel> getProduk(
             @Field("kategori") String kategori,
             @Field("kategori_sub") String kategori_sub
+    );
+    @FormUrlEncoded
+    @POST("inputPesanan")
+    Call<ResponseBody> inputPesanan(
+            @Field("id_produk") int id_produk,
+            @Field("id_user") int id_user,
+            @Field("id_penjual") int id_penjual,
+            @Field("jumlah") int jumlah,
+            @Field("kode_pesanan") String kode_pesanan,
+            @Field("total") int total
+    );
+    @FormUrlEncoded
+    @POST("scan")
+    Call<ResponseBody> scanning(
+            @Field("kode_pesanan") String kode_pesanan,
+            @Field("id_penjual") int id_penjual
+    );
+    @FormUrlEncoded
+    @POST("getConfirm")
+    Call<ResponseBody> getConfirm(
+            @Field("kode_pesanan") String kode_pesanan
     );
 }

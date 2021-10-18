@@ -51,9 +51,14 @@ public class DetailBarang extends AppCompatActivity {
             public void onClick(View view) {
                 if (sessionManager.checkLogin()==1){
                     Intent intent = new Intent(DetailBarang.this, Chat.class);
+                    intent.putExtra("id_penjual",getIntent().getStringExtra("id_penjual"));
+                    intent.putExtra("id_produk",getIntent().getStringExtra("id_produk"));
                     intent.putExtra("penjual", namaPenjual.getText());
+                    intent.putExtra("nama_produk", namaProduk.getText());
                     intent.putExtra("jumlah", jumlah.getText());
                     intent.putExtra("harga", hargaProduk.getText());
+                    intent.putExtra("alamat", alamatPrBeranda.getText());
+                    intent.putExtra("gambar", getIntent().getStringExtra("foto_profil"));
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(DetailBarang.this, Masuk.class);

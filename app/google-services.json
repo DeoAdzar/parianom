@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:193271913542:android:cddea2faf778286ce3be47",
+        "mobilesdk_app_id": "1:193271913542:android:313718736ed86d38e3be47",
         "android_client_info": {
           "package_name": "com.parianom"
         }
       },
       "oauth_client": [
         {
-          "client_id": "193271913542-qljff3o1dgpm1moatpju6ev3gjbrpob1.apps.googleusercontent.com",
+          "client_id": "193271913542-ti9h9bdoghi9aj49njkho4kb47hlu4fd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.parianom",

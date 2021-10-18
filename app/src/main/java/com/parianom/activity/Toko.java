@@ -31,7 +31,7 @@ public class Toko extends AppCompatActivity {
     LinearLayout tambah, dfJualan, transaksi, qr, profil;
     TextView namaToko;
     SessionManager sessionManager;
-    String id_penjual,nama,kecamatan,alamat ;
+    String id_penjual,nama;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +50,6 @@ public class Toko extends AppCompatActivity {
         namaToko = findViewById(R.id.namaToko);
         id_penjual = getIntent().getStringExtra("id_penjual");
         nama = getIntent().getStringExtra("nama_toko");
-        kecamatan = getIntent().getStringExtra("kecamatan");
-        alamat = getIntent().getStringExtra("alamat");
         namaToko.setText(nama);
         tambah();
         daftarJualan();

@@ -48,7 +48,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/namaUserChat"
+                        android:id="@+id/namaPenjualChat"
                         style="@style/fontTitleContent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

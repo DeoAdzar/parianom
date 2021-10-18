@@ -56,6 +56,8 @@ public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, DetailBarang.class);
+                intent.putExtra("id_produk",String.valueOf(PM.getId()));
+                intent.putExtra("id_penjual",String.valueOf(PM.getId_penjual()));
                 intent.putExtra("foto_profil", PM.getFoto_produk());
                 intent.putExtra("nama_produk", PM.getNama());
                 intent.putExtra("nama", PM.getNama_toko());

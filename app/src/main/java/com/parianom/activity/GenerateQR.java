@@ -1,11 +1,15 @@
 package com.parianom.activity;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
@@ -18,9 +22,20 @@ import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 import com.parianom.R;
+import com.parianom.api.BaseApiService;
+import com.parianom.api.UtilsApi;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GenerateQR extends AppCompatActivity {
     private ImageView qrCode;
@@ -45,11 +60,10 @@ public class GenerateQR extends AppCompatActivity {
         });
 
         qrCode = (ImageView) findViewById(R.id.qrCode);
+        kode = getIntent().getStringExtra("kode_pesanan");
 
-        Bundle bundle = getIntent().getExtras();
-
-        if(TextUtils.isEmpty(bundle.getString("kode"))) {
-            Toast.makeText(GenerateQR.this, "Masukan id pesanan", Toast.LENGTH_SHORT).show();
+        if(kode.equals("null")) {
+            Toast.makeText(GenerateQR.this, "Mohon Ulangi Pesanan", Toast.LENGTH_SHORT).show();
         } else {
             WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
             Display display = manager.getDefaultDisplay();
@@ -63,7 +77,7 @@ public class GenerateQR extends AppCompatActivity {
             int dimen = width < height ? width : height;
             dimen = dimen * 3/4;
 
-            qrgEncoder = new QRGEncoder(bundle.getString("kode"), null, QRGContents.Type.TEXT, dimen);
+            qrgEncoder = new QRGEncoder(kode, null, QRGContents.Type.TEXT, dimen);
 
             try {
                 bitmap = qrgEncoder.encodeAsBitmap();
@@ -72,35 +86,49 @@ public class GenerateQR extends AppCompatActivity {
                 Log.e("Tag", e.toString());
             }
         }
+        refresh();
 
-//        generate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(TextUtils.isEmpty(kode.getText().toString())) {
-//                    Toast.makeText(GenerateQR.this, "Masukan id pesanan", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
-//                    Display display = manager.getDefaultDisplay();
-//
-//                    Point point = new Point();
-//                    display.getSize(point);
-//
-//                    int width = point.x;
-//                    int height = point.y;
-//
-//                    int dimen = width < height ? width : height;
-//                    dimen = dimen * 3/4;
-//
-//                    qrgEncoder = new QRGEncoder(kode.getText().toString(), null, QRGContents.Type.TEXT, dimen);
-//
-//                    try {
-//                        bitmap = qrgEncoder.encodeAsBitmap();
-//                        qrCode.setImageBitmap(bitmap);
-//                    } catch (WriterException e) {
-//                        Log.e("Tag", e.toString());
-//                    }
-//                }
-//            }
-//        });
+    }
+
+    private void refresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getKonfirmasi();
+            }
+        },2000);
+    }
+
+    private void getKonfirmasi() {
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<ResponseBody> getConfirm = mApiService.getConfirm(kode);
+        getConfirm.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        JSONObject jsonResult = new JSONObject(response.body().string());
+                        if (jsonResult.getString("message").equals("exist")){
+                            Integer status = jsonResult.getInt("status");
+                            if (status.equals(1)){
+                                Intent i = new Intent(GenerateQR.this,DetailTransaksi.class);
+                                i.putExtra("kode_pesanan",kode);
+                                startActivity(i);
+                                finish();
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+            }
+        });
     }
 }

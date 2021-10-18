@@ -2,6 +2,7 @@ package com.parianom.activity;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.VIBRATE;
+import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,17 +12,29 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.parianom.R;
+import com.parianom.api.BaseApiService;
+import com.parianom.api.UtilsApi;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import eu.livotov.labs.android.camview.ScannerLiveView;
 import eu.livotov.labs.android.camview.scanner.decoder.zxing.ZXDecoder;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ScanQr extends AppCompatActivity {
     private ScannerLiveView camera;
-    private String kode;
+    private String id_penjual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +51,9 @@ public class ScanQr extends AppCompatActivity {
                 finish();
             }
         });
-
+        id_penjual = getIntent().getStringExtra("id_penjual");
         if (checkPermission()) {
-            Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onCreate: Permission Granted");
         } else {
             requestPermissions();
         }
@@ -49,28 +62,50 @@ public class ScanQr extends AppCompatActivity {
         camera.setScannerViewEventListener(new ScannerLiveView.ScannerViewEventListener() {
             @Override
             public void onScannerStarted(ScannerLiveView scanner) {
-                Toast.makeText(ScanQr.this, "Mulai Memindai", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onScannerStarted: Started");
             }
 
             @Override
             public void onScannerStopped(ScannerLiveView scanner) {
-                Toast.makeText(ScanQr.this, "Pemindaian Selesai", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onScannerStopped: Stoped");
             }
 
             @Override
             public void onScannerError(Throwable err) {
-                Toast.makeText(ScanQr.this, "Scanner Error", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onScannerError: "+err.getMessage());
             }
 
             @Override
             public void onCodeScanned(String data) {
-                if (data.equals("Sayur Kol")) {
-                    Toast.makeText(ScanQr.this, "Berhasil", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ScanQr.this, Transaksi.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(ScanQr.this, "Kode tidak ditemukan", Toast.LENGTH_SHORT).show();
-                }
+                BaseApiService mApiService = UtilsApi.getApiService();
+                Call<ResponseBody> cek = mApiService.scanning(data, Integer.parseInt(id_penjual));
+                cek.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()){
+                            try {
+                                JSONObject jsonResult = new JSONObject(response.body().string());
+                                if (jsonResult.getString("message").equals("success")){
+                                    Toast.makeText(ScanQr.this, "Scan Berhasil", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }else{
+                                    String message = jsonResult.getString("message");
+                                    Log.d(TAG, "onResponseScan: "+data+" "+id_penjual);
+                                    Toast.makeText(ScanQr.this, message, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
 //                Toast.makeText(ScanQr.this, data, Toast.LENGTH_SHORT).show();
             }
         });
