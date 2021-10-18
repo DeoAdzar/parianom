@@ -20,10 +20,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -90,7 +92,10 @@ public class DetailTransaksi extends AppCompatActivity {
                             namaPr.setText(namaProduk);
                             namaPn.setText(namaPenjual);
                             alamatPr.setText(alamatPenjual+" Kec. "+kecPenjual);
-                            hargaPr.setText("Rp."+hargaTotal);
+                            hargaPr.setText(hargaTotal);
+                            String harga = hargaPr.getText().toString();
+                            String resultRupiah = formatRupiah(Double.parseDouble(harga));
+                            hargaPr.setText(resultRupiah);
                             jumlahBeli.setText(jumlah);
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             Date date = null;
@@ -120,5 +125,10 @@ public class DetailTransaksi extends AppCompatActivity {
 
             }
         });
+    }
+    private String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeID);
+        return numberFormat.format(number);
     }
 }

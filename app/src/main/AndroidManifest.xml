@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- Permission to vibrate -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-x
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +15,9 @@ x
         android:supportsRtl="true"
         android:theme="@style/Theme.Parianom"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.BoardNoConnection"
+            android:exported="true" />
         <activity
             android:name=".activity.UbahKataSandi"
             android:exported="true" />
@@ -58,8 +61,9 @@ x
         <activity
             android:name=".activity.Konfirmasi"
             android:exported="true" />
-        <activity android:name=".activity.EditProduk"
-            android:exported="true"/>
+        <activity
+            android:name=".activity.EditProduk"
+            android:exported="true" />
         <activity
             android:name=".activity.FormBukaToko"
             android:exported="true"
