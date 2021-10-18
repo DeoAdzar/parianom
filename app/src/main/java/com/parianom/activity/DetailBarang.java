@@ -106,10 +106,8 @@ public class DetailBarang extends AppCompatActivity {
     private void display(int number) {
         jumlah.setText("" + number);
     }
-//    private void displayPrice(int number) {
-//        TextView priceTextView = (TextView) findViewById(R.id.price_textview);
-//        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
-//    }
+
+    //  Currency
     private String formatRupiah(Double number){
         Locale localeID = new Locale("in", "ID");
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeID);
