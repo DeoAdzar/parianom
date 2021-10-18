@@ -83,6 +83,8 @@
     <string name="kata_sandi">Kata Sandi</string>
     <string name="ubah_kata_sandi">Ubah Kata Sandi</string>
     <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="koneksi_jaringan_anda_terputus">Koneksi jaringan Anda terputus</string>
+    <string name="produk_belum_tersedia">Produk Belum Tersedia</string>
     <string-array name="kecamatan">
         <item>Dagangan</item>
         <item>Wungu</item>

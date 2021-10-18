@@ -19,7 +19,9 @@ import com.parianom.api.UtilsApi;
 import com.parianom.model.PenjualanModel;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.MyViewHolder> {
 
@@ -50,7 +52,10 @@ public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.
                 .into(holder.imgData);
         holder.namaData.setText(PM.getNama());
         holder.kecData.setText(PM.getKec());
-        holder.hargaData.setText("Rp."+String.valueOf(PM.getHarga()));
+        holder.hargaData.setText(String.valueOf(PM.getHarga()));
+        String harga = holder.hargaData.getText().toString();
+        String resultRupiah = formatRupiah(Double.parseDouble(harga));
+        holder.hargaData.setText(resultRupiah);
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,5 +95,10 @@ public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.
             penjual = (TextView) itemView.findViewById(R.id.namaPenjual);
             layout = (LinearLayout) itemView.findViewById(R.id.pilihData);
         }
+    }
+    private String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeID);
+        return numberFormat.format(number);
     }
 }

@@ -24,10 +24,12 @@ import com.parianom.model.PenjualanModel;
 import com.parianom.model.PesananModel;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyViewHolder> {
 
@@ -66,7 +68,11 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
             e.printStackTrace();
         }
         holder.alamat.setText(pm.getAlamat());
-        holder.totalHarga.setText("Rp. " + pm.getTotal());
+        holder.totalHarga.setText(String.valueOf(pm.getTotal()));
+
+        String harga = holder.totalHarga.getText().toString();
+        String resultRupiah = formatRupiah(Double.parseDouble(harga));
+        holder.totalHarga.setText(resultRupiah);
         Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK) + pm.getFoto_produk())
                 .placeholder(R.color.shimmer)
                 .into(holder.imgProduk);
@@ -202,5 +208,11 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
             layout = (LinearLayout) itemView.findViewById(R.id.cardRiwayat);
             detail = (Button) itemView.findViewById(R.id.btnDetailRiwayat);
         }
+    }
+
+    private String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeID);
+        return numberFormat.format(number);
     }
 }

@@ -21,9 +21,11 @@ import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -81,8 +83,14 @@ public class Chat extends AppCompatActivity {
         alamatProduk.setText(alamat);
         Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK+gambar))
         .placeholder(R.color.shimmer).into(imgProduk);
-        int jumlah = Integer.parseInt(jumlahBeli.getText().toString())*Integer.parseInt(harga);
-        hargaTotal.setText(String.valueOf(jumlah));
+
+        String hargaSt = formatRupiah(Double.parseDouble(harga));
+        hargaSatuan.setText(hargaSt);
+
+        int jumlah = Integer.parseInt(jumlahBeli.getText().toString())*Integer.parseInt(String.valueOf(harga));
+        String total = formatRupiah(Double.parseDouble(String.valueOf(jumlah)));
+        hargaTotal.setText(String.valueOf(total));
+
         String kode_pesanan = sdf.format(calendar.getTime())+ sdf2.format(calendar.getTime())+idPr+user.get(SessionManager.kunci_id_user);
         beli.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +102,7 @@ public class Chat extends AppCompatActivity {
                         Integer.parseInt(idPn),
                         Integer.parseInt(jumlahBeli.getText().toString()),
                         kode_pesanan,
-                        Integer.parseInt(hargaTotal.getText().toString()));
+                        Integer.parseInt(String.valueOf(jumlah)));
                 input.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -104,7 +112,7 @@ public class Chat extends AppCompatActivity {
                         Log.d(TAG, "onResponseParianom: "
                                 +idPr
                                 +idPn
-                                +jumlahBeli.getText().toString()+kode_pesanan+hargaTotal.getText().toString());
+                                +jumlahBeli.getText().toString()+kode_pesanan+jumlah);
                     }
 
                     @Override
@@ -114,5 +122,10 @@ public class Chat extends AppCompatActivity {
                 });
             }
         });
+    }
+    private String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeID);
+        return numberFormat.format(number);
     }
 }
