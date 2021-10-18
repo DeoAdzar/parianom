@@ -5,6 +5,8 @@ import com.parianom.model.KecamatanModel;
 import com.parianom.model.KecamatanResponseModel;
 import com.parianom.model.PenjualanModel;
 import com.parianom.model.PenjualanResponseModel;
+import com.parianom.model.PesananModel;
+import com.parianom.model.PesananResponseModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -152,5 +154,16 @@ public interface BaseApiService {
     @POST("getConfirm")
     Call<ResponseBody> getConfirm(
             @Field("kode_pesanan") String kode_pesanan
+    );
+    @FormUrlEncoded
+    @POST("getDetailPesananByUser")
+    Call<ResponseBody> getDetailPesananUser(
+            @Field("kode_pesanan") String kode_pesanan,
+            @Field("id_user") int id_user
+    );
+    @FormUrlEncoded
+    @POST("getPesananByUser")
+    Call<PesananResponseModel> getPesananUser(
+            @Field("id_user") int id_user
     );
 }

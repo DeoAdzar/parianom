@@ -29,13 +29,15 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_shop_bag"
                     android:layout_marginRight="10dp"/>
+
                 <TextView
                     android:id="@+id/namaProduk"
+                    style="@style/fontTitleContent"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    style="@style/fontTitleContent"
-                   android:gravity="center"
-                    android:text="Sayur Asem"/>
+                    android:gravity="center"
+                    android:text="Sayur Asem" />
+
                 <TextView
                     android:id="@+id/waktuBelanja"
                     android:layout_width="match_parent"
@@ -115,6 +117,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:cardBackgroundColor="@android:color/transparent"
                         android:outlineProvider="none">
                         <Button
                             android:id="@+id/btnDetailRiwayat"

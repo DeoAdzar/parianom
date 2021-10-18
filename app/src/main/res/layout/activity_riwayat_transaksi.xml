@@ -93,6 +93,7 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <ImageView
+                        android:id="@+id/imgDetailTr"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:background="@drawable/button"
