@@ -109,12 +109,16 @@ public class GenerateQR extends AppCompatActivity {
                     try {
                         JSONObject jsonResult = new JSONObject(response.body().string());
                         if (jsonResult.getString("message").equals("exist")){
-                            Integer status = jsonResult.getInt("status");
-                            if (status.equals(1)){
+                            String status = jsonResult.getJSONObject("data").getString("status");
+                            if (status.equals("1")){
                                 Intent i = new Intent(GenerateQR.this,DetailTransaksi.class);
                                 i.putExtra("kode_pesanan",kode);
                                 startActivity(i);
                                 finish();
+                            }else if (status.equals("null")){
+                                refresh();
+                            }else if (status.equals("0")){
+                                Toast.makeText(getApplicationContext(), "Produk ini tidak ada", Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (JSONException e) {

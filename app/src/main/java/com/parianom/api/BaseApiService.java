@@ -1,6 +1,7 @@
 package com.parianom.api;
 
 
+import com.parianom.model.DaftarJualanResponseModel;
 import com.parianom.model.KecamatanModel;
 import com.parianom.model.KecamatanResponseModel;
 import com.parianom.model.PenjualanModel;
@@ -135,6 +136,13 @@ public interface BaseApiService {
             @Field("kategori_sub") String kategori_sub
     );
     @FormUrlEncoded
+    @POST("getProdukByPenjual")
+    Call<DaftarJualanResponseModel> getProdukenjual(
+            @Field("id_penjual")int id_penjual,
+            @Field("kategori") String kategori,
+            @Field("kategori_sub") String kategori_sub
+    );
+    @FormUrlEncoded
     @POST("inputPesanan")
     Call<ResponseBody> inputPesanan(
             @Field("id_produk") int id_produk,
@@ -166,4 +174,5 @@ public interface BaseApiService {
     Call<PesananResponseModel> getPesananUser(
             @Field("id_user") int id_user
     );
+
 }

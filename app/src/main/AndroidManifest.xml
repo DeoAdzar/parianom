@@ -58,6 +58,8 @@ x
         <activity
             android:name=".activity.Konfirmasi"
             android:exported="true" />
+        <activity android:name=".activity.EditProduk"
+            android:exported="true"/>
         <activity
             android:name=".activity.FormBukaToko"
             android:exported="true"

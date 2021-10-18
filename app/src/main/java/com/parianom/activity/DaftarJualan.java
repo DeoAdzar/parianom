@@ -44,8 +44,6 @@ public class DaftarJualan extends AppCompatActivity {
                 finish();
             }
         });
-
-        addData();
         rv = (RecyclerView) findViewById(R.id.dfJualanRv);
 
         DfJualanRVAdapter adapter = new DfJualanRVAdapter(DaftarJualan.this, listDfJualan);
@@ -53,12 +51,6 @@ public class DaftarJualan extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         filter();
-    }
-
-    public void addData() {
-        listDfJualan = new ArrayList<>();
-        listDfJualan.add(new DaftarJualanModel("Sayur Kol", "16 September 2021", "Pangan", "Makanan", "Rp. 10.000", R.drawable.top));
-        listDfJualan.add(new DaftarJualanModel("Sayur Kol", "16 September 2021", "Kriya", "Hasil Kriya", "Rp. 10.000", R.drawable.top));
     }
 
     public void filter() {
@@ -92,5 +84,11 @@ public class DaftarJualan extends AppCompatActivity {
                 textPangan.setTextColor(nonAktif);
             }
         });
+    }
+    public void getPangan(){
+
+    }
+    public void getKriya(){
+
     }
 }
