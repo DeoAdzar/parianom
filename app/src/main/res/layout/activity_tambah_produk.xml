@@ -63,6 +63,8 @@
                     android:layout_height="wrap_content"
                     app:cardElevation="6dp"
                     app:cardCornerRadius="15dp"
+                    android:minHeight="125dp"
+                    android:minWidth="125dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="5dp">
                     <ImageView
@@ -70,9 +72,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_foto_produk"
-                        android:maxWidth="250dp"
+                        android:layout_gravity="center"
                         android:scaleType="centerInside"
-                        android:maxHeight="250dp"
                         android:adjustViewBounds="true"
                         android:backgroundTint="@color/white"/>
                 </androidx.cardview.widget.CardView>

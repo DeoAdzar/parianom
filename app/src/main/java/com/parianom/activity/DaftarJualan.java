@@ -1,29 +1,46 @@
 package com.parianom.activity;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parianom.R;
 import com.parianom.adapter.DfJualanRVAdapter;
+import com.parianom.adapter.PenjualanRvAdapter;
+import com.parianom.api.BaseApiService;
+import com.parianom.api.UtilsApi;
 import com.parianom.model.DaftarJualanModel;
+import com.parianom.model.DaftarJualanResponseModel;
+import com.parianom.model.PenjualanModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.internal.Util;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DaftarJualan extends AppCompatActivity {
-    private RecyclerView rv;
-    private List<DaftarJualanModel> listDfJualan;
+    private RecyclerView rvDaftarJualan;
+    private RecyclerView.Adapter adDaftarJualan;
+    private RecyclerView.LayoutManager lmDaftarJualan;
+    private List<DaftarJualanModel> daftarJualanModels = new ArrayList<>();
 
     LinearLayout layoutPangan, layoutKriya;
     private ImageView pangan, kriya;
@@ -44,11 +61,9 @@ public class DaftarJualan extends AppCompatActivity {
                 finish();
             }
         });
-        rv = (RecyclerView) findViewById(R.id.dfJualanRv);
+        rvDaftarJualan = (RecyclerView) findViewById(R.id.dfJualanRv);
 
-        DfJualanRVAdapter adapter = new DfJualanRVAdapter(DaftarJualan.this, listDfJualan);
-        rv.setLayoutManager(new LinearLayoutManager(DaftarJualan.this));
-        rv.setAdapter(adapter);
+
 
         filter();
     }
@@ -65,7 +80,7 @@ public class DaftarJualan extends AppCompatActivity {
 
         DrawableCompat.setTint(pangan.getDrawable(), aktif);
         textPangan.setTextColor(aktif);
-
+        getPangan();
         layoutPangan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +88,7 @@ public class DaftarJualan extends AppCompatActivity {
                 textPangan.setTextColor(aktif);
                 DrawableCompat.setTint(kriya.getDrawable(), nonAktif);
                 textKriya.setTextColor(nonAktif);
+                getPangan();
             }
         });
         layoutKriya.setOnClickListener(new View.OnClickListener() {
@@ -82,13 +98,50 @@ public class DaftarJualan extends AppCompatActivity {
                 textKriya.setTextColor(aktif);
                 DrawableCompat.setTint(pangan.getDrawable(), nonAktif);
                 textPangan.setTextColor(nonAktif);
+                getKriya();
             }
         });
     }
     public void getPangan(){
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<DaftarJualanResponseModel> get = mApiService.getProdukPenjual(Integer.parseInt(getIntent().getStringExtra("id_penjual")),"Pangan");
+        get.enqueue(new Callback<DaftarJualanResponseModel>() {
+            @Override
+            public void onResponse(Call<DaftarJualanResponseModel> call, Response<DaftarJualanResponseModel> response) {
+                daftarJualanModels=response.body().getData();
+                lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
+                rvDaftarJualan.setLayoutManager(lmDaftarJualan);
+                adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(),daftarJualanModels);
+                rvDaftarJualan.setAdapter(adDaftarJualan);
+                adDaftarJualan.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onFailure(Call<DaftarJualanResponseModel> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     public void getKriya(){
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<DaftarJualanResponseModel> get = mApiService.getProdukPenjual(Integer.parseInt(getIntent().getStringExtra("id_penjual")),"Kriya");
+        get.enqueue(new Callback<DaftarJualanResponseModel>() {
+            @Override
+            public void onResponse(Call<DaftarJualanResponseModel> call, Response<DaftarJualanResponseModel> response) {
+                daftarJualanModels=response.body().getData();
+                lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
+                rvDaftarJualan.setLayoutManager(lmDaftarJualan);
+                adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(),daftarJualanModels);
+                rvDaftarJualan.setAdapter(adDaftarJualan);
+                adDaftarJualan.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onFailure(Call<DaftarJualanResponseModel> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

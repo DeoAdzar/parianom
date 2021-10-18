@@ -2,8 +2,8 @@ package com.parianom.model;
 
 public class PenjualanModel {
 
-   String kategori,kategori_sub,nama,foto_produk,timestamp,nama_toko,alamat,kec;
-   int id,id_penjual,harga,stok,id_user;
+   private String kategori,kategori_sub,nama,foto_produk,timestamp,nama_toko,alamat,kec;
+   private int id,id_penjual,harga,stok,id_user;
 
    public String getKategori() {
       return kategori;

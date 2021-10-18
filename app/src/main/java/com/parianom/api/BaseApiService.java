@@ -137,10 +137,9 @@ public interface BaseApiService {
     );
     @FormUrlEncoded
     @POST("getProdukByPenjual")
-    Call<DaftarJualanResponseModel> getProdukenjual(
+    Call<DaftarJualanResponseModel> getProdukPenjual(
             @Field("id_penjual")int id_penjual,
-            @Field("kategori") String kategori,
-            @Field("kategori_sub") String kategori_sub
+            @Field("kategori") String kategori
     );
     @FormUrlEncoded
     @POST("inputPesanan")

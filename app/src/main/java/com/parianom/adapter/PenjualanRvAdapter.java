@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,7 +62,7 @@ public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, DetailBarang.class);
-                intent.putExtra("id_produk",String.valueOf(PM.getId()));
+                intent.putExtra("id",String.valueOf(PM.getId()));
                 intent.putExtra("id_penjual",String.valueOf(PM.getId_penjual()));
                 intent.putExtra("foto_profil", PM.getFoto_produk());
                 intent.putExtra("nama_produk", PM.getNama());
@@ -70,6 +71,7 @@ public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.
                 intent.putExtra("stok", String.valueOf(PM.getStok()));
                 intent.putExtra("harga_produk", String.valueOf(PM.getHarga()));
                 mContext.startActivity(intent);
+
             }
         });
     }

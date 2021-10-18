@@ -2,63 +2,78 @@ package com.parianom.model;
 
 public class DaftarJualanModel {
 
-    private String namaProdukJual, tglProdukJual, kategoriProdukJual, jenisProdukJual, hargaProdukJual;
-    private int imgProdukJual;
+    private String nama_toko,nama, timestamp, kategori, kategori_sub, harga,foto_produk,stok;
+    private int id;
 
-    public DaftarJualanModel(String namaProdukJual, String tglProdukJual, String kategoriProdukJual, String jenisProdukJual, String hargaProdukJual, int imgProdukJual) {
-        this.namaProdukJual = namaProdukJual;
-        this.tglProdukJual = tglProdukJual;
-        this.kategoriProdukJual = kategoriProdukJual;
-        this.jenisProdukJual = jenisProdukJual;
-        this.hargaProdukJual = hargaProdukJual;
-        this.imgProdukJual = imgProdukJual;
+    public String getNama_toko() {
+        return nama_toko;
     }
 
-    public String getNamaProdukJual() {
-        return namaProdukJual;
+    public void setNama_toko(String nama_toko) {
+        this.nama_toko = nama_toko;
     }
 
-    public void setNamaProdukJual(String namaProdukJual) {
-        this.namaProdukJual = namaProdukJual;
+    public String getNama() {
+        return nama;
     }
 
-    public String getTglProdukJual() {
-        return tglProdukJual;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public void setTglProdukJual(String tglProdukJual) {
-        this.tglProdukJual = tglProdukJual;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public String getKategoriProdukJual() {
-        return kategoriProdukJual;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public void setKategoriProdukJual(String kategoriProdukJual) {
-        this.kategoriProdukJual = kategoriProdukJual;
+    public String getKategori() {
+        return kategori;
     }
 
-    public String getJenisProdukJual() {
-        return jenisProdukJual;
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
     }
 
-    public void setJenisProdukJual(String jenisProdukJual) {
-        this.jenisProdukJual = jenisProdukJual;
+    public String getKategori_sub() {
+        return kategori_sub;
     }
 
-    public String getHargaProdukJual() {
-        return hargaProdukJual;
+    public void setKategori_sub(String kategori_sub) {
+        this.kategori_sub = kategori_sub;
     }
 
-    public void setHargaProdukJual(String hargaProdukJual) {
-        this.hargaProdukJual = hargaProdukJual;
+    public String getHarga() {
+        return harga;
     }
 
-    public int getImgProdukJual() {
-        return imgProdukJual;
+    public void setHarga(String harga) {
+        this.harga = harga;
     }
 
-    public void setImgProdukJual(int imgProdukJual) {
-        this.imgProdukJual = imgProdukJual;
+    public String getFoto_produk() {
+        return foto_produk;
+    }
+
+    public void setFoto_produk(String foto_produk) {
+        this.foto_produk = foto_produk;
+    }
+
+    public String getStok() {
+        return stok;
+    }
+
+    public void setStok(String stok) {
+        this.stok = stok;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -190,10 +190,10 @@ public class BerandaFragment extends Fragment {
                 if (penjualanModelList.isEmpty()){
                     Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
                 }else{
-                    lmBeranda = new GridLayoutManager(getContext(),2);
-                    rvBeranda.setLayoutManager(lmBeranda);
-                    adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
-                    rvBeranda.setAdapter(adBeranda);
+                        lmBeranda = new GridLayoutManager(getContext(),2);
+                        rvBeranda.setLayoutManager(lmBeranda);
+                        adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
+                        rvBeranda.setAdapter(adBeranda);
                 }
 
             }
@@ -279,7 +279,7 @@ public class BerandaFragment extends Fragment {
     }
     public void getHasilKriya(){
         BaseApiService mApiService = UtilsApi.getApiService();
-        Call<PenjualanResponseModel> get = mApiService.getProduk("Kriya","Hasil");
+        Call<PenjualanResponseModel> get = mApiService.getProduk("Kriya","Hasil Kriya");
         get.enqueue(new Callback<PenjualanResponseModel>() {
             @Override
             public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {

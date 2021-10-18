@@ -2,6 +2,7 @@ package com.parianom.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.activity.EditProduk;
 import com.parianom.R;
+import com.parianom.api.UtilsApi;
 import com.parianom.model.DaftarJualanModel;
+import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.MyViewHolder> {
@@ -42,23 +47,31 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final DaftarJualanModel dfJualanModel = mData.get(position);
 
-        holder.namaPr.setText(mData.get(position).getNamaProdukJual());
-        holder.titlePr.setText(mData.get(position).getNamaProdukJual());
-        holder.hargaPr.setText(mData.get(position).getHargaProdukJual());
-        holder.kategori.setText(mData.get(position).getKategoriProdukJual());
-        holder.jenis.setText(mData.get(position).getJenisProdukJual());
-        holder.tanggal.setText(mData.get(position).getTglProdukJual());
-        holder.img.setImageResource(mData.get(position).getImgProdukJual());
+        holder.namaPr.setText(dfJualanModel.getNama_toko());
+        holder.titlePr.setText(dfJualanModel.getNama());
+        holder.hargaPr.setText(dfJualanModel.getHarga());
+        holder.kategori.setText(dfJualanModel.getKategori());
+        holder.jenis.setText(dfJualanModel.getKategori_sub());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        String convertedDate = null;
+        try {
+            date = dateFormat.parse(dfJualanModel.getTimestamp());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
+            convertedDate = simpleDateFormat.format(date);
+            holder.tanggal.setText(convertedDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK+dfJualanModel.getFoto_produk()))
+                .placeholder(R.color.shimmer).into(holder.img);
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, EditProduk.class);
-                intent.putExtra("namaPr", dfJualanModel.getNamaProdukJual());
-                intent.putExtra("imgPr", dfJualanModel.getImgProdukJual());
-                intent.putExtra("hargaPr", dfJualanModel.getHargaProdukJual());
-                intent.putExtra("kategori", dfJualanModel.getKategoriProdukJual());
-                intent.putExtra("jenis", dfJualanModel.getJenisProdukJual());
+                intent.putExtra("id_produk", String.valueOf(dfJualanModel.getId()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }
         });
