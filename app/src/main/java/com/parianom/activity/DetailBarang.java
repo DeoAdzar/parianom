@@ -1,6 +1,7 @@
 package com.parianom.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,9 @@ import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class DetailBarang extends AppCompatActivity {
     Button decrement, increment, chat;
     int quantity = 1;
@@ -26,6 +30,17 @@ public class DetailBarang extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_barang);
         sessionManager = new SessionManager(getApplicationContext());
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         chat = (Button) findViewById(R.id.btnChat);
         imgDetailPr = (ImageView) findViewById(R.id.imgDetailPr);
@@ -43,6 +58,9 @@ public class DetailBarang extends AppCompatActivity {
         Picasso.get().load(UtilsApi.IMAGES_PRODUK + getIntent().getStringExtra("foto_profil"))
                 .placeholder(R.drawable.ic_person)
                 .into(imgDetailPr);
+        String harga = hargaProduk.getText().toString();
+        String resultRupiah = formatRupiah(Double.parseDouble(harga));
+        hargaProduk.setText(resultRupiah);
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +72,7 @@ public class DetailBarang extends AppCompatActivity {
                     intent.putExtra("penjual", namaPenjual.getText());
                     intent.putExtra("nama_produk", namaProduk.getText());
                     intent.putExtra("jumlah", jumlah.getText());
-                    intent.putExtra("harga", hargaProduk.getText());
+                    intent.putExtra("harga", harga);
                     intent.putExtra("alamat", alamatPrBeranda.getText());
                     intent.putExtra("gambar", getIntent().getStringExtra("foto_profil"));
                     startActivity(intent);
@@ -92,4 +110,9 @@ public class DetailBarang extends AppCompatActivity {
 //        TextView priceTextView = (TextView) findViewById(R.id.price_textview);
 //        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
 //    }
+    private String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeID);
+        return numberFormat.format(number);
+    }
 }
