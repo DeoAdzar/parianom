@@ -77,10 +77,12 @@ public class DaftarJualan extends AppCompatActivity {
         textKriya = findViewById(R.id.textKriyaDfJual);
         int nonAktif = ContextCompat.getColor(DaftarJualan.this, R.color.label_input);
         int aktif = ContextCompat.getColor(DaftarJualan.this, R.color.primer);
-
-        DrawableCompat.setTint(pangan.getDrawable(), aktif);
-        textPangan.setTextColor(aktif);
         getPangan();
+        DrawableCompat.setTint(pangan.getDrawable(), aktif);
+        DrawableCompat.setTint(kriya.getDrawable(), nonAktif);
+        textPangan.setTextColor(aktif);
+        textKriya.setTextColor(nonAktif);
+
         layoutPangan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,5 +145,11 @@ public class DaftarJualan extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        filter();
     }
 }

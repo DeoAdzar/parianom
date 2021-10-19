@@ -163,6 +163,11 @@ public interface BaseApiService {
             @Field("kategori") String kategori
     );
     @FormUrlEncoded
+    @POST("getProdukById")
+    Call<ResponseBody> getProdukById(
+            @Field("id") int id_produk
+    );
+    @FormUrlEncoded
     @POST("inputPesanan")
     Call<ResponseBody> inputPesanan(
             @Field("id_produk") int id_produk,
