@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.activity.EditProduk;
 import com.parianom.R;
+import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
 import com.parianom.model.DaftarJualanModel;
 import com.squareup.picasso.Picasso;
@@ -22,6 +24,11 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.MyViewHolder> {
 
@@ -73,6 +80,24 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
                 intent.putExtra("id_produk", String.valueOf(dfJualanModel.getId()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
+            }
+        });
+        holder.hapus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BaseApiService mApiService = UtilsApi.getApiService();
+                Call<ResponseBody> delete = mApiService.delete(dfJualanModel.getId());
+                delete.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Toast.makeText(mContext, "sukses", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

@@ -8,6 +8,7 @@ import com.parianom.model.PenjualanModel;
 import com.parianom.model.PenjualanResponseModel;
 import com.parianom.model.PesananModel;
 import com.parianom.model.PesananResponseModel;
+import com.parianom.model.TransaksiResponseModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -189,6 +190,11 @@ public interface BaseApiService {
             @Field("kode_pesanan") String kode_pesanan
     );
     @FormUrlEncoded
+    @POST("delete")
+    Call<ResponseBody> delete(
+            @Field("id_produk") int id_produk
+    );
+    @FormUrlEncoded
     @POST("getDetailPesananByUser")
     Call<ResponseBody> getDetailPesananUser(
             @Field("kode_pesanan") String kode_pesanan,
@@ -199,5 +205,9 @@ public interface BaseApiService {
     Call<PesananResponseModel> getPesananUser(
             @Field("id_user") int id_user
     );
-
+    @FormUrlEncoded
+    @POST("getPesananByPenjual")
+    Call<TransaksiResponseModel> getPesananPenjual(
+            @Field("id_penjual") int id_penjual
+    );
 }

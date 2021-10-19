@@ -1,6 +1,7 @@
 package com.parianom.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.R;
+import com.parianom.api.UtilsApi;
 import com.parianom.model.PenjualanModel;
+import com.parianom.model.TransaksiModel;
+import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.MyViewHolder> {
 
     Context mContext;
-    List<PenjualanModel> mData;
+    List<TransaksiModel> mData;
 
-    public TransaksiRVAdapter(Context mContext, List<PenjualanModel> mData) {
+    public TransaksiRVAdapter(Context mContext, List<TransaksiModel> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -38,15 +44,26 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final PenjualanModel tr = mData.get(position);
+        final TransaksiModel tr = mData.get(position);
 
-//        holder.namaTransaksi.setText(mData.get(position).getTitleProduk());
-//        holder.subNamaTransaksi.setText(mData.get(position).getTitleProduk());
-//        holder.pembeli.setText(mData.get(position).getPembeli());
-//        holder.jumlah.setText(String.valueOf(mData.get(position).getJumlahBelanja()));
-//        holder.hargaTransaksi.setText(mData.get(position).getHargaProduk());
-//        holder.wktTransaksi.setText(mData.get(position).getWaktuBelanja());
-//        holder.imgTransaksi.setImageResource(mData.get(position).getImgProduk());
+        holder.namaTransaksi.setText("#"+tr.getKode_pesanan());
+        holder.subNamaTransaksi.setText(tr.getNama());
+        holder.pembeli.setText(tr.getNama_lengkap());
+        holder.jumlah.setText(String.valueOf(tr.getJumlah()));
+        holder.hargaTransaksi.setText(String.valueOf(tr.getTotal()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        String convertedDate = null;
+        try {
+            date = dateFormat.parse(tr.getTimestamp());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
+            convertedDate = simpleDateFormat.format(date);
+            holder.wktTransaksi.setText(convertedDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK+tr.getFoto_produk()))
+                .placeholder(R.color.shimmer).into(holder.imgTransaksi);
 
         holder.selesai.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +94,7 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
             super(itemView);
 
             namaTransaksi = (TextView) itemView.findViewById(R.id.titleTransaksi);
-            subNamaTransaksi = (TextView) itemView.findViewById(R.id.titleTransaksi);
+            subNamaTransaksi = (TextView) itemView.findViewById(R.id.namaTransaksi);
             pembeli = (TextView) itemView.findViewById(R.id.pembeli);
             jumlah = (TextView) itemView.findViewById(R.id.jumlahTransaksi);
             hargaTransaksi = (TextView) itemView.findViewById(R.id.hargaTotalTransaksi);
