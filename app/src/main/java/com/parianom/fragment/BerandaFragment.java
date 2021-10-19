@@ -2,6 +2,7 @@ package com.parianom.fragment;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -47,7 +48,7 @@ public class BerandaFragment extends Fragment {
     private List<PenjualanModel> penjualanModelList = new ArrayList<>();
 
     private FrameLayout fragment;
-    private LinearLayout pangan, kriya, jenisPangan, jenisKriya;
+    private LinearLayout pangan, kriya, jenisPangan, jenisKriya, empty;
     private ImageView dPangan, dKriya;
     CardView makanan, minuman, camilan, bBPangan, hasilKriya, bBKriya;
     private TextView titlePangan, titleKriya, jnsMakanan, jnsMinuman, jnsCamilan, jnsBBPangan, jnsHasilKriya, jnsBBKriya;
@@ -63,6 +64,7 @@ public class BerandaFragment extends Fragment {
         kriya = (LinearLayout) v.findViewById(R.id.btnKriya);
         jenisPangan = (LinearLayout) v.findViewById(R.id.jenisPangan);
         jenisKriya = (LinearLayout) v.findViewById(R.id.jenisKriya);
+        empty = (LinearLayout) v.findViewById(R.id.empty);
         dPangan = (ImageView) v.findViewById(R.id.drawablePangan);
         dKriya = (ImageView) v.findViewById(R.id.drawableKriya);
         titlePangan = (TextView) v.findViewById(R.id.titlePangan);
@@ -185,10 +187,10 @@ public class BerandaFragment extends Fragment {
         return v;
     }
     public void getMakanan(){
-        rvBeranda.setVisibility(View.GONE);
-        shimmer.startShimmer();
-        shimmer.stopShimmer();
-        shimmer.setVisibility(View.VISIBLE);
+//        rvBeranda.setVisibility(View.GONE);
+//        shimmer.startShimmer();
+//        shimmer.stopShimmer();
+//        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Makanan");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -196,6 +198,7 @@ public class BerandaFragment extends Fragment {
             public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
                 penjualanModelList = response.body().getData();
                 if (penjualanModelList.isEmpty()){
+
                     Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
                 }else{
                         lmBeranda = new GridLayoutManager(getContext(),2);
@@ -219,10 +222,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getMinuman(){
-        rvBeranda.setVisibility(View.GONE);
-        shimmer.startShimmer();
-        shimmer.stopShimmer();
-        shimmer.setVisibility(View.VISIBLE);
+//        rvBeranda.setVisibility(View.GONE);
+//        shimmer.startShimmer();
+//        shimmer.stopShimmer();
+//        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Minuman");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -230,7 +233,8 @@ public class BerandaFragment extends Fragment {
             public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
                 penjualanModelList = response.body().getData();
                 if (penjualanModelList.isEmpty()){
-                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                    empty.setVisibility(View.VISIBLE);
+                    rvBeranda.setVisibility(View.GONE);
                 }else{
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);
@@ -251,10 +255,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getCamilan(){
-        rvBeranda.setVisibility(View.GONE);
-        shimmer.startShimmer();
-        shimmer.stopShimmer();
-        shimmer.setVisibility(View.VISIBLE);
+//        rvBeranda.setVisibility(View.GONE);
+//        shimmer.startShimmer();
+//        shimmer.stopShimmer();
+//        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Camilan");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -262,7 +266,8 @@ public class BerandaFragment extends Fragment {
             public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
                 penjualanModelList = response.body().getData();
                 if (penjualanModelList.isEmpty()){
-                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                    empty.setVisibility(View.VISIBLE);
+                    rvBeranda.setVisibility(View.GONE);
                 }else{
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);
@@ -283,10 +288,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getBBPangan(){
-        rvBeranda.setVisibility(View.GONE);
-        shimmer.startShimmer();
-        shimmer.stopShimmer();
-        shimmer.setVisibility(View.VISIBLE);
+//        rvBeranda.setVisibility(View.GONE);
+//        shimmer.startShimmer();
+//        shimmer.stopShimmer();
+//        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Bahan Baku");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -294,7 +299,8 @@ public class BerandaFragment extends Fragment {
             public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
                 penjualanModelList = response.body().getData();
                 if (penjualanModelList.isEmpty()){
-                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                    empty.setVisibility(View.VISIBLE);
+                    rvBeranda.setVisibility(View.GONE);
                 }else{
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);
@@ -315,10 +321,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getHasilKriya(){
-        rvBeranda.setVisibility(View.GONE);
-        shimmer.startShimmer();
-        shimmer.stopShimmer();
-        shimmer.setVisibility(View.VISIBLE);
+//        rvBeranda.setVisibility(View.GONE);
+//        shimmer.startShimmer();
+//        shimmer.stopShimmer();
+//        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Kriya","Hasil Kriya");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -326,7 +332,8 @@ public class BerandaFragment extends Fragment {
             public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
                 penjualanModelList = response.body().getData();
                 if (penjualanModelList.isEmpty()){
-                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                    empty.setVisibility(View.VISIBLE);
+                    rvBeranda.setVisibility(View.GONE);
                 }else{
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);
@@ -347,10 +354,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getBBKriya(){
-        rvBeranda.setVisibility(View.GONE);
-        shimmer.startShimmer();
-        shimmer.stopShimmer();
-        shimmer.setVisibility(View.VISIBLE);
+//        rvBeranda.setVisibility(View.GONE);
+//        shimmer.startShimmer();
+//        shimmer.stopShimmer();
+//        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Kriya","Bahan Baku");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -358,7 +365,8 @@ public class BerandaFragment extends Fragment {
             public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
                 penjualanModelList = response.body().getData();
                 if (penjualanModelList.isEmpty()){
-                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                    empty.setVisibility(View.VISIBLE);
+                    rvBeranda.setVisibility(View.GONE);
                 }else{
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);

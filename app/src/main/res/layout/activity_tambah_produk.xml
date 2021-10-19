@@ -110,7 +110,6 @@
                     android:paddingVertical="10dp"
                     android:layout_marginVertical="3dp"
                     android:entries="@array/jenisPangan"
-                    style="@style/fontEdit"
                     android:spinnerMode="dropdown"
                     android:backgroundTint="@color/label_input"/>
                 <TextView

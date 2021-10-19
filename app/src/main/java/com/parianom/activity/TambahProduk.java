@@ -107,7 +107,7 @@ public class TambahProduk extends AppCompatActivity {
     }
     public void change(){
         ArrayAdapter<CharSequence> adapterPangan = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
-        adapterPangan.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        adapterPangan.setDropDownViewResource(R.layout.custom_spinner_dropdown);
 
 //        jenis.setPadding(10, 0, 0, 0);
         ArrayAdapter<CharSequence> adapterKriya = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisKriya, R.layout.custom_spinner);

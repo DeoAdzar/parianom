@@ -35,8 +35,7 @@
             android:exported="true" />
         <activity
             android:name=".activity.ProfilToko"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize|stateUnchanged" />
+            android:exported="true" />
         <activity
             android:name=".activity.ScanQr"
             android:exported="true" />
