@@ -72,6 +72,27 @@ public interface BaseApiService {
             ,@Part("stok") RequestBody stok
     );
     @Multipart
+    @POST("updateProduk")
+    Call<ResponseBody> updateProduk(
+            @Part MultipartBody.Part foto_produk
+            ,@Part("kategori") RequestBody kategori
+            ,@Part("kategori_sub") RequestBody kategori_sub
+            ,@Part("nama") RequestBody nama
+            ,@Part("harga") RequestBody harga
+            ,@Part("stok") RequestBody stok
+            ,@Part("id") RequestBody id_produk
+    );
+    @FormUrlEncoded
+    @POST("updateProduk")
+    Call<ResponseBody> updateProduk2(
+            @Field("kategori") String kategori
+            ,@Field("kategori_sub") String kategori_sub
+            ,@Field("nama") String nama
+            ,@Field("harga") int harga
+            ,@Field("stok") int stok
+            ,@Field("id") int id_produk
+    );
+    @Multipart
     @POST("updatePenjual")
     Call<ResponseBody> updatePenjual(
             @Part MultipartBody.Part foto_toko
