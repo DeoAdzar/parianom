@@ -218,4 +218,10 @@ public class ProfilFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getResourceProfil();
+    }
 }

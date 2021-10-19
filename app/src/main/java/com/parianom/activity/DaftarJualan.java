@@ -153,8 +153,8 @@ public class DaftarJualan extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onRestart() {
+        super.onRestart();
         filter();
     }
 }

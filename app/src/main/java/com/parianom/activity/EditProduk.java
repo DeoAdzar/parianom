@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,7 +89,7 @@ public class EditProduk extends AppCompatActivity {
                 requestPermission();
             }
         });
-
+        change();
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,7 +170,27 @@ public class EditProduk extends AppCompatActivity {
             }
         });
     }
+    public void change(){
+        ArrayAdapter<CharSequence> adapterPangan = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
+        adapterPangan.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        ArrayAdapter<CharSequence> adapterKriya = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisKriya, R.layout.custom_spinner);
+        adapterKriya.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        kategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0){
+                    jenis.setAdapter(adapterPangan);
+                }else{
+                    jenis.setAdapter(adapterKriya);
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
     private void inputItem() {
         if (nama.getText().toString().isEmpty()
                 || harga.getText().toString().isEmpty()

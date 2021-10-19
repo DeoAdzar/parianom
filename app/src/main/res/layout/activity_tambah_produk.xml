@@ -58,7 +58,6 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardImgTambahPr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cardElevation="6dp"
@@ -74,6 +73,8 @@
                         android:src="@drawable/ic_foto_produk"
                         android:layout_gravity="center"
                         android:scaleType="centerInside"
+                        android:maxWidth="200dp"
+                        android:maxHeight="200dp"
                         android:adjustViewBounds="true"
                         android:backgroundTint="@color/white"/>
                 </androidx.cardview.widget.CardView>
