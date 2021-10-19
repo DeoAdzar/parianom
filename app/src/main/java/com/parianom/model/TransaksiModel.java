@@ -3,7 +3,15 @@ package com.parianom.model;
 public class TransaksiModel {
 
     private String nama_lengkap,timestamp,nama,foto_produk,kode_pesanan;
-    private int jumlah,id,status,total;
+    private int jumlah,id,status,total,id_penjual;
+
+    public int getId_penjual() {
+        return id_penjual;
+    }
+
+    public void setId_penjual(int id_penjual) {
+        this.id_penjual = id_penjual;
+    }
 
     public int getTotal() {
         return total;
