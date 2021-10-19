@@ -82,14 +82,20 @@ public class BerandaFragment extends Fragment {
         jnsHasilKriya = (TextView) v.findViewById(R.id.textHasilKriya);
         jnsBBKriya = (TextView) v.findViewById(R.id.textBBakuKriya);
         shimmer = (ShimmerFrameLayout) v.findViewById(R.id.shimmerBeranda);
-
         int nonAktif = ContextCompat.getColor(getContext(), R.color.label_input);
         int aktif = ContextCompat.getColor(getContext(), R.color.primer);
+        shimmer.showShimmer(true);
+        shimmer.startShimmer();
+        shimmer.setVisibility(View.VISIBLE);
         getMakanan();
         // button pangan
         pangan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rvBeranda.setVisibility(View.GONE);
+                shimmer.startShimmer();
+                shimmer.showShimmer(true);
+                shimmer.setVisibility(View.VISIBLE);
                 DrawableCompat.setTint(dPangan.getDrawable(), aktif);
                 titlePangan.setTextColor(aktif);
                 DrawableCompat.setTint(dKriya.getDrawable(), nonAktif);
@@ -109,6 +115,10 @@ public class BerandaFragment extends Fragment {
         kriya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rvBeranda.setVisibility(View.GONE);
+                shimmer.startShimmer();
+                shimmer.showShimmer(true);
+                shimmer.setVisibility(View.VISIBLE);
                 DrawableCompat.setTint(dKriya.getDrawable(), aktif);
                 titleKriya.setTextColor(aktif);
                 DrawableCompat.setTint(dPangan.getDrawable(), nonAktif);
@@ -124,6 +134,10 @@ public class BerandaFragment extends Fragment {
         makanan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rvBeranda.setVisibility(View.GONE);
+                shimmer.startShimmer();
+                shimmer.showShimmer(true);
+                shimmer.setVisibility(View.VISIBLE);
                 jnsMakanan.setTextColor(aktif);
                 jnsMinuman.setTextColor(nonAktif);
                 jnsCamilan.setTextColor(nonAktif);
@@ -135,6 +149,10 @@ public class BerandaFragment extends Fragment {
         minuman.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rvBeranda.setVisibility(View.GONE);
+                shimmer.startShimmer();
+                shimmer.showShimmer(true);
+                shimmer.setVisibility(View.VISIBLE);
                 jnsMinuman.setTextColor(aktif);
                 jnsMakanan.setTextColor(nonAktif);
                 jnsCamilan.setTextColor(nonAktif);
@@ -146,6 +164,10 @@ public class BerandaFragment extends Fragment {
         camilan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rvBeranda.setVisibility(View.GONE);
+                shimmer.startShimmer();
+                shimmer.showShimmer(true);
+                shimmer.setVisibility(View.VISIBLE);
                 jnsCamilan.setTextColor(aktif);
                 jnsMakanan.setTextColor(nonAktif);
                 jnsMinuman.setTextColor(nonAktif);
@@ -157,6 +179,10 @@ public class BerandaFragment extends Fragment {
         jnsBBPangan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rvBeranda.setVisibility(View.GONE);
+                shimmer.startShimmer();
+                shimmer.showShimmer(true);
+                shimmer.setVisibility(View.VISIBLE);
                 jnsBBPangan.setTextColor(aktif);
                 jnsMakanan.setTextColor(nonAktif);
                 jnsMinuman.setTextColor(nonAktif);
@@ -168,6 +194,10 @@ public class BerandaFragment extends Fragment {
         jnsHasilKriya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rvBeranda.setVisibility(View.GONE);
+                shimmer.startShimmer();
+                shimmer.showShimmer(true);
+                shimmer.setVisibility(View.VISIBLE);
                 jnsHasilKriya.setTextColor(aktif);
                 jnsBBKriya.setTextColor(nonAktif);
                 getHasilKriya();
@@ -177,6 +207,10 @@ public class BerandaFragment extends Fragment {
         jnsBBKriya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rvBeranda.setVisibility(View.GONE);
+                shimmer.startShimmer();
+                shimmer.showShimmer(true);
+                shimmer.setVisibility(View.VISIBLE);
                 jnsBBKriya.setTextColor(aktif);
                 jnsHasilKriya.setTextColor(nonAktif);
                 getBBKriya();
@@ -187,10 +221,7 @@ public class BerandaFragment extends Fragment {
         return v;
     }
     public void getMakanan(){
-//        rvBeranda.setVisibility(View.GONE);
-//        shimmer.startShimmer();
-//        shimmer.stopShimmer();
-//        shimmer.setVisibility(View.VISIBLE);
+
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Makanan");
         get.enqueue(new Callback<PenjualanResponseModel>() {

@@ -75,8 +75,12 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
 //                intent.putExtra("kategori", dfJualanModel.getKategoriProdukJual());
 //                intent.putExtra("jenis", dfJualanModel.getJenisProdukJual());
 //                mContext.startActivity(intent);
+                selesai(tr);
             }
         });
+    }
+
+    private void selesai(TransaksiModel tr) {
     }
 
     @Override
@@ -103,5 +107,9 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
             selesai = (Button) itemView.findViewById(R.id.btnSelesaiTransaksi);
             batalkan = (Button) itemView.findViewById(R.id.btnBatalTransaksi);
         }
+    }
+    
+    public void batal(){
+        
     }
 }
