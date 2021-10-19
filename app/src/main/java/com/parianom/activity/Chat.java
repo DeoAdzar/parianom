@@ -109,6 +109,7 @@ public class Chat extends AppCompatActivity {
                         Intent i = new Intent(Chat.this,GenerateQR.class);
                         i.putExtra("kode_pesanan",kode_pesanan);
                         startActivity(i);
+                        finish();
                         Log.d(TAG, "onResponseParianom: "
                                 +idPr
                                 +idPn

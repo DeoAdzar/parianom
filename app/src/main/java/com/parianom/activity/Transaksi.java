@@ -7,17 +7,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.parianom.R;
 import com.parianom.adapter.TransaksiRVAdapter;
+import com.parianom.api.BaseApiService;
+import com.parianom.api.UtilsApi;
 import com.parianom.model.PenjualanModel;
+import com.parianom.model.TransaksiModel;
+import com.parianom.model.TransaksiResponseModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Transaksi extends AppCompatActivity {
     private RecyclerView rv;
-    private List<PenjualanModel> listTransaksi;
+    private List<TransaksiModel> listTransaksi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +45,30 @@ public class Transaksi extends AppCompatActivity {
             }
         });
 
-//        addData();
+        getData();
         rv = (RecyclerView) findViewById(R.id.transaksiRv);
 
-        TransaksiRVAdapter adapter = new TransaksiRVAdapter(Transaksi.this, listTransaksi);
-        rv.setLayoutManager(new LinearLayoutManager(Transaksi.this));
-        rv.setAdapter(adapter);
+
     }
 
-//    public void addData() {
-//        listTransaksi = new ArrayList<>();
-//        listTransaksi.add(new PenjualanModel("Sayur Kol", "16 September 2021",
-//                "Wungu", "Sidorejo Jl. Lawu No.30 Wungu","Rp. 10.000", "Deo Adzar", "Bu Yuli",
-//                "Pangan", "Makanan", R.drawable.top, 2));
-//    }
+    private void getData() {
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<TransaksiResponseModel> get = mApiService.getPesananPenjual(Integer.parseInt(getIntent().getStringExtra("id_penjual")));
+        get.enqueue(new Callback<TransaksiResponseModel>() {
+            @Override
+            public void onResponse(Call<TransaksiResponseModel> call, Response<TransaksiResponseModel> response) {
+                listTransaksi = response.body().getData();
+                TransaksiRVAdapter adapter = new TransaksiRVAdapter(Transaksi.this, listTransaksi);
+                rv.setLayoutManager(new LinearLayoutManager(Transaksi.this));
+                rv.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<TransaksiResponseModel> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
 }

@@ -2,63 +2,78 @@ package com.parianom.model;
 
 public class TransaksiModel {
 
-    private String titleTransaksi, waktuTransaksi, pembeli, jumlahTransaksi, hargaTransaksi;
-    private int imgTransaksi;
+    private String nama_lengkap,timestamp,nama,foto_produk,kode_pesanan;
+    private int jumlah,id,status,total;
 
-    public String getTitleTransaksi() {
-        return titleTransaksi;
+    public int getTotal() {
+        return total;
     }
 
-    public void setTitleTransaksi(String titleTransaksi) {
-        this.titleTransaksi = titleTransaksi;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
-    public String getWaktuTransaksi() {
-        return waktuTransaksi;
+    public String getKode_pesanan() {
+        return kode_pesanan;
     }
 
-    public void setWaktuTransaksi(String waktuTransaksi) {
-        this.waktuTransaksi = waktuTransaksi;
+    public void setKode_pesanan(String kode_pesanan) {
+        this.kode_pesanan = kode_pesanan;
     }
 
-    public String getPembeli() {
-        return pembeli;
+    public String getNama_lengkap() {
+        return nama_lengkap;
     }
 
-    public void setPembeli(String pembeli) {
-        this.pembeli = pembeli;
+    public void setNama_lengkap(String nama_lengkap) {
+        this.nama_lengkap = nama_lengkap;
     }
 
-    public String getJumlahTransaksi() {
-        return jumlahTransaksi;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setJumlahTransaksi(String jumlahTransaksi) {
-        this.jumlahTransaksi = jumlahTransaksi;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public String getHargaTransaksi() {
-        return hargaTransaksi;
+    public String getNama() {
+        return nama;
     }
 
-    public void setHargaTransaksi(String hargaTransaksi) {
-        this.hargaTransaksi = hargaTransaksi;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public int getImgTransaksi() {
-        return imgTransaksi;
+    public String getFoto_produk() {
+        return foto_produk;
     }
 
-    public void setImgTransaksi(int imgTransaksi) {
-        this.imgTransaksi = imgTransaksi;
+    public void setFoto_produk(String foto_produk) {
+        this.foto_produk = foto_produk;
     }
 
-    public TransaksiModel(String titleTransaksi, String waktuTransaksi, String pembeli, String jumlahTransaksi, String hargaTransaksi, int imgTransaksi) {
-        this.titleTransaksi = titleTransaksi;
-        this.waktuTransaksi = waktuTransaksi;
-        this.pembeli = pembeli;
-        this.jumlahTransaksi = jumlahTransaksi;
-        this.hargaTransaksi = hargaTransaksi;
-        this.imgTransaksi = imgTransaksi;
+    public int getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(int jumlah) {
+        this.jumlah = jumlah;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

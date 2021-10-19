@@ -74,4 +74,10 @@ public class RiwayatFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
 }

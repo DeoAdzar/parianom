@@ -3,7 +3,15 @@ package com.parianom.model;
 public class PenjualanModel {
 
    private String kategori,kategori_sub,nama,foto_produk,timestamp,nama_toko,alamat,kec;
-   private int id,id_penjual,harga,stok,id_user;
+   private int id,id_penjual,harga,stok,id_user,status_deleted;
+
+   public int getStatus_deleted() {
+      return status_deleted;
+   }
+
+   public void setStatus_deleted(int status_deleted) {
+      this.status_deleted = status_deleted;
+   }
 
    public String getKategori() {
       return kategori;

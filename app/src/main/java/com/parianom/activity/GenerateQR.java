@@ -97,6 +97,7 @@ public class GenerateQR extends AppCompatActivity {
                 getKonfirmasi();
             }
         },2000);
+
     }
 
     private void getKonfirmasi() {
@@ -112,6 +113,8 @@ public class GenerateQR extends AppCompatActivity {
                             String status = jsonResult.getJSONObject("data").getString("status");
                             if (status.equals("1")){
                                 Intent i = new Intent(GenerateQR.this,DetailTransaksi.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 i.putExtra("kode_pesanan",kode);
                                 startActivity(i);
                                 finish();
