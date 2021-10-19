@@ -96,7 +96,7 @@ public class DetailBarang extends AppCompatActivity {
     }
     public void decrement(View view){//perintah tombol tambah
         if (quantity==1){
-            Toast.makeText(this,"pesanan minimal 1",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Minimal 1 pesanan",Toast.LENGTH_SHORT).show();
             return;
         }
         quantity = quantity -1;
