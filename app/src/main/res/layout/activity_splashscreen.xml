@@ -34,7 +34,7 @@
             android:layout_width="31dp"
             android:layout_height="35dp"
             android:elevation="5dp"
-            android:src="@drawable/logo_kab_mdn"
+            android:src="@drawable/pesilat"
             android:layout_marginRight="10dp"/>
         <TextView
             style="@style/fontMasuk"
