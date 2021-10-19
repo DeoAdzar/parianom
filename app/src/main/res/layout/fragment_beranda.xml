@@ -221,6 +221,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/berandaRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -231,4 +232,15 @@
         app:spanCount="2"
         android:orientation="horizontal"
         tools:listitem="@layout/item_beranda" />
+    <include layout="@layout/fragment_board_empty" android:visibility="gone"/>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerBeranda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="3dp"
+        android:layout_gravity="center">
+        <include layout="@layout/shimmer_beranda"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
 </LinearLayout>

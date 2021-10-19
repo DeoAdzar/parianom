@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parianom.R;
 import com.parianom.adapter.DfJualanRVAdapter;
 import com.parianom.adapter.PenjualanRvAdapter;
@@ -45,6 +46,7 @@ public class DaftarJualan extends AppCompatActivity {
     LinearLayout layoutPangan, layoutKriya;
     private ImageView pangan, kriya;
     private TextView textPangan, textKriya;
+    private ShimmerFrameLayout shimmer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +64,7 @@ public class DaftarJualan extends AppCompatActivity {
             }
         });
         rvDaftarJualan = (RecyclerView) findViewById(R.id.dfJualanRv);
-
-
+        shimmer = (ShimmerFrameLayout) findViewById(R.id.shimmerDfJual);
 
         filter();
     }
@@ -115,6 +116,10 @@ public class DaftarJualan extends AppCompatActivity {
                 rvDaftarJualan.setLayoutManager(lmDaftarJualan);
                 adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(),daftarJualanModels);
                 rvDaftarJualan.setAdapter(adDaftarJualan);
+                rvDaftarJualan.setVisibility(View.VISIBLE);
+                shimmer.stopShimmer();
+                shimmer.hideShimmer();
+                shimmer.setVisibility(View.GONE);
                 adDaftarJualan.notifyDataSetChanged();
             }
 
