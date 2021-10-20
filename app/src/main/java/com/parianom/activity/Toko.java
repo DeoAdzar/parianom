@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -48,14 +49,46 @@ public class Toko extends AppCompatActivity {
             }
         });
         namaToko = findViewById(R.id.namaToko);
-        id_penjual = getIntent().getStringExtra("id_penjual");
-        nama = getIntent().getStringExtra("nama_toko");
-        namaToko.setText(nama);
+        getDataToko();
         tambah();
         daftarJualan();
         transaksi();
         qR();
         profilToko();
+    }
+
+    private void getDataToko() {
+        HashMap<String,String> user = sessionManager.getUserDetails();
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<ResponseBody> get = mApiService.getPenjual(Integer.parseInt(user.get(SessionManager.kunci_id_user)));
+        get.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonResult = new JSONObject(response.body().string());
+                        if (jsonResult.getString("message").equals("exist")) {
+                            id_penjual = jsonResult.getJSONObject("data").getString("id");
+                            nama = jsonResult.getJSONObject("data").getString("nama_toko");
+                            namaToko.setText(nama);
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), BukaToko.class);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
     }
 
     public void tambah(){

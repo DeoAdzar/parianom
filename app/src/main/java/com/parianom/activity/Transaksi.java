@@ -5,14 +5,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.parianom.R;
+import com.parianom.adapter.DfJualanRVAdapter;
 import com.parianom.adapter.TransaksiRVAdapter;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
+import com.parianom.model.DaftarJualanModel;
 import com.parianom.model.PenjualanModel;
 import com.parianom.model.TransaksiModel;
 import com.parianom.model.TransaksiResponseModel;
@@ -27,8 +30,9 @@ import retrofit2.Response;
 
 public class Transaksi extends AppCompatActivity {
     private RecyclerView rv;
-    private List<TransaksiModel> listTransaksi;
-
+    private RecyclerView.Adapter adTr;
+    private RecyclerView.LayoutManager lmTr;
+    private List<TransaksiModel> transaksiModels = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +59,16 @@ public class Transaksi extends AppCompatActivity {
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<TransaksiResponseModel> get = mApiService.getPesananPenjual(s);
         get.enqueue(new Callback<TransaksiResponseModel>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<TransaksiResponseModel> call, Response<TransaksiResponseModel> response) {
-                listTransaksi = response.body().getData();
-                TransaksiRVAdapter adapter = new TransaksiRVAdapter(getApplicationContext(), listTransaksi);
-                rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                rv.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                transaksiModels=response.body().getData();
+                lmTr = new LinearLayoutManager(getApplicationContext());
+                rv.setLayoutManager(lmTr);
+                adTr = new TransaksiRVAdapter(getApplicationContext(),transaksiModels);
+                rv.setAdapter(adTr);
+                rv.setVisibility(View.VISIBLE);
+                adTr.notifyDataSetChanged();
             }
 
             @Override
@@ -72,4 +79,9 @@ public class Transaksi extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getData(Integer.valueOf(getIntent().getStringExtra("id_penjual")));
+    }
 }

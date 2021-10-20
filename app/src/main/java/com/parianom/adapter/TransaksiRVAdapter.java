@@ -2,9 +2,7 @@ package com.parianom.adapter;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -25,9 +23,6 @@ import com.parianom.R;
 import com.parianom.activity.DetailTransaksi;
 import com.parianom.activity.GenerateQR;
 import com.parianom.activity.ScanQr;
-import com.parianom.activity.Splashscreen;
-import com.parianom.activity.SplashscreenTransaksi;
-import com.parianom.activity.Toko;
 import com.parianom.activity.Transaksi;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -107,57 +102,37 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
                 holder.selesai.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
-
-                        dialog.setTitle("Transaksi Selesai");
-                        dialog
-                                .setMessage("Tekan Selesai untuk menyelesaikan transaksi")
-                                .setCancelable(false)
-                                .setPositiveButton("Selesai", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        BaseApiService mApiService = UtilsApi.getApiService();
-                                        Call<ResponseBody> cek = mApiService.scanning(tr.getKode_pesanan(), tr.getId_penjual());
-                                        cek.enqueue(new Callback<ResponseBody>() {
-                                            @Override
-                                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                if (response.isSuccessful()) {
-                                                    try {
-                                                        JSONObject jsonResult = new JSONObject(response.body().string());
-                                                        if (jsonResult.getString("message").equals("success")) {
-                                                            Toast.makeText(mContext, "Berhasil konfirmasi pesanan", Toast.LENGTH_SHORT).show();
-                                                            Intent i = new Intent(mContext, Toko.class);
-                                                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                            mContext.startActivity(i);
-                                                        } else {
-                                                            String message = jsonResult.getString("message");
-                                                            Log.d(TAG, "onResponseScan: " + tr.getKode_pesanan() + " " + tr.getId_penjual());
-                                                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    } catch (IOException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                                            }
-                                        });
+                        BaseApiService mApiService = UtilsApi.getApiService();
+                        Call<ResponseBody> cek = mApiService.scanning(tr.getKode_pesanan(), tr.getId_penjual());
+                        cek.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if (response.isSuccessful()) {
+                                    try {
+                                        JSONObject jsonResult = new JSONObject(response.body().string());
+                                        if (jsonResult.getString("message").equals("success")) {
+                                            Toast.makeText(mContext, "Berhasil konfirmasi pesanan", Toast.LENGTH_SHORT).show();
+                                            Intent i = new Intent(mContext, Transaksi.class);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            mContext.startActivity(i);
+                                        } else {
+                                            String message = jsonResult.getString("message");
+                                            Log.d(TAG, "onResponseScan: " + tr.getKode_pesanan() + " " + tr.getId_penjual());
+                                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
                                     }
-                                })
-                                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialog.setCancelable(true);
-                                    }
-                                });
-                        AlertDialog alertDialog = dialog.create();
-                        alertDialog.show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                            }
+                        });
                     }
                 });
                 break;
