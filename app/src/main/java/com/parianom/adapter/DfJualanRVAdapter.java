@@ -113,7 +113,6 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         mContext.startActivity(intent);
-//
                                     }
 
                                     @Override

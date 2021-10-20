@@ -113,10 +113,10 @@ public class DaftarJualan extends AppCompatActivity {
             @Override
             public void onResponse(Call<DaftarJualanResponseModel> call, Response<DaftarJualanResponseModel> response) {
                 daftarJualanModels=response.body().getData();
-//                if (daftarJualanModels.isEmpty()){
-//                    empty.setVisibility(View.VISIBLE);
-//                    rvDaftarJualan.setVisibility(View.GONE);
-//                }else {
+                if (daftarJualanModels.isEmpty()){
+                    empty.setVisibility(View.VISIBLE);
+                    rvDaftarJualan.setVisibility(View.GONE);
+                }else {
                     lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
                     rvDaftarJualan.setLayoutManager(lmDaftarJualan);
                     adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(), daftarJualanModels);
@@ -126,7 +126,7 @@ public class DaftarJualan extends AppCompatActivity {
                     shimmer.hideShimmer();
                     shimmer.setVisibility(View.GONE);
                     adDaftarJualan.notifyDataSetChanged();
-//                }
+                }
             }
 
             @Override
@@ -143,16 +143,16 @@ public class DaftarJualan extends AppCompatActivity {
             @Override
             public void onResponse(Call<DaftarJualanResponseModel> call, Response<DaftarJualanResponseModel> response) {
                 daftarJualanModels=response.body().getData();
-//                if (daftarJualanModels.isEmpty()){
-//                    empty.setVisibility(View.VISIBLE);
-//                    rvDaftarJualan.setVisibility(View.GONE);
-//                }else {
+                if (daftarJualanModels.isEmpty()){
+                    empty.setVisibility(View.VISIBLE);
+                    rvDaftarJualan.setVisibility(View.GONE);
+                }else {
                     lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
                     rvDaftarJualan.setLayoutManager(lmDaftarJualan);
                     adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(), daftarJualanModels);
                     rvDaftarJualan.setAdapter(adDaftarJualan);
                     adDaftarJualan.notifyDataSetChanged();
-//                }
+                }
             }
 
             @Override
