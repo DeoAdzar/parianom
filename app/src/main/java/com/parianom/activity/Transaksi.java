@@ -45,22 +45,23 @@ public class Transaksi extends AppCompatActivity {
             }
         });
 
-        getData();
+        getData(Integer.valueOf(getIntent().getStringExtra("id_penjual")));
         rv = (RecyclerView) findViewById(R.id.transaksiRv);
 
 
     }
 
-    private void getData() {
+    public void getData(Integer s) {
         BaseApiService mApiService = UtilsApi.getApiService();
-        Call<TransaksiResponseModel> get = mApiService.getPesananPenjual(Integer.parseInt(getIntent().getStringExtra("id_penjual")));
+        Call<TransaksiResponseModel> get = mApiService.getPesananPenjual(s);
         get.enqueue(new Callback<TransaksiResponseModel>() {
             @Override
             public void onResponse(Call<TransaksiResponseModel> call, Response<TransaksiResponseModel> response) {
                 listTransaksi = response.body().getData();
-                TransaksiRVAdapter adapter = new TransaksiRVAdapter(Transaksi.this, listTransaksi);
-                rv.setLayoutManager(new LinearLayoutManager(Transaksi.this));
+                TransaksiRVAdapter adapter = new TransaksiRVAdapter(getApplicationContext(), listTransaksi);
+                rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 rv.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
