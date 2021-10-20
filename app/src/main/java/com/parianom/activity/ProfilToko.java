@@ -152,6 +152,7 @@ public class ProfilToko extends AppCompatActivity {
             }
         });
     }
+
     private void getDataKecamatan() {
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<KecamatanResponseModel> get = mApiService.getKecamatan();

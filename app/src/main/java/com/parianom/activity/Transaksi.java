@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.parianom.R;
@@ -40,6 +41,7 @@ public class Transaksi extends AppCompatActivity {
     private RecyclerView.Adapter adTr;
     private RecyclerView.LayoutManager lmTr;
     private List<TransaksiModel> transaksiModels = new ArrayList<>();
+    private LinearLayout empty;
     SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class Transaksi extends AppCompatActivity {
         });
         getPenjual();
         rv = (RecyclerView) findViewById(R.id.transaksiRv);
+        empty = findViewById(R.id.empty);
 
 
     }
@@ -102,12 +105,17 @@ public class Transaksi extends AppCompatActivity {
             @Override
             public void onResponse(Call<TransaksiResponseModel> call, Response<TransaksiResponseModel> response) {
                 transaksiModels=response.body().getData();
-                lmTr = new LinearLayoutManager(getApplicationContext());
-                rv.setLayoutManager(lmTr);
-                adTr = new TransaksiRVAdapter(getApplicationContext(),transaksiModels);
-                rv.setAdapter(adTr);
-                rv.setVisibility(View.VISIBLE);
-                adTr.notifyDataSetChanged();
+                if (transaksiModels.isEmpty()){
+                    empty.setVisibility(View.VISIBLE);
+                    rv.setVisibility(View.GONE);
+                } else {
+                    lmTr = new LinearLayoutManager(getApplicationContext());
+                    rv.setLayoutManager(lmTr);
+                    adTr = new TransaksiRVAdapter(getApplicationContext(), transaksiModels);
+                    rv.setAdapter(adTr);
+                    rv.setVisibility(View.VISIBLE);
+                    adTr.notifyDataSetChanged();
+                }
             }
 
             @Override

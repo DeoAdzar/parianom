@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class RiwayatFragment extends Fragment {
     private List<PesananModel> listRiwayat;
     ShimmerFrameLayout shimmer;
     SessionManager sessionManager;
+    private LinearLayout empty;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class RiwayatFragment extends Fragment {
         sessionManager = new SessionManager(getContext());
         rv = (RecyclerView) v.findViewById(R.id.riwayatRv);
         shimmer = (ShimmerFrameLayout) v.findViewById(R.id.shimmerRiwayat);
+        empty = (LinearLayout) v.findViewById(R.id.empty);
         getData();
 
         return v;
@@ -59,13 +62,18 @@ public class RiwayatFragment extends Fragment {
             @Override
             public void onResponse(Call<PesananResponseModel> call, Response<PesananResponseModel> response) {
                 listRiwayat = response.body().getData();
-                RiwayatRVAdapter adapter = new RiwayatRVAdapter(getContext(), listRiwayat);
-                rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-                rv.setAdapter(adapter);
-                rv.setVisibility(View.VISIBLE);
-                shimmer.stopShimmer();
-                shimmer.hideShimmer();
-                shimmer.setVisibility(View.GONE);
+                if (listRiwayat.isEmpty()){
+                    empty.setVisibility(View.VISIBLE);
+                    rv.setVisibility(View.GONE);
+                } else {
+                    RiwayatRVAdapter adapter = new RiwayatRVAdapter(getContext(), listRiwayat);
+                    rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    rv.setAdapter(adapter);
+                    rv.setVisibility(View.VISIBLE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
+                }
             }
 
             @Override

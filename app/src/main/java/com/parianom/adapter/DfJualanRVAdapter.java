@@ -24,9 +24,11 @@ import com.parianom.api.UtilsApi;
 import com.parianom.model.DaftarJualanModel;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -75,6 +77,10 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
         }
         Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK+dfJualanModel.getFoto_produk()))
                 .placeholder(R.color.shimmer).into(holder.img);
+
+        String harga = holder.hargaPr.getText().toString();
+        String resultRupiah = formatRupiah(Double.parseDouble(harga));
+        holder.hargaPr.setText(resultRupiah);
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,5 +158,10 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
             edit = (Button) itemView.findViewById(R.id.btnEditDfJual);
             hapus = (Button) itemView.findViewById(R.id.btnHapusDfJual);
         }
+    }
+    private String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeID);
+        return numberFormat.format(number);
     }
 }
