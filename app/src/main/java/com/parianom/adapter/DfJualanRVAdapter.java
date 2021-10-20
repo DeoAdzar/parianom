@@ -1,6 +1,8 @@
 package com.parianom.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.parianom.activity.DaftarJualan;
 import com.parianom.activity.EditProduk;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
@@ -85,19 +88,42 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
         holder.hapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BaseApiService mApiService = UtilsApi.getApiService();
-                Call<ResponseBody> delete = mApiService.delete(dfJualanModel.getId());
-                delete.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Toast.makeText(mContext, "sukses", Toast.LENGTH_SHORT).show();
-                    }
+                AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
+                dialog
+                        .setTitle("Hapus Jualan")
+                        .setMessage("Yakin ingin menghapus jualan?")
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                BaseApiService mApiService = UtilsApi.getApiService();
+                                Call<ResponseBody> delete = mApiService.delete(dfJualanModel.getId());
+                                delete.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        Toast.makeText(mContext, "sukses", Toast.LENGTH_SHORT).show();
+//                                        Intent i = new Intent(mContext, DaftarJualan.class);
+//                                        i.putExtra("id_penjual",tr.getId_penjual());
+//                                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                        mContext.startActivity(i);
+                                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialog.setCancelable(true);
+                            }
+                        });
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
             }
         });
     }
