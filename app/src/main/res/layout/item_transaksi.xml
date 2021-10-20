@@ -30,12 +30,6 @@
                     android:src="@drawable/ic_shop_bag"
                     android:layout_marginRight="10dp"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    style="@style/fontTitleContent"
-                    android:gravity="center"
-                    android:text="# "/>
-                <TextView
                     android:id="@+id/titleTransaksi"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

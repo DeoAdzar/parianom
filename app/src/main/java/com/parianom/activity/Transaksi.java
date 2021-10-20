@@ -19,8 +19,10 @@ import com.parianom.model.DaftarJualanModel;
 import com.parianom.model.PenjualanModel;
 import com.parianom.model.TransaksiModel;
 import com.parianom.model.TransaksiResponseModel;
+import com.parianom.utils.SessionManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -33,11 +35,12 @@ public class Transaksi extends AppCompatActivity {
     private RecyclerView.Adapter adTr;
     private RecyclerView.LayoutManager lmTr;
     private List<TransaksiModel> transaksiModels = new ArrayList<>();
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaksi);
-
+        sessionManager = new SessionManager(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -48,8 +51,8 @@ public class Transaksi extends AppCompatActivity {
                 finish();
             }
         });
-
-        getData(Integer.valueOf(getIntent().getStringExtra("id_penjual")));
+        HashMap<String,String> user = sessionManager.getUserDetails();
+        getData(Integer.valueOf(user.get(SessionManager.kunci_id_user)));
         rv = (RecyclerView) findViewById(R.id.transaksiRv);
 
 
