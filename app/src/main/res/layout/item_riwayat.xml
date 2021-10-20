@@ -67,6 +67,7 @@
                     android:id="@+id/imgProduk"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_launcher_round"/>
             </LinearLayout>
 

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -56,6 +57,7 @@ public class EditProfil extends AppCompatActivity {
     String mediaPath, postPath;
     private LinearLayout layout;
     private ShimmerFrameLayout shimmer;
+    private ProgressBar loading;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -92,6 +94,7 @@ public class EditProfil extends AppCompatActivity {
         layout = findViewById(R.id.layoutEditProfil);
         password = findViewById(R.id.ubahPwd);
         shimmer = (ShimmerFrameLayout) findViewById(R.id.shimmerEditProfil);
+        loading = findViewById(R.id.progress_edit_profil);
 
         Image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +107,7 @@ public class EditProfil extends AppCompatActivity {
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 requestPermission();
             }
         });
@@ -118,6 +122,7 @@ public class EditProfil extends AppCompatActivity {
     }
 
     private void requestPermission() {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
         } else {
@@ -177,20 +182,24 @@ public class EditProfil extends AppCompatActivity {
 
     private void inputItem() {
         HashMap<String, String> user = sessionManager.getUserDetails();
+        simpan.setVisibility(View.GONE);
+        loading.setVisibility(View.VISIBLE);
         if (nama.getText().toString().isEmpty()
                 || username.getText().toString().isEmpty()
                 || email.getText().toString().isEmpty()
                 || no_hp.getText().toString().isEmpty()
                 || alamat.getText().toString().isEmpty()) {
             Toast.makeText(EditProfil.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
+            simpan.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }else if (mediaPath == null){
             BaseApiService mApiService = UtilsApi.getApiService();
             Call<ResponseBody> update = mApiService.updateUser2(
                       nama.getText().toString()
-                    ,username.getText().toString()
+                    , username.getText().toString()
                     , email.getText().toString()
-                    ,alamat.getText().toString()
-                    ,no_hp.getText().toString()
+                    , alamat.getText().toString()
+                    , no_hp.getText().toString()
                     , Integer.parseInt(user.get(SessionManager.kunci_id_user)));
             update.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -203,6 +212,8 @@ public class EditProfil extends AppCompatActivity {
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Log.e("debug", "OnFailure : Error -> " + t.getMessage());
                     Toast.makeText(EditProfil.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    simpan.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                 }
             });
         }

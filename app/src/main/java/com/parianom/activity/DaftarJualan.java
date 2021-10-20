@@ -43,7 +43,7 @@ public class DaftarJualan extends AppCompatActivity {
     private RecyclerView.LayoutManager lmDaftarJualan;
     private List<DaftarJualanModel> daftarJualanModels = new ArrayList<>();
 
-    LinearLayout layoutPangan, layoutKriya;
+    private LinearLayout layoutPangan, layoutKriya, empty;
     private ImageView pangan, kriya;
     private TextView textPangan, textKriya;
     private ShimmerFrameLayout shimmer;
@@ -76,6 +76,7 @@ public class DaftarJualan extends AppCompatActivity {
         kriya = (ImageView) findViewById(R.id.filterKriyaDfJual);
         textPangan = findViewById(R.id.textPanganDfJual);
         textKriya = findViewById(R.id.textKriyaDfJual);
+        empty = findViewById(R.id.empty);
         int nonAktif = ContextCompat.getColor(DaftarJualan.this, R.color.label_input);
         int aktif = ContextCompat.getColor(DaftarJualan.this, R.color.primer);
         getPangan();
@@ -112,15 +113,20 @@ public class DaftarJualan extends AppCompatActivity {
             @Override
             public void onResponse(Call<DaftarJualanResponseModel> call, Response<DaftarJualanResponseModel> response) {
                 daftarJualanModels=response.body().getData();
-                lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
-                rvDaftarJualan.setLayoutManager(lmDaftarJualan);
-                adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(),daftarJualanModels);
-                rvDaftarJualan.setAdapter(adDaftarJualan);
-                rvDaftarJualan.setVisibility(View.VISIBLE);
-                shimmer.stopShimmer();
-                shimmer.hideShimmer();
-                shimmer.setVisibility(View.GONE);
-                adDaftarJualan.notifyDataSetChanged();
+//                if (daftarJualanModels.isEmpty()){
+//                    empty.setVisibility(View.VISIBLE);
+//                    rvDaftarJualan.setVisibility(View.GONE);
+//                }else {
+                    lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
+                    rvDaftarJualan.setLayoutManager(lmDaftarJualan);
+                    adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(), daftarJualanModels);
+                    rvDaftarJualan.setAdapter(adDaftarJualan);
+                    rvDaftarJualan.setVisibility(View.VISIBLE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
+                    adDaftarJualan.notifyDataSetChanged();
+//                }
             }
 
             @Override
@@ -137,11 +143,16 @@ public class DaftarJualan extends AppCompatActivity {
             @Override
             public void onResponse(Call<DaftarJualanResponseModel> call, Response<DaftarJualanResponseModel> response) {
                 daftarJualanModels=response.body().getData();
-                lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
-                rvDaftarJualan.setLayoutManager(lmDaftarJualan);
-                adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(),daftarJualanModels);
-                rvDaftarJualan.setAdapter(adDaftarJualan);
-                adDaftarJualan.notifyDataSetChanged();
+//                if (daftarJualanModels.isEmpty()){
+//                    empty.setVisibility(View.VISIBLE);
+//                    rvDaftarJualan.setVisibility(View.GONE);
+//                }else {
+                    lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
+                    rvDaftarJualan.setLayoutManager(lmDaftarJualan);
+                    adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(), daftarJualanModels);
+                    rvDaftarJualan.setAdapter(adDaftarJualan);
+                    adDaftarJualan.notifyDataSetChanged();
+//                }
             }
 
             @Override

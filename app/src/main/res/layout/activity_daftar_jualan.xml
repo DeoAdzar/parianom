@@ -106,6 +106,7 @@
         android:layout_marginVertical="10dp"
         android:padding="5dp"
         tools:listitem="@layout/item_daftar_jual" />
+    <include layout="@layout/fragment_board_empty" android:visibility="gone"/>
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerDfJual"
         android:layout_width="match_parent"

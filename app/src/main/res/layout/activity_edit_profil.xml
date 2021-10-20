@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="3dp"
                     android:backgroundTint="@color/label_input"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapWords"
                     android:singleLine="true"
                     android:text="Yuli Lestari"
                     android:textColor="@color/black" />
@@ -106,7 +106,7 @@
                     android:layout_marginVertical="3dp"
                     style="@style/fontMasuk"
                     android:text="Yuli Lestari"
-                    android:inputType="textCapWords"
+                    android:inputType="text"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
                     android:singleLine="true"/>
@@ -191,33 +191,41 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="3dp"
-                        style="@style/fontMasuk"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:id="@+id/ubahPwd"
-                        android:hint="Tekan untuk ubah kata sandi"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/label_input" />
-
-
-                <Button
-                    android:id="@+id/btnSimpan"
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button"
-                    android:text="@string/simpan_perubahan"
-                    style="@style/fontBtn"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="40dp"
-                    android:textSize="12dp"/>
-            </LinearLayout>
+                    android:layout_marginVertical="3dp"
+                    style="@style/fontMasuk"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:id="@+id/ubahPwd"
+                    android:hint="Tekan untuk ubah kata sandi"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/label_input" />
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="30dp">
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/progress_edit_profil"
+                        android:visibility="gone"/>
+                    <Button
+                        android:id="@+id/btnSimpan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button"
+                        android:text="@string/simpan_perubahan"
+                        style="@style/fontBtn"
+                        android:textSize="12dp"/>
+                </FrameLayout>
+            </LinearLayout>
         </ScrollView>
     </LinearLayout>
     <com.facebook.shimmer.ShimmerFrameLayout
