@@ -51,7 +51,7 @@
     <string name="simpan">Simpan</string>
     <string name="kecamatan">kecamatan</string>
     <string name="terimakasih_telah_mendaftar">Terimakasih Telah Mendaftar</string>
-    <string name="tunggu_konfirmasi">Tunggu Kondirmasi dari Admin (max. 2 x 24 jam)</string>
+    <string name="tunggu_konfirmasi">Tunggu Kondirmasi dari Admin</string>
     <string name="selesai">Selesai</string>
     <string name="daftar_jualan">Daftar Jualan</string>
     <string name="scan_qr_code">Scan QR Code</string>
