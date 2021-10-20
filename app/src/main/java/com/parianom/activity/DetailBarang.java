@@ -75,6 +75,7 @@ public class DetailBarang extends AppCompatActivity {
                     intent.putExtra("harga", harga);
                     intent.putExtra("alamat", alamatPrBeranda.getText());
                     intent.putExtra("gambar", getIntent().getStringExtra("foto_profil"));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                 }else{
