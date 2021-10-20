@@ -108,11 +108,12 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                         Toast.makeText(mContext, "sukses", Toast.LENGTH_SHORT).show();
-//                                        Intent i = new Intent(mContext, DaftarJualan.class);
-//                                        i.putExtra("id_penjual",tr.getId_penjual());
-//                                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                        mContext.startActivity(i);
+                                        Intent intent = new Intent(mContext, DaftarJualan.class);
+                                        intent.putExtra("id_penjual", String.valueOf(dfJualanModel.getId_penjual()));
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        mContext.startActivity(intent);
+//
                                     }
 
                                     @Override
