@@ -25,6 +25,7 @@ import com.parianom.R;
 import com.parianom.activity.DetailTransaksi;
 import com.parianom.activity.GenerateQR;
 import com.parianom.activity.ScanQr;
+import com.parianom.activity.SplashscreenTransaksi;
 import com.parianom.activity.Toko;
 import com.parianom.activity.Transaksi;
 import com.parianom.api.BaseApiService;
