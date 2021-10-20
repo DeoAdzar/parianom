@@ -232,6 +232,8 @@ public class BerandaFragment extends Fragment {
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
                 }else{
+                    empty.setVisibility(View.GONE);
+                    rvBeranda.setVisibility(View.VISIBLE);
                         lmBeranda = new GridLayoutManager(getContext(),2);
                         rvBeranda.setLayoutManager(lmBeranda);
                         adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
@@ -267,6 +269,8 @@ public class BerandaFragment extends Fragment {
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
                 }else{
+                    empty.setVisibility(View.GONE);
+                    rvBeranda.setVisibility(View.VISIBLE);
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);
                     adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
@@ -300,6 +304,8 @@ public class BerandaFragment extends Fragment {
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
                 }else{
+                    empty.setVisibility(View.GONE);
+                    rvBeranda.setVisibility(View.VISIBLE);
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);
                     adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
@@ -333,6 +339,8 @@ public class BerandaFragment extends Fragment {
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
                 }else{
+                    empty.setVisibility(View.GONE);
+                    rvBeranda.setVisibility(View.VISIBLE);
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);
                     adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
@@ -366,6 +374,8 @@ public class BerandaFragment extends Fragment {
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
                 }else{
+                    empty.setVisibility(View.GONE);
+                    rvBeranda.setVisibility(View.VISIBLE);
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);
                     adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
@@ -399,6 +409,8 @@ public class BerandaFragment extends Fragment {
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
                 }else{
+                    empty.setVisibility(View.GONE);
+                    rvBeranda.setVisibility(View.VISIBLE);
                     lmBeranda = new GridLayoutManager(getContext(),2);
                     rvBeranda.setLayoutManager(lmBeranda);
                     adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
