@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_riwayat"/>
+    <include layout="@layout/fragment_board_empty" android:visibility="gone"/>
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerRiwayat"

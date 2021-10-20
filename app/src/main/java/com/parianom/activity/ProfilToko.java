@@ -152,6 +152,7 @@ public class ProfilToko extends AppCompatActivity {
             }
         });
     }
+
     private void getDataKecamatan() {
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<KecamatanResponseModel> get = mApiService.getKecamatan();
@@ -166,8 +167,8 @@ public class ProfilToko extends AppCompatActivity {
                     }
                     // Set hasil result json ke dalam adapter spinner
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(ProfilToko.this,
-                            R.layout.custom_spinner, listAdmin);
-                    adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+                            R.layout.custom_spinner_dropdown, listAdmin);
+                    adapter.setDropDownViewResource(R.layout.custom_spinner);
                     kecamatan.setThreshold(0);
                     kecamatan.setAdapter(adapter);
                 } else {
