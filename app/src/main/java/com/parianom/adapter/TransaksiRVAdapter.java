@@ -25,6 +25,7 @@ import com.parianom.R;
 import com.parianom.activity.DetailTransaksi;
 import com.parianom.activity.GenerateQR;
 import com.parianom.activity.ScanQr;
+import com.parianom.activity.SplashscreenTransaksi;
 import com.parianom.activity.Toko;
 import com.parianom.activity.Transaksi;
 import com.parianom.api.BaseApiService;
@@ -109,9 +110,9 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
 
                         dialog.setTitle("Transaksi Selesai");
                         dialog
-                                .setMessage("Tekan Selesai untuk menyelesaikan transaksi")
+                                .setMessage("Yakin ingin menyelesaikan transaksi?")
                                 .setCancelable(false)
-                                .setPositiveButton("Selesai", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         BaseApiService mApiService = UtilsApi.getApiService();
@@ -123,7 +124,7 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
                                                     try {
                                                         JSONObject jsonResult = new JSONObject(response.body().string());
                                                         if (jsonResult.getString("message").equals("success")) {
-                                                            Toast.makeText(mContext, "Berhasil konfirmasi pesanan", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(mContext, "Berhasil konfirmasi transaksi", Toast.LENGTH_SHORT).show();
                                                             Intent i = new Intent(mContext, Transaksi.class);
                                                             i.putExtra("id_penjual",tr.getId_penjual());
                                                             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -147,6 +148,64 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
 
                                             }
                                         });
+                                    }
+                                })
+                                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialog.setCancelable(true);
+                                    }
+                                });
+                        AlertDialog alertDialog = dialog.create();
+                        alertDialog.show();
+                    }
+                });
+                holder.batalkan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
+
+                        dialog.setTitle("Batalkan Transaksi");
+                        dialog
+                                .setMessage("Yakin ingin membatalkan transaksi?")
+                                .setCancelable(false)
+                                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Toast.makeText(mContext, "Berhasil membatalkan transaksi", Toast.LENGTH_SHORT).show();
+//                                        BaseApiService mApiService = UtilsApi.getApiService();
+//                                        Call<ResponseBody> cek = mApiService.selesai(tr.getId());
+//                                        cek.enqueue(new Callback<ResponseBody>() {
+//                                            @Override
+//                                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                                                if (response.isSuccessful()) {
+//                                                    try {
+//                                                        JSONObject jsonResult = new JSONObject(response.body().string());
+//                                                        if (jsonResult.getString("message").equals("success")) {
+//                                                            Toast.makeText(mContext, "Berhasil membatalkan transaksi", Toast.LENGTH_SHORT).show();
+//                                                            Intent i = new Intent(mContext, Transaksi.class);
+//                                                            i.putExtra("id_penjual",tr.getId_penjual());
+//                                                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                                            mContext.startActivity(i);
+//                                                        } else {
+//                                                            String message = jsonResult.getString("message");
+//                                                            Log.d(TAG, "onResponseScan: " + tr.getKode_pesanan() + " " + tr.getId_penjual());
+//                                                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+//                                                        }
+//                                                    } catch (JSONException e) {
+//                                                        e.printStackTrace();
+//                                                    } catch (IOException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                }
+//                                            }
+//
+//                                            @Override
+//                                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//                                            }
+//                                        });
                                     }
                                 })
                                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {

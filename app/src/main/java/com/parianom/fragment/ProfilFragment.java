@@ -1,5 +1,7 @@
 package com.parianom.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -74,7 +76,26 @@ public class ProfilFragment extends Fragment {
         keluar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sessionManager.logout();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(v.getContext());
+                dialog
+                        .setTitle("Keluar dari Parianom")
+                        .setMessage("Yakin ingin keluar dari Parianom?")
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                sessionManager.logout();
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialog.setCancelable(true);
+                            }
+                        });
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
+
             }
         });
         toko();
