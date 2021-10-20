@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class TambahProduk extends AppCompatActivity {
     String mediaPath, postPath;
     SessionManager sessionManager;
     EditText nama,harga,stok;
+    private ProgressBar loading;
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -77,6 +79,7 @@ public class TambahProduk extends AppCompatActivity {
         nama = findViewById(R.id.edtNamaPr);
         harga = findViewById(R.id.edtHargaPr);
         stok = findViewById(R.id.edtStokPr);
+        loading = findViewById(R.id.progress_tambah_produk);
 //        if (kategori.getSelectedItem().equals("Pangan")) {
 //            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
 //            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
@@ -137,20 +140,27 @@ public class TambahProduk extends AppCompatActivity {
     }
     private void inputItem() {
         HashMap<String, String> user = sessionManager.getUserDetails();
+        simpan.setVisibility(View.GONE);
+        loading.setVisibility(View.VISIBLE);
         if (nama.getText().toString().isEmpty()
                 || harga.getText().toString().isEmpty()
                 || stok.getText().toString().isEmpty()) {
             Toast.makeText(TambahProduk.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
+            simpan.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }else if (mediaPath == null){
             Toast.makeText(TambahProduk.this, "Isi Foto Produk", Toast.LENGTH_SHORT).show();
+            simpan.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }
         else {
-
             File imagefile = new File(mediaPath);
             long length = imagefile.length();
             int size = (int) length / 1024;
             if (size > 4096) {
                 Toast.makeText(TambahProduk.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
+                simpan.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
             } else {
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
                 MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_produk", imagefile.getName(), reqBody);
@@ -173,6 +183,8 @@ public class TambahProduk extends AppCompatActivity {
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("debug", "OnFailure : Error -> " + t.getMessage());
                         Toast.makeText(TambahProduk.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        simpan.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
                     }
                 });
             }

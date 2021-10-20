@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.parianom.R;
@@ -54,6 +55,7 @@ public class ProfilToko extends AppCompatActivity {
     private static final int REQUEST_WRITE_PERMISSION = 786;
     SessionManager sessionManager;
     List<KecamatanModel> kecamatanModelList = new ArrayList<>();
+    private ProgressBar loading;
 
     String mediaPath,postPath;
     @Override
@@ -83,6 +85,8 @@ public class ProfilToko extends AppCompatActivity {
         alamat= findViewById(R.id.edtAlamatTk);
         kecamatan = findViewById(R.id.kecamatanProfilToko);
         simpan = (Button) findViewById(R.id.btnSimpanEdtTk);
+        loading = findViewById(R.id.progress_edit_profil_toko);
+
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,10 +184,14 @@ public class ProfilToko extends AppCompatActivity {
 
     private void inputItem() {
         HashMap<String, String> user = sessionManager.getUserDetails();
+        simpan.setVisibility(View.GONE);
+        loading.setVisibility(View.VISIBLE);
         if (nama.getText().toString().isEmpty()
                 ||alamat.getText().toString().isEmpty()
                 ||kecamatan.getText().toString().isEmpty()){
             Toast.makeText(ProfilToko.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
+            simpan.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }else if (mediaPath==null) {
             BaseApiService mApiService = UtilsApi.getApiService();
             Call<ResponseBody> update = mApiService.updatePenjual2(
@@ -202,6 +210,8 @@ public class ProfilToko extends AppCompatActivity {
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Log.e("debug", "OnFailure : Error -> " + t.getMessage());
                     Toast.makeText(ProfilToko.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    simpan.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                 }
             });
         }else {
@@ -211,6 +221,8 @@ public class ProfilToko extends AppCompatActivity {
             int size = (int) length/1024;
             if (size>4096){
                 Toast.makeText(ProfilToko.this, "ukuran Gambar terlalu besar"+size, Toast.LENGTH_SHORT).show();
+                simpan.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
             }else {
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
                 MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_toko", imagefile.getName(), reqBody);
@@ -231,6 +243,8 @@ public class ProfilToko extends AppCompatActivity {
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("debug", "OnFailure : Error -> " + t.getMessage());
                         Toast.makeText(ProfilToko.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        simpan.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
                     }
                 });
             }

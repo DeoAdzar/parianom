@@ -52,11 +52,21 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new BerandaFragment();
                             break;
                         case R.id.pesan:
-                            selectedFragment = new PesanFragment();
-                            break;
+                            if (sessionManager.checkLogin()==1) {
+                                selectedFragment = new PesanFragment();
+                                break;
+                            } else{
+                                selectedFragment = new BoardMasukFragment();
+                                break;
+                            }
                         case R.id.riwayat:
-                            selectedFragment = new RiwayatFragment();
-                            break;
+                            if (sessionManager.checkLogin()==1) {
+                                selectedFragment = new RiwayatFragment();
+                                break;
+                            } else{
+                                selectedFragment = new BoardMasukFragment();
+                                break;
+                            }
                         case R.id.profil:
                             if (sessionManager.checkLogin()==1){
                                 selectedFragment = new ProfilFragment();
@@ -65,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                                 selectedFragment = new BoardMasukFragment();
                                 break;
                             }
-                    }
+                }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                     return true;
                 }

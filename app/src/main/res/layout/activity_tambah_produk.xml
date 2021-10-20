@@ -167,16 +167,27 @@
                     android:singleLine="true"
                     android:imeOptions="actionDone"
                     android:inputType="number"/>
-                <Button
-                    android:id="@+id/btnSimpanPr"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button"
-                    android:text="@string/simpan"
-                    style="@style/fontBtn"
                     android:layout_marginTop="30dp"
-                    android:layout_marginBottom="50dp"
-                    android:textSize="12dp"/>
+                    android:layout_marginBottom="50dp">
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/progress_tambah_produk"
+                        android:visibility="gone"/>
+                    <Button
+                        android:id="@+id/btnSimpanPr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button"
+                        android:text="@string/simpan"
+                        style="@style/fontBtn"
+                        android:textSize="12dp"/>
+                </FrameLayout>
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
