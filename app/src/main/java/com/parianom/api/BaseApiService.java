@@ -213,6 +213,6 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("getPesananByPenjual")
     Call<TransaksiResponseModel> getPesananPenjual(
-            @Field("id_penjual") int id_penjual
+            @Field("id_user") int id_user
     );
 }
