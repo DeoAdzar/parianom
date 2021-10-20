@@ -20,7 +20,12 @@ import com.parianom.model.PenjualanModel;
 import com.parianom.model.TransaksiModel;
 import com.parianom.model.TransaksiResponseModel;
 import com.parianom.utils.SessionManager;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,13 +56,44 @@ public class Transaksi extends AppCompatActivity {
                 finish();
             }
         });
-        HashMap<String,String> user = sessionManager.getUserDetails();
-        getData(Integer.valueOf(user.get(SessionManager.kunci_id_user)));
+        getPenjual();
         rv = (RecyclerView) findViewById(R.id.transaksiRv);
 
 
     }
+    public void getPenjual(){
+        HashMap<String, String> user = sessionManager.getUserDetails();
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<ResponseBody> get = mApiService.getPenjual(Integer.parseInt(user.get(SessionManager.kunci_id_user)));
+        get.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        JSONObject jsonResult =new JSONObject(response.body().string());
+                        if (jsonResult.getString("message").equals("exist")){
+                            String id = jsonResult.getJSONObject("data").getString("id");
+                            getData(Integer.parseInt(id));
+                        }else{
+                            Toast.makeText(Transaksi.this, "Tidak ada Data", Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (JSONException e ){
+                        e.printStackTrace();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
 
+                }else {
+                    Toast.makeText(Transaksi.this, "Cannot Connect server", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
     public void getData(Integer s) {
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<TransaksiResponseModel> get = mApiService.getPesananPenjual(s);

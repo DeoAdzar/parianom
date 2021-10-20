@@ -124,7 +124,8 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
                                                         JSONObject jsonResult = new JSONObject(response.body().string());
                                                         if (jsonResult.getString("message").equals("success")) {
                                                             Toast.makeText(mContext, "Berhasil konfirmasi pesanan", Toast.LENGTH_SHORT).show();
-                                                            Intent i = new Intent(mContext, Toko.class);
+                                                            Intent i = new Intent(mContext, Transaksi.class);
+                                                            i.putExtra("id_penjual",tr.getId_penjual());
                                                             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                             mContext.startActivity(i);
