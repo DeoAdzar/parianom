@@ -49,7 +49,6 @@ public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.
 
 //        holder.imgData.setImageURI(Uri.parse(UtilsApi.IMAGES_PROFIL+PM.getFoto_produk()));
         Picasso.get().load(UtilsApi.IMAGES_PRODUK + PM.getFoto_produk())
-                .placeholder(R.color.shimmer)
                 .into(holder.imgData);
         holder.namaData.setText(PM.getNama());
         holder.kecData.setText(PM.getKec());

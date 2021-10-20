@@ -264,8 +264,8 @@ public class FormBukaToko extends AppCompatActivity {
                     }
                     // Set hasil result json ke dalam adapter spinner
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(FormBukaToko.this,
-                            R.layout.custom_spinner, listAdmin);
-                    adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+                            R.layout.custom_spinner_dropdown, listAdmin);
+                    adapter.setDropDownViewResource(R.layout.custom_spinner);
                     kec.setThreshold(0);
                     kec.setAdapter(adapter);
                 } else {

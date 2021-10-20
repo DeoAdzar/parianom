@@ -121,6 +121,11 @@ public interface BaseApiService {
             @Field("id_pesanan") int id
     );
     @FormUrlEncoded
+    @POST("cancel")
+    Call<ResponseBody> cancel(
+            @Field("id_pesanan") int id
+    );
+    @FormUrlEncoded
     @POST("login")
     Call<ResponseBody> login(
             @Field("username") String username,
