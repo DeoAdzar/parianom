@@ -20,6 +20,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.R;
+import com.parianom.activity.DetailTransaksi;
+import com.parianom.activity.GenerateQR;
 import com.parianom.activity.ScanQr;
 import com.parianom.activity.Transaksi;
 import com.parianom.api.BaseApiService;
@@ -66,7 +68,7 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final TransaksiModel tr = mData.get(position);
-        holder.namaTransaksi.setText("#"+tr.getKode_pesanan());
+        holder.namaTransaksi.setText("#" + tr.getKode_pesanan());
         holder.subNamaTransaksi.setText(tr.getNama());
         holder.pembeli.setText(tr.getNama_lengkap());
         holder.jumlah.setText(String.valueOf(tr.getJumlah()));
@@ -82,8 +84,59 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK+tr.getFoto_produk()))
+        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK + tr.getFoto_produk()))
                 .placeholder(R.color.shimmer).into(holder.imgTransaksi);
+        switch (String.valueOf(tr.getStatus())) {
+            case "1":
+                holder.selesai.setVisibility(View.GONE);
+                holder.batalkan.setVisibility(View.GONE);
+                break;
+            case "0":
+                holder.selesai.setVisibility(View.GONE);
+                holder.batalkan.setVisibility(View.GONE);
+                holder.card.setBackground(ContextCompat.getDrawable(mContext, R.drawable.card_riwayat_disable));
+                break;
+            case "null":
+                holder.selesai.setVisibility(View.VISIBLE);
+                holder.batalkan.setVisibility(View.VISIBLE);
+                holder.selesai.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        BaseApiService mApiService = UtilsApi.getApiService();
+                        Call<ResponseBody> cek = mApiService.scanning(tr.getKode_pesanan(), tr.getId_penjual());
+                        cek.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if (response.isSuccessful()) {
+                                    try {
+                                        JSONObject jsonResult = new JSONObject(response.body().string());
+                                        if (jsonResult.getString("message").equals("success")) {
+                                            Toast.makeText(mContext, "Berhasil konfirmasi pesanan", Toast.LENGTH_SHORT).show();
+                                            Intent i = new Intent(mContext, Transaksi.class);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            mContext.startActivity(i);
+                                        } else {
+                                            String message = jsonResult.getString("message");
+                                            Log.d(TAG, "onResponseScan: " + tr.getKode_pesanan() + " " + tr.getId_penjual());
+                                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                });
+                break;
+        }
 //        if (String.valueOf(tr.getStatus())=="1"){
 //            holder.selesai.setVisibility(View.GONE);
 //            holder.batalkan.setVisibility(View.GONE);
@@ -142,41 +195,39 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
 //                holder.card.setBackground(ContextCompat.getDrawable(mContext, R.drawable.card_riwayat_disable));
 //                break;
 //            default:
-                holder.selesai.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        BaseApiService mApiService = UtilsApi.getApiService();
-                        Call<ResponseBody> cek = mApiService.scanning(tr.getKode_pesanan(), tr.getId_penjual());
-                        cek.enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                if (response.isSuccessful()){
-                                    try {
-                                        JSONObject jsonResult = new JSONObject(response.body().string());
-                                        if (jsonResult.getString("message").equals("success")){
-                                            Toast.makeText(mContext, "Berhasil konfirmasi pesanan", Toast.LENGTH_SHORT).show();
-                                            Intent i = new Intent(mContext, Transaksi.class);
-                                            mContext.startActivity(i);
-                                        }else{
-                                            String message = jsonResult.getString("message");
-                                            Log.d(TAG, "onResponseScan: "+ tr.getKode_pesanan()+" "+tr.getId_penjual());
-                                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                            }
-                        });
-                    }
-                });
+//        holder.selesai.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                        BaseApiService mApiService = UtilsApi.getApiService();
+//                        Call<ResponseBody> cek = mApiService.scanning(tr.getKode_pesanan(), tr.getId_penjual());
+//                        cek.enqueue(new Callback<ResponseBody>() {
+//                            @Override
+//                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                                if (response.isSuccessful()){
+//                                    try {
+//                                        JSONObject jsonResult = new JSONObject(response.body().string());
+//                                        if (jsonResult.getString("message").equals("success")){
+//                                            Toast.makeText(mContext, "Berhasil konfirmasi pesanan", Toast.LENGTH_SHORT).show();
+//                                        }else{
+//                                            String message = jsonResult.getString("message");
+//                                            Log.d(TAG, "onResponseScan: "+ tr.getKode_pesanan()+" "+tr.getId_penjual());
+//                                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                            }
+//                            @Override
+//                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//                            }
+//                        });
+//            }
+//        });
 //                break;
 //
 //        }
@@ -195,6 +246,7 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
         private ImageView imgTransaksi;
         private Button selesai, batalkan;
         LinearLayout card;
+
         public MyViewHolder(View itemView) {
             super(itemView);
 
@@ -207,7 +259,7 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
             imgTransaksi = (ImageView) itemView.findViewById(R.id.imgTransaksi);
             selesai = (Button) itemView.findViewById(R.id.btnSelesaiTransaksi);
             batalkan = (Button) itemView.findViewById(R.id.btnBatalTransaksi);
-            card= itemView.findViewById(R.id.cardTransaksi);
+            card = itemView.findViewById(R.id.cardTransaksi);
         }
     }
 }

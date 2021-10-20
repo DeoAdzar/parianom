@@ -2,8 +2,16 @@ package com.parianom.model;
 
 public class TransaksiModel {
 
-    private String nama_lengkap,timestamp,nama,foto_produk,kode_pesanan;
-    private int jumlah,id,status,total,id_penjual;
+    private String nama_lengkap,timestamp,nama,foto_produk,kode_pesanan,status;
+    private int jumlah,id,total,id_penjual;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getId_penjual() {
         return id_penjual;
@@ -77,11 +85,4 @@ public class TransaksiModel {
         this.id = id;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 }
