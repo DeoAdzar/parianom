@@ -229,8 +229,8 @@ public class BerandaFragment extends Fragment {
             public void onResponse(Call<PenjualanResponseModel> call, Response<PenjualanResponseModel> response) {
                 penjualanModelList = response.body().getData();
                 if (penjualanModelList.isEmpty()){
-
-                    Toast.makeText(getContext(), "Belum ada yang upload", Toast.LENGTH_SHORT).show();
+                    empty.setVisibility(View.VISIBLE);
+                    rvBeranda.setVisibility(View.GONE);
                 }else{
                         lmBeranda = new GridLayoutManager(getContext(),2);
                         rvBeranda.setLayoutManager(lmBeranda);
