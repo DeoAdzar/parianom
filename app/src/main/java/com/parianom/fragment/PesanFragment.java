@@ -41,26 +41,26 @@ public class PesanFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(adapter);
 
-        shimmer = (ShimmerFrameLayout) v.findViewById(R.id.shimmerPesan);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                rv.setVisibility(View.VISIBLE);
-                shimmer.stopShimmer();
-                shimmer.hideShimmer();
-                shimmer.setVisibility(View.GONE);
-            }
-        }, 5000);
+//        shimmer = (ShimmerFrameLayout) v.findViewById(R.id.shimmerPesan);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                rv.setVisibility(View.VISIBLE);
+//                shimmer.stopShimmer();
+//                shimmer.hideShimmer();
+//                shimmer.setVisibility(View.GONE);
+//            }
+//        }, 5000);
 
         return v;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        listPesan = new ArrayList<>();
-        listPesan.add(new PesanModel("Bu Yuni", "Oke", R.drawable.ic_person));
-        listPesan.add(new PesanModel("Bu Yono", "Terimakasih", R.drawable.ic_person));
-    }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//        listPesan = new ArrayList<>();
+//        listPesan.add(new PesanModel("Bu Yuni", "Oke", R.drawable.ic_person));
+//        listPesan.add(new PesanModel("Bu Yono", "Terimakasih", R.drawable.ic_person));
+//    }
 }

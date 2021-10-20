@@ -43,12 +43,13 @@
         tools:listitem="@layout/item_pesan">
 
     </androidx.recyclerview.widget.RecyclerView>
+    <include layout="@layout/fragment_board_empty" android:visibility="visible"/>
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerPesan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/shimmer_pesan"/>
-    </com.facebook.shimmer.ShimmerFrameLayout>
+<!--    <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--        android:id="@+id/shimmerPesan"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        <include layout="@layout/shimmer_pesan"/>-->
+<!--    </com.facebook.shimmer.ShimmerFrameLayout>-->
 
 </LinearLayout>

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             style="@style/fontMasuk"
             android:textColor="@color/black"
-            android:text="@string/produk_belum_tersedia"
+            android:text="Belum Ada Data"
             android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
