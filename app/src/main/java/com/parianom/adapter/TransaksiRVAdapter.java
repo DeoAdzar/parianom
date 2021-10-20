@@ -115,7 +115,7 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         BaseApiService mApiService = UtilsApi.getApiService();
-                                        Call<ResponseBody> cek = mApiService.scanning(tr.getKode_pesanan(), tr.getId_penjual());
+                                        Call<ResponseBody> cek = mApiService.selesai(tr.getId());
                                         cek.enqueue(new Callback<ResponseBody>() {
                                             @Override
                                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

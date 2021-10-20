@@ -116,6 +116,11 @@ public interface BaseApiService {
             @Field("id_user") int id
     );
     @FormUrlEncoded
+    @POST("selesai")
+    Call<ResponseBody> selesai(
+            @Field("id_pesanan") int id
+    );
+    @FormUrlEncoded
     @POST("login")
     Call<ResponseBody> login(
             @Field("username") String username,
