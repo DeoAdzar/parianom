@@ -135,7 +135,7 @@ public class ProfilFragment extends Fragment {
                     }
 
                 } else {
-                    Toast.makeText(getContext(), "Cannot Connect server", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
@@ -190,7 +190,7 @@ public class ProfilFragment extends Fragment {
                                 e.printStackTrace();
                             }
                         } else {
-
+                            sessionManager.logout();
                         }
                     }
 

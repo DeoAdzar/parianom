@@ -3,7 +3,15 @@ package com.parianom.model;
 public class DaftarJualanModel {
 
     private String nama_toko,nama, timestamp, kategori, kategori_sub, harga,foto_produk,stok;
-    private int id;
+    private int id,id_penjual;
+
+    public int getId_penjual() {
+        return id_penjual;
+    }
+
+    public void setId_penjual(int id_penjual) {
+        this.id_penjual = id_penjual;
+    }
 
     public String getNama_toko() {
         return nama_toko;

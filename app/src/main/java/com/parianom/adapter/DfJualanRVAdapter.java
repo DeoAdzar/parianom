@@ -107,9 +107,9 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
                                 delete.enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                                        Toast.makeText(mContext, "sukses", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, "sukses", Toast.LENGTH_SHORT).show();
 //                                        Intent i = new Intent(mContext, DaftarJualan.class);
-//                                        i.putExtra("id_penjual", tr.getId_penjual());
+//                                        i.putExtra("id_penjual",tr.getId_penjual());
 //                                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                                        mContext.startActivity(i);
