@@ -117,6 +117,7 @@ public class DaftarJualan extends AppCompatActivity {
                     empty.setVisibility(View.VISIBLE);
                     rvDaftarJualan.setVisibility(View.GONE);
                 }else {
+                    empty.setVisibility(View.GONE);
                     lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
                     rvDaftarJualan.setLayoutManager(lmDaftarJualan);
                     adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(), daftarJualanModels);
@@ -147,11 +148,16 @@ public class DaftarJualan extends AppCompatActivity {
                     empty.setVisibility(View.VISIBLE);
                     rvDaftarJualan.setVisibility(View.GONE);
                 }else {
+                    empty.setVisibility(View.GONE);
                     lmDaftarJualan = new LinearLayoutManager(getApplicationContext());
                     rvDaftarJualan.setLayoutManager(lmDaftarJualan);
                     adDaftarJualan = new DfJualanRVAdapter(getApplicationContext(), daftarJualanModels);
                     rvDaftarJualan.setAdapter(adDaftarJualan);
+                    rvDaftarJualan.setVisibility(View.VISIBLE);
                     adDaftarJualan.notifyDataSetChanged();
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
                 }
             }
 
