@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.9"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="50dp">
         <ImageView
             android:layout_width="184dp"
             android:layout_height="248dp"
@@ -27,15 +28,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_weight="0.05"
-        android:gravity="center">
+        android:layout_weight="0.04"
+        android:gravity="center"
+        android:orientation="vertical">
         <ImageView
             android:id="@+id/kab"
-            android:layout_width="31dp"
-            android:layout_height="35dp"
-            android:elevation="5dp"
-            android:src="@drawable/pesilat"
-            android:layout_marginRight="10dp"/>
+            android:layout_width="71dp"
+            android:layout_height="75dp"
+            android:src="@drawable/ic_pesilat" />
         <TextView
             style="@style/fontMasuk"
             android:layout_width="wrap_content"

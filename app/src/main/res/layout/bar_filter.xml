@@ -21,15 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingBottom="8dp"
+            android:background="@android:color/transparent"
+            android:capitalize="words"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="10dp"
             android:hint="@string/cari_kecamatan"
+            android:paddingBottom="8dp"
             android:singleLine="true"
-            android:background="@android:color/transparent"
             android:textColorHint="@color/label_input"
-            android:capitalize="words"
-            android:textSize="14dp"/>
+            android:textSize="14dp" />
     </RelativeLayout>
 
 </LinearLayout>

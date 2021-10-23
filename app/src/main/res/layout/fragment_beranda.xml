@@ -120,6 +120,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/makanan"
+                android:padding="5dp"
                 android:textColor="@color/primer"/>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
@@ -135,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/minuman"
+                android:padding="5dp"
                 style="@style/fontMasuk"
                 android:layout_gravity="center"
                 android:gravity="center"/>
@@ -152,6 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/camilan"
+                android:padding="5dp"
                 style="@style/fontMasuk"
                 android:layout_gravity="center"
                 android:gravity="center"/>
@@ -172,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:padding="5dp"
                 android:text="@string/bahan_baku" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
@@ -198,6 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:padding="5dp"
                 android:textColor="@color/primer"
                 android:text="Hasil Kriya" />
         </androidx.cardview.widget.CardView>
@@ -214,6 +219,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bahan_baku"
+                android:padding="5dp"
                 style="@style/fontMasuk"
                 android:layout_gravity="center"
                 android:gravity="center"/>

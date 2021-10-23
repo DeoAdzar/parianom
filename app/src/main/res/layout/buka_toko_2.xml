@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/lTahap2">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/fontTitleContent"
+                android:text="@string/tahap_2"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/fontEdit"
+                android:textSize="13dp"
+                android:textColor="@color/label_input"
+                android:text="@string/opsional"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                style="@style/fontMasuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/nomor_npwp"
+                android:textAllCaps="true" />
+
+            <EditText
+                android:id="@+id/nomorNPWP"
+                style="@style/fontMasuk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:backgroundTint="@color/label_input"
+                android:singleLine="true"
+                android:inputType="text"
+                android:textColor="@color/black" />
+
+            <TextView
+                style="@style/fontMasuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:imeOptions="actionDone"
+                android:text="@string/lain_lain"
+                android:textAllCaps="true" />
+
+            <EditText
+                android:id="@+id/lainnya"
+                style="@style/fontMasuk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:backgroundTint="@color/label_input"
+                android:inputType="text|textMultiLine"
+                android:maxLines="6"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btnTahap2"
+                style="@style/fontBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button"
+                android:text="@string/lanjutkan"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

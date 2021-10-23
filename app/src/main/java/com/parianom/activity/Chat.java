@@ -2,15 +2,27 @@ package com.parianom.activity;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,17 +45,31 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Chat extends AppCompatActivity {
-    private TextView namaPenjual, namaProduk, alamatProduk, jumlahBeli, hargaSatuan, hargaTotal;
+    private TextView namaPenjual, namaProduk, alamatProduk, jumlahBeli, hargaSatuan, hargaTotal, galeri, kamera, lokasi;
     private ImageView imgProduk;
     private CardView beli;
+    private EditText isiPesan;
+    private ImageButton tamlahLampiran;
+    private FrameLayout kirim;
     SessionManager sessionManager;
     Calendar calendar;
     SimpleDateFormat sdf,sdf2;
-    String harga,namaP,jumlah,namaPr,alamat,gambar,idPr,idPn;
+    String harga,namaP,jumlah,namaPr,alamat,gambar,idPr,idPn, mediaPath, postPath;
+    private static final int REQUEST_PICK_PHOTO = 2;
+
+    private void setInit() {
+        isiPesan = findViewById(R.id.formMessage);
+        tamlahLampiran = findViewById(R.id.btnTambahLampiran);
+        kirim = findViewById(R.id.kirimChat);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+//        getWindow().setStatusBarColor(Color.parseColor("#20111111"));
+//        getWindow().setNavigationBarColor(Color.parseColor("#20111111"));
+//        getWindow().setTitle(Color.parseColor(""));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -55,6 +81,9 @@ public class Chat extends AppCompatActivity {
                 finish();
             }
         });
+
+        setInit();
+
         harga = getIntent().getStringExtra("harga");
         namaP=getIntent().getStringExtra("penjual");
         jumlah = getIntent().getStringExtra("jumlah");
@@ -123,10 +152,88 @@ public class Chat extends AppCompatActivity {
                 });
             }
         });
+        tamlahLampiran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(Chat.this);
+
+                LayoutInflater inflater = getLayoutInflater();
+                View v = inflater.inflate(R.layout.item_lampiran_chat, null);
+
+                kamera = v.findViewById(R.id.kamera);
+                galeri = v.findViewById(R.id.galeri);
+                lokasi = v.findViewById(R.id.lokasi);
+
+                dialog.setView(view);
+                dialog.setCancelable(false);
+
+                galeri.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(i, REQUEST_PICK_PHOTO);
+                    }
+                });
+
+            }
+        });
     }
+
     private String formatRupiah(Double number){
         Locale localeID = new Locale("in", "ID");
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeID);
         return numberFormat.format(number);
+    }
+
+    private void lampiran (){
+        tamlahLampiran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(Chat.this);
+
+                LayoutInflater inflater = getLayoutInflater();
+                View v = inflater.inflate(R.layout.item_lampiran_chat, null);
+
+                kamera = v.findViewById(R.id.kamera);
+                galeri = v.findViewById(R.id.galeri);
+                lokasi = v.findViewById(R.id.lokasi);
+
+                dialog.setView(view);
+                dialog.setCancelable(false);
+
+                galeri.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(i, REQUEST_PICK_PHOTO);
+                    }
+                });
+
+            }
+        });
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_PICK_PHOTO) {
+                if (data != null) {
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    assert cursor != null;
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    mediaPath = cursor.getString(columnIndex);
+//                    Image.setImageURI(data.getData());
+                    cursor.close();
+
+                    postPath = mediaPath;
+                }
+            }
+        }
     }
 }

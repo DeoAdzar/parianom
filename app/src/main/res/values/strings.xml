@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Parianom</string>
     <string name="masuk">Masuk</string>
-    <string name="username">Username</string>
-    <string name="password">Kata Sandi</string>
+    <string name="username">Nama/Username</string>
+    <string name="password">Kata Sandi/Password</string>
     <string name="email">Email</string>
-    <string name="hp">No Handphone</string>
+    <string name="hp">No. Handphone</string>
     <string name="daftar">Daftar</string>
     <string name="title_activity_otp">Otp</string>
     <!-- Strings used for fragments for navigation -->
@@ -44,8 +44,9 @@
     <string name="parianom_buka_toko">Parianom memberikan solusi penguatan ekonomi masyarakat di Kabupaten Madiun</string>
     <string name="persiapan_buka_toko">Siapkan KTP Anda terlebih dahulu untuk pengisian data pada saat pendaftaran pembuatan toko</string>
     <string name="nama_toko">NAMA TOKO</string>
-    <string name="nik">nik</string>
+    <string name="nik">Nomor Nik</string>
     <string name="alamat">Alamat</string>
+    <string name="alamat_asing">Alamat/Address</string>
     <string name="foto_ktp">foto ktp</string>
     <string name="pilih_file_ktp">Pilih File KTP</string>
     <string name="simpan">Simpan</string>
@@ -56,7 +57,6 @@
     <string name="daftar_jualan">Daftar Jualan</string>
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="transaksi">Transaksi</string>
-    <string name="nama">NAMA</string>
     <string name="simpan_perubahan">Simpan Perubahan</string>
     <string name="kabupaten_madiun">Kabupaten Madiun</string>
     <string name="kirim">Kirim</string>
@@ -82,9 +82,23 @@
     <string name="silahkan_masuk_terlebih_dahulu">Silahkan Masuk Terlebih Dahulu</string>
     <string name="kata_sandi">Kata Sandi</string>
     <string name="ubah_kata_sandi">Ubah Kata Sandi</string>
-    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="nama_lengkap">Nama Lengkap/Full Name</string>
     <string name="koneksi_jaringan_anda_terputus">Koneksi jaringan Anda terputus</string>
     <string name="produk_belum_tersedia">Produk Belum Tersedia</string>
+    <string name="lupa_kata_sandi">Lupa Kata Sandi?</string>
+    <string name="pilih">Pilih</string>
+    <string name="galeri">Galeri</string>
+    <string name="kamera">Kamera</string>
+    <string name="lokasi">Lokasi</string>
+    <string name="tahap_1">Tahap 1/3 : Tambahkan Informasi Toko</string>
+    <string name="tahap_2">Tahap 2/3 : Tambahkan Informasi Sertifikat</string>
+    <string name="tahap_3">Tahap 3/3 : Verifikasi KTP</string>
+    <string name="lanjutkan">Lanjutkan</string>
+    <string name="opsional">(Opsional)</string>
+    <string name="enkripsi">Data telah dienkripsi untuk menjaga informasi pribadi Anda</string>
+    <string name="nomor_npwp">Nomor NPWP</string>
+    <string name="lain_lain">Lain - lain</string>
+    <string name="deskripsi">Deskripsi</string>
     <string-array name="kecamatan">
         <item>Dagangan</item>
         <item>Wungu</item>

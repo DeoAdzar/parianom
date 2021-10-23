@@ -7,63 +7,108 @@
     android:orientation="vertical"
     tools:context=".activity.Board">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_weight="0.1">
+        android:layout_height="match_parent">
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:background="@drawable/ic_bg_board"/>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:layout_weight="0.5"
+            android:id="@+id/top">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:background="@drawable/ic_bg_board" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:elevation="5dp"
+                android:layout_gravity="bottom">
+                <ImageView
+                    android:id="@+id/gbBoard"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:maxHeight="200dp"
+                    android:src="@drawable/gb_board" />
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="180dp"-->
+<!--                    android:layout_marginHorizontal="20dp"-->
+<!--                    android:maxHeight="200dp"-->
+<!--                    android:src="#77353637" />-->
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:elevation="5dp"
-            android:layout_gravity="bottom">
-            <ImageView
+            android:layout_below="@+id/top"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:id="@+id/desk"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginHorizontal="20dp"
-                android:maxHeight="200dp"
-                android:src="@drawable/gb_board" />
-        </LinearLayout>
-    </FrameLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.9"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|center_vertical"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/pasar_kriya_dan_olahan_madiun"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                style="@style/fontMasuk"
-                android:gravity="center|center" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                style="@style/fontMasuk"
+                android:layout_weight="0.9"
                 android:gravity="center"
-                android:text="@string/parianom_board"/>
-            <Button
-                android:id="@+id/btnMulai"
-                android:layout_marginTop="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/fontBtn"
-                android:text="@string/mulai"
-                android:background="@drawable/button"/>
-        </LinearLayout>
-    </LinearLayout>
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical"
+                    android:orientation="vertical"
+                    tools:ignore="NotSibling">
+
+                    <TextView
+                        style="@style/fontMasuk"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|center"
+                        android:text="@string/pasar_kriya_dan_olahan_madiun"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        style="@style/fontMasuk"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:gravity="center"
+                        android:text="@string/parianom_board" />
+
+                    <Button
+                        android:id="@+id/btnMulai"
+                        style="@style/fontBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:background="@drawable/button"
+                        android:text="@string/mulai" />
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+<!--        <FrameLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="270dp">-->
+<!--            <ImageView-->
+<!--                android:id="@+id/kab"-->
+<!--                android:layout_width="111dp"-->
+<!--                android:layout_height="115dp"-->
+<!--                android:src="@drawable/pesilat"-->
+<!--                android:elevation="100dp"/>-->
+<!--        </FrameLayout>-->
+
+    </RelativeLayout>
+
 </LinearLayout>

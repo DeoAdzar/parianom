@@ -2,15 +2,20 @@ package com.parianom.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jaeger.library.StatusBarUtil;
 import com.parianom.R;
 import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
@@ -23,13 +28,19 @@ public class DetailBarang extends AppCompatActivity {
     Button decrement, increment, chat;
     int quantity = 1;
     ImageView imgDetailPr;
-    TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda,stok;
+    TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda, stok, hargaTotalDetail;
     SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        getWindow().setStatusBarColor(ContextCompat.getColor(DetailBarang.this, R.color.white));
         setContentView(R.layout.activity_detail_barang);
         sessionManager = new SessionManager(getApplicationContext());
+//        StatusBarUtil.setTransparent(DetailBarang.this);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            Window w = getWindow();
+//            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -50,6 +61,7 @@ public class DetailBarang extends AppCompatActivity {
         hargaProduk = (TextView) findViewById(R.id.hargaProduk);
         jumlah = (TextView) findViewById(R.id.jumlah);
         stok = findViewById(R.id.stokPrBeranda);
+        hargaTotalDetail = findViewById(R.id.hargaTotalDetail);
         namaProduk.setText(getIntent().getStringExtra("nama_produk"));
         namaPenjual.setText(getIntent().getStringExtra("nama"));
         alamatPrBeranda.setText(getIntent().getStringExtra("alamat"));
@@ -61,6 +73,8 @@ public class DetailBarang extends AppCompatActivity {
         String harga = hargaProduk.getText().toString();
         String resultRupiah = formatRupiah(Double.parseDouble(harga));
         hargaProduk.setText(resultRupiah);
+
+
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +121,9 @@ public class DetailBarang extends AppCompatActivity {
 
     private void display(int number) {
         jumlah.setText("" + number);
+        int jumlahHarga = Integer.parseInt(jumlah.getText().toString())*Integer.parseInt(getIntent().getStringExtra("harga_produk"));
+        String total = formatRupiah(Double.parseDouble(String.valueOf(jumlahHarga)));
+        hargaTotalDetail.setText(String.valueOf(total));
     }
 
     //  Currency
