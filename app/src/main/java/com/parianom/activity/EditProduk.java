@@ -52,7 +52,7 @@ public class EditProduk extends AppCompatActivity {
     String mediaPath, postPath;
     SessionManager sessionManager;
     EditText nama,harga,stok;
-    private ProgressBar loading;;
+    private ProgressBar loading;
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

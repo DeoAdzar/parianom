@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/lTahap3">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/fontTitleContent"
+                android:text="@string/tahap_3"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/fontEdit"
+                android:textSize="13dp"
+                android:textColor="@color/label_input"
+                android:text="@string/enkripsi"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                style="@style/fontMasuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/nik"
+                android:textAllCaps="true" />
+
+            <EditText
+                android:id="@+id/nik"
+                style="@style/fontMasuk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:backgroundTint="@color/label_input"
+                android:singleLine="true"
+                android:inputType="number"
+                android:textColor="@color/black" />
+
+<!--            <TextView-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="4dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="@string/nik"-->
+<!--                android:textAllCaps="true" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/nik"-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginVertical="3dp"-->
+<!--                android:backgroundTint="@color/label_input"-->
+<!--                android:inputType="number"-->
+<!--                android:maxLength="16"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="@color/black" />-->
+
+            <TextView
+                style="@style/fontMasuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/foto_ktp"
+                android:textAllCaps="true" />
+
+            <ImageView
+                android:id="@+id/imgKtp"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_marginVertical="15dp"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/ktp"
+                style="@style/fontBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginVertical="3dp"
+                android:background="@drawable/button"
+                android:drawableLeft="@drawable/ic_upload"
+                android:text="Pilih File KTP"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="50dp">
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/progress_buka_toko"
+                    android:visibility="gone"/>
+                <Button
+                    android:id="@+id/btnTahap3"
+                    style="@style/fontBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:text="@string/simpan"
+                    android:textSize="12dp" />
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

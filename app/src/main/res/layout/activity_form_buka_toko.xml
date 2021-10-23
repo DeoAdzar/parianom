@@ -38,140 +38,143 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="5dp"
-            android:orientation="vertical">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:fillViewport="true">-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:layout_marginVertical="5dp"-->
+<!--            android:orientation="vertical">-->
 
-            <TextView
-                style="@style/fontMasuk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="10dp"
-                android:inputType="text"
-                android:text="@string/nama_toko"
-                android:textAllCaps="true" />
+<!--            <TextView-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="4dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:inputType="text"-->
+<!--                android:text="@string/nama_toko"-->
+<!--                android:textAllCaps="true" />-->
 
-            <EditText
-                android:id="@+id/namaBukaToko"
-                style="@style/fontMasuk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:backgroundTint="@color/label_input"
-                android:singleLine="true"
-                android:textColor="@color/black" />
+<!--            <EditText-->
+<!--                android:id="@+id/namaBukaToko"-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginVertical="3dp"-->
+<!--                android:backgroundTint="@color/label_input"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="@color/black" />-->
 
-            <TextView
-                style="@style/fontMasuk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/nik"
-                android:textAllCaps="true" />
+<!--            <TextView-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="4dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="@string/nik"-->
+<!--                android:textAllCaps="true" />-->
 
-            <EditText
-                android:id="@+id/nik"
-                style="@style/fontMasuk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:backgroundTint="@color/label_input"
-                android:inputType="number"
-                android:maxLength="16"
-                android:singleLine="true"
-                android:textColor="@color/black" />
+<!--            <EditText-->
+<!--                android:id="@+id/nik"-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginVertical="3dp"-->
+<!--                android:backgroundTint="@color/label_input"-->
+<!--                android:inputType="number"-->
+<!--                android:maxLength="16"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="@color/black" />-->
 
-            <TextView
-                style="@style/fontMasuk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/alamat"
-                android:textAllCaps="true" />
+<!--            <TextView-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="4dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="@string/alamat"-->
+<!--                android:textAllCaps="true" />-->
 
-            <EditText
-                android:id="@+id/alamatBukaToko"
-                style="@style/fontMasuk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:backgroundTint="@color/label_input"
-                android:inputType="textCapWords"
-                android:lines="1"
-                android:singleLine="true"
-                android:textColor="@color/black" />
+<!--            <EditText-->
+<!--                android:id="@+id/alamatBukaToko"-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginVertical="3dp"-->
+<!--                android:backgroundTint="@color/label_input"-->
+<!--                android:inputType="textCapWords"-->
+<!--                android:lines="1"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="@color/black" />-->
 
-            <TextView
-                style="@style/fontMasuk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="10dp"
-                android:imeOptions="actionDone"
-                android:text="@string/kecamatan"
-                android:textAllCaps="true" />
+<!--            <TextView-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="4dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:imeOptions="actionDone"-->
+<!--                android:text="@string/kecamatan"-->
+<!--                android:textAllCaps="true" />-->
 
-            <AutoCompleteTextView
-                android:id="@+id/kecamatanBukaToko"
-                style="@style/fontMasuk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:textColor="@color/black"
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/kecamatanBukaToko"-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:maxLines="1"-->
+<!--                android:textColor="@color/black"-->
 
-                android:theme="@style/fontEdit" />
+<!--                android:theme="@style/fontEdit" />-->
 
-            <TextView
-                style="@style/fontMasuk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/foto_ktp"
-                android:textAllCaps="true" />
+<!--            <TextView-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="4dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="@string/foto_ktp"-->
+<!--                android:textAllCaps="true" />-->
 
-            <ImageView
-                android:id="@+id/imgKtp"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_marginVertical="15dp"
-                android:visibility="gone"/>
+<!--            <ImageView-->
+<!--                android:id="@+id/imgKtp"-->
+<!--                android:layout_width="150dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:layout_marginVertical="15dp"-->
+<!--                android:visibility="gone"/>-->
 
-            <Button
-                android:id="@+id/ktp"
-                style="@style/fontBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginVertical="3dp"
-                android:background="@drawable/button"
-                android:drawableLeft="@drawable/ic_upload"
-                android:text="Pilih File KTP"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
+<!--            <Button-->
+<!--                android:id="@+id/ktp"-->
+<!--                style="@style/fontBtn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:layout_marginVertical="3dp"-->
+<!--                android:background="@drawable/button"-->
+<!--                android:drawableLeft="@drawable/ic_upload"-->
+<!--                android:text="Pilih File KTP"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="12dp" />-->
 
 
-            <Button
-                android:id="@+id/btnSimpanToko"
-                style="@style/fontBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/button"
-                android:text="@string/simpan"
-                android:textSize="12dp" />
-        </LinearLayout>
-    </ScrollView>
+<!--            <Button-->
+<!--                android:id="@+id/btnSimpanToko"-->
+<!--                style="@style/fontBtn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:background="@drawable/button"-->
+<!--                android:text="@string/simpan"-->
+<!--                android:textSize="12dp" />-->
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
 
+    <include layout="@layout/buka_toko_1"/>
+    <include layout="@layout/buka_toko_2" android:visibility="gone"/>
+    <include layout="@layout/buka_toko_3" android:visibility="gone"/>
 
 </LinearLayout>

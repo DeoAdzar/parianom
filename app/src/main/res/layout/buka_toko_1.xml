@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/lTahap1">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/fontTitleContent"
+                android:text="@string/tahap_1"
+                android:layout_marginLeft="4dp"
+                android:layout_marginVertical="10dp"/>
+            <TextView
+                style="@style/fontMasuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/nama_toko"
+                android:textAllCaps="true" />
+            <EditText
+                android:id="@+id/namaBukaToko"
+                style="@style/fontMasuk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:backgroundTint="@color/label_input"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+
+<!--            <TextView-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="4dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="Nomor WhatsApp"-->
+<!--                android:textAllCaps="true" />-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+<!--                <EditText-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginVertical="3dp"-->
+<!--                    android:enabled="false"-->
+<!--                    style="@style/fontMasuk"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:text="(ID)+62"-->
+<!--                    android:backgroundTint="@color/label_input"/>-->
+<!--                <EditText-->
+<!--                    android:id="@+id/nmrWa"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginVertical="3dp"-->
+<!--                    style="@style/fontMasuk"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:backgroundTint="@color/label_input"-->
+<!--                    android:text="8912345678"-->
+<!--                    android:inputType="number"-->
+<!--                    android:singleLine="true"/>-->
+<!--            </LinearLayout>-->
+
+<!--            <TextView-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="4dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="@string/nik"-->
+<!--                android:textAllCaps="true" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/nik"-->
+<!--                style="@style/fontMasuk"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginVertical="3dp"-->
+<!--                android:backgroundTint="@color/label_input"-->
+<!--                android:inputType="number"-->
+<!--                android:maxLength="16"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="@color/black" />-->
+
+            <TextView
+                style="@style/fontMasuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/alamat"
+                android:textAllCaps="true" />
+
+            <EditText
+                android:id="@+id/alamatBukaToko"
+                style="@style/fontMasuk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:backgroundTint="@color/label_input"
+                android:inputType="textCapWords"
+                android:lines="1"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+
+            <TextView
+                style="@style/fontMasuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:imeOptions="actionDone"
+                android:text="@string/kecamatan"
+                android:textAllCaps="true" />
+
+            <AutoCompleteTextView
+                android:id="@+id/kecamatanBukaToko"
+                style="@style/fontMasuk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:theme="@style/fontEdit" />
+
+            <Button
+                android:id="@+id/btnTahap1"
+                style="@style/fontBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button"
+                android:text="@string/lanjutkan"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

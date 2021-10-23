@@ -95,7 +95,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/message"
+                    android:id="@+id/formMessage"
                     style="@style/fontMasuk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
