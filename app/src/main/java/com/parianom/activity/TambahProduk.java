@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -13,12 +14,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -41,7 +44,7 @@ import retrofit2.Response;
 
 public class TambahProduk extends AppCompatActivity {
     Button simpan;
-    ImageView img;
+    ImageView img, selectedImage;
     Spinner kategori, jenis;
     private static final int REQUEST_PICK_PHOTO = 2;
     private static final int REQUEST_WRITE_PERMISSION = 786;
@@ -49,6 +52,8 @@ public class TambahProduk extends AppCompatActivity {
     SessionManager sessionManager;
     EditText nama,harga,stok;
     private ProgressBar loading;
+    private LinearLayout parentLinearLayout;
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -74,6 +79,7 @@ public class TambahProduk extends AppCompatActivity {
         });
         sessionManager = new SessionManager(getApplicationContext());
         img = (ImageView) findViewById(R.id.imgTambahPr);
+//        v1 = (ImageView) findViewById(R.id.v1);
         kategori = (Spinner) findViewById(R.id.kategori);
         jenis = (Spinner) findViewById(R.id.jenis);
         nama = findViewById(R.id.edtNamaPr);
@@ -214,5 +220,15 @@ public class TambahProduk extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void addImage() {
+        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView=inflater.inflate(R.layout.item_img_multiple, null);
+        // Add the new row before the add field button.
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+        parentLinearLayout.isFocusable();
+
+        selectedImage = rowView.findViewById(R.id.addImg);
     }
 }
