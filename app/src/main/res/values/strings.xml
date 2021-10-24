@@ -99,6 +99,7 @@
     <string name="nomor_npwp">Nomor NPWP</string>
     <string name="lain_lain">Lain - lain</string>
     <string name="deskripsi">Deskripsi</string>
+    <string name="deskripsi">Deskripsi</string>
     <string-array name="kecamatan">
         <item>Dagangan</item>
         <item>Wungu</item>
