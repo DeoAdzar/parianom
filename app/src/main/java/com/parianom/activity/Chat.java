@@ -6,8 +6,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -28,15 +32,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parianom.R;
+import com.parianom.adapter.ChatRVAdapter;
+import com.parianom.adapter.PenjualanRvAdapter;
+import com.parianom.adapter.PesanRVAdapter;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
+import com.parianom.model.ChatModel;
+import com.parianom.model.PenjualanModel;
+import com.parianom.model.PesanModel;
 import com.parianom.utils.SessionManager;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import okhttp3.ResponseBody;
@@ -45,17 +57,21 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Chat extends AppCompatActivity {
+    Context context;
     private TextView namaPenjual, namaProduk, alamatProduk, jumlahBeli, hargaSatuan, hargaTotal, galeri, kamera, lokasi;
     private ImageView imgProduk;
     private CardView beli;
     private EditText isiPesan;
     private ImageButton tamlahLampiran;
     private FrameLayout kirim;
+    private RecyclerView rv;
     SessionManager sessionManager;
     Calendar calendar;
     SimpleDateFormat sdf,sdf2;
     String harga,namaP,jumlah,namaPr,alamat,gambar,idPr,idPn, mediaPath, postPath;
     private static final int REQUEST_PICK_PHOTO = 2;
+
+    private List<ChatModel> mData;
 
     private void setInit() {
         isiPesan = findViewById(R.id.formMessage);
@@ -177,7 +193,17 @@ public class Chat extends AppCompatActivity {
 
             }
         });
+        data();
+        rv = findViewById(R.id.isiChatRv);
+        ChatRVAdapter adapter = new ChatRVAdapter(mData);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rv.setLayoutManager(layoutManager);
+        rv.setItemAnimator(new DefaultItemAnimator());
+        rv.setAdapter(adapter);
+
+
     }
+
 
     private String formatRupiah(Double number){
         Locale localeID = new Locale("in", "ID");
@@ -235,5 +261,13 @@ public class Chat extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void data() {
+        mData = new ArrayList<>();
+        mData.add(new ChatModel("tes", "12-12-12 (17.00)", 12, 1, 1));
+        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "12-12-12 (17.00)", 13, 1, 0));
+        mData.add(new ChatModel("OKE DITUNGGU YAAAAAAA", "12-12-12 (17.00)", 14, 1, 1));
+        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "12-12-12 (17.00)", 15, 1, 1));
     }
 }

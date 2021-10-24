@@ -74,19 +74,49 @@
             android:layout_below="@+id/imgUserChat"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/barLy"
         android:orientation="vertical">
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp">
+                <LinearLayout
+                    android:id="@+id/intentPesanan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include layout="@layout/item_buat_pesanan" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/intentPesanan">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/isiChatRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/chat_thread"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/lyChat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#9AF4F4F4"
             android:layout_gravity="bottom"
+            android:background="#F4F4F4"
             android:padding="10dp">
-
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -107,17 +137,6 @@
                     android:paddingLeft="21dp"
                     android:paddingRight="5dp"
                     android:textColor="@color/black" />
-
-<!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                    android:id="@+id/btnFloat"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:src="@drawable/ic_add"-->
-<!--                    app:fabSize="mini"-->
-<!--                    app:elevation="0dp"-->
-<!--                    android:backgroundTint="@color/white"-->
-<!--                    app:backgroundTint="@color/white"-->
-<!--                    android:layout_gravity="center"/>-->
 
                 <ImageButton
                     android:id="@+id/btnTambahLampiran"
@@ -151,15 +170,6 @@
                     tools:ignore="UseAppTint" />
             </FrameLayout>
         </LinearLayout>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp">
-            <include layout="@layout/item_buat_pesanan"/>
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"/>-->
-        </FrameLayout>
-    </FrameLayout>
+    </LinearLayout>
+
 </RelativeLayout>
