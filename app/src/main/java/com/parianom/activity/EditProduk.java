@@ -51,7 +51,7 @@ public class EditProduk extends AppCompatActivity {
     private static final int REQUEST_WRITE_PERMISSION = 786;
     String mediaPath, postPath;
     SessionManager sessionManager;
-    EditText nama,harga,stok;
+    EditText nama,harga,stok, deskripsi;
     private ProgressBar loading;
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -85,6 +85,7 @@ public class EditProduk extends AppCompatActivity {
         nama = findViewById(R.id.etNamaEditPr);
         harga = findViewById(R.id.etHargaEditPr);
         stok = findViewById(R.id.etStokEditPr);
+        deskripsi = findViewById(R.id.etDeskEditPr);
         loading = findViewById(R.id.progress_edit_produk);
 
         simpan.setOnClickListener(new View.OnClickListener() {
