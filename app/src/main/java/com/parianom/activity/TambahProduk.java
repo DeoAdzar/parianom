@@ -50,7 +50,7 @@ public class TambahProduk extends AppCompatActivity {
     private static final int REQUEST_WRITE_PERMISSION = 786;
     String mediaPath, postPath;
     SessionManager sessionManager;
-    EditText nama,harga,stok;
+    EditText nama,harga,stok, deskripsi;
     private ProgressBar loading;
     private LinearLayout parentLinearLayout;
 
@@ -85,6 +85,7 @@ public class TambahProduk extends AppCompatActivity {
         nama = findViewById(R.id.edtNamaPr);
         harga = findViewById(R.id.edtHargaPr);
         stok = findViewById(R.id.edtStokPr);
+        deskripsi = findViewById(R.id.edtDeskPr);
         loading = findViewById(R.id.progress_tambah_produk);
 //        if (kategori.getSelectedItem().equals("Pangan")) {
 //            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
@@ -222,13 +223,13 @@ public class TambahProduk extends AppCompatActivity {
         }
     }
 
-    public void addImage() {
-        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView=inflater.inflate(R.layout.item_img_multiple, null);
-        // Add the new row before the add field button.
-        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
-        parentLinearLayout.isFocusable();
-
-        selectedImage = rowView.findViewById(R.id.addImg);
-    }
+//    public void addImage() {
+//        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        final View rowView=inflater.inflate(R.layout.item_img_multiple, null);
+//        // Add the new row before the add field button.
+//        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+//        parentLinearLayout.isFocusable();
+//
+//        selectedImage = rowView.findViewById(R.id.addImg);
+//    }
 }

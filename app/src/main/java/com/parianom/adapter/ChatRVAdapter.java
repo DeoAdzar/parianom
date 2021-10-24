@@ -48,15 +48,18 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.MyViewHold
 
         if (chatModel.getId_sender()==1){
 //            holder.layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.card_riwayat_disable));
-            holder.textViewMessage.setBackgroundColor(Color.parseColor("#C13999E2"));
+            holder.layoutCard.setBackgroundColor(Color.parseColor("#C13999E2"));
             holder.textViewMessage.setText(chatModel.getPesan());
             holder.created.setText(chatModel.getCreated_at());
             holder.layout.setPadding(150,5, 5, 5);
+            holder.layoutCard.setGravity(Gravity.END);
             holder.layout.setGravity(Gravity.END);
         } else {
-            holder.textViewMessage.setBackgroundColor(Color.parseColor("#F3F0F0"));
+            holder.layoutCard.setBackgroundColor(Color.parseColor("#F3F0F0"));
             holder.textViewMessage.setText(chatModel.getPesan());
+            holder.created.setText(chatModel.getCreated_at());
             holder.layout.setPadding(5,5, 150, 5);
+            holder.layoutCard.setGravity(Gravity.END);
             holder.layout.setGravity(Gravity.START);
         }
     }
@@ -69,10 +72,12 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewMessage, created;
         private RelativeLayout layout;
+        private LinearLayout layoutCard;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewMessage = itemView.findViewById(R.id.textViewMessage);
+            layoutCard = itemView.findViewById(R.id.isiCard);
             created = itemView.findViewById(R.id.created);
             layout = itemView.findViewById(R.id.desainChat);
         }

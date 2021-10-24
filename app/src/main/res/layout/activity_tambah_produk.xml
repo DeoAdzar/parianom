@@ -194,7 +194,7 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <EditText
-                    android:id="@+id/edtStokPr"
+                    android:id="@+id/edtDeskPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="3dp"
@@ -204,6 +204,24 @@
                     android:singleLine="true"
                     android:imeOptions="actionDone"
                     android:inputType="number"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/deskripsi"
+                    android:textAllCaps="true"
+                    style="@style/fontMasuk"/>
+                <EditText
+                    android:id="@+id/edtStokPr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="3dp"
+                    style="@style/fontMasuk"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/label_input"
+                    android:inputType="text|textMultiLine"
+                    android:maxLines="6"/>
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
