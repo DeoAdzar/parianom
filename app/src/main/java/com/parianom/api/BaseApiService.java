@@ -1,6 +1,7 @@
 package com.parianom.api;
 
 
+import com.parianom.model.ChatResponseModel;
 import com.parianom.model.DaftarJualanResponseModel;
 import com.parianom.model.KecamatanModel;
 import com.parianom.model.KecamatanResponseModel;
@@ -12,6 +13,7 @@ import com.parianom.model.TransaksiResponseModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -58,6 +60,8 @@ public interface BaseApiService {
             ,@Part("id_user") RequestBody id_user
             ,@Part("nama_toko") RequestBody nama_toko
             ,@Part("nik") RequestBody nik
+            ,@Part("npwp") RequestBody npwp
+            ,@Part("lain") RequestBody lain
             ,@Part("alamat") RequestBody alamat
             ,@Part("kec") RequestBody kec
     );
@@ -69,6 +73,7 @@ public interface BaseApiService {
             ,@Part("kategori") RequestBody kategori
             ,@Part("kategori_sub") RequestBody kategori_sub
             ,@Part("nama") RequestBody nama
+            ,@Part("deskripsi") RequestBody deskripsi
             ,@Part("harga") RequestBody harga
             ,@Part("stok") RequestBody stok
     );
@@ -219,5 +224,47 @@ public interface BaseApiService {
     @POST("getPesananByPenjual")
     Call<TransaksiResponseModel> getPesananPenjual(
             @Field("id_penjual") int id_penjual
+    );
+    @FormUrlEncoded
+    @POST("cekRoom")
+    Call<ResponseBody> cekRoom(
+            @Field("id_penjual") int id_penjual,
+            @Field("id_user") int id_user
+    );
+    @FormUrlEncoded
+    @POST("createRoom")
+    Call<ResponseBody> createRoom(
+            @Field("id_penjual") int id_penjual,
+            @Field("id_user") int id_user
+    );
+    @FormUrlEncoded
+    @POST("getHpPenjual")
+    Call<ResponseBody> getHp(
+            @Field("id_penjual") int id_penjual
+    );
+    @FormUrlEncoded
+    @POST("getMessage")
+    Call<ChatResponseModel>getMessage (
+            @Field("id_room") int id_room
+    );
+    @FormUrlEncoded
+    @POST("chat")
+    Call<ResponseBody> send_chat(
+            @Field("number") String no_hp,
+            @Field("message") String pesan
+    );
+    @FormUrlEncoded
+    @POST("inputMessage")
+    Call<ResponseBody> inputMessage(
+            @Field("id_room") int id_room,
+            @Field("id_sender") int id_sender,
+            @Field("pesan") String pesan
+    );
+    @FormUrlEncoded
+    @POST("gantiPw")
+    Call<ResponseBody> gantiPass(
+            @Field("id_user") int id_user,
+            @Field("kata_sandi") String kata_sandi,
+            @Field("kata_sandi_baru") String kata_sandi_baru
     );
 }

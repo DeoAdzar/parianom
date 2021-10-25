@@ -44,7 +44,7 @@ import retrofit2.Response;
 
 public class TambahProduk extends AppCompatActivity {
     Button simpan;
-    ImageView img, img2, img3;
+    ImageView img, selectedImage;
     Spinner kategori, jenis;
     private static final int REQUEST_PICK_PHOTO = 2;
     private static final int REQUEST_WRITE_PERMISSION = 786;
@@ -52,6 +52,7 @@ public class TambahProduk extends AppCompatActivity {
     SessionManager sessionManager;
     EditText nama,harga,stok, deskripsi;
     private ProgressBar loading;
+    private LinearLayout parentLinearLayout;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -78,8 +79,7 @@ public class TambahProduk extends AppCompatActivity {
         });
         sessionManager = new SessionManager(getApplicationContext());
         img = (ImageView) findViewById(R.id.imgTambahPr);
-        img2 = (ImageView) findViewById(R.id.imgTambahPr2);
-        img3 = (ImageView) findViewById(R.id.imgTambahPr3);
+//        v1 = (ImageView) findViewById(R.id.v1);
         kategori = (Spinner) findViewById(R.id.kategori);
         jenis = (Spinner) findViewById(R.id.jenis);
         nama = findViewById(R.id.edtNamaPr);
@@ -108,20 +108,6 @@ public class TambahProduk extends AppCompatActivity {
         });
 
         img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galery, REQUEST_PICK_PHOTO);
-            }
-        });
-        img2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galery, REQUEST_PICK_PHOTO);
-            }
-        });
-        img3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -229,8 +215,6 @@ public class TambahProduk extends AppCompatActivity {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     mediaPath = cursor.getString(columnIndex);
                     img.setImageURI(data.getData());
-//                    img2.setImageURI(data.getData());
-//                    img3.setImageURI(data.getData());
                     cursor.close();
 
                     postPath = mediaPath;
@@ -238,4 +222,14 @@ public class TambahProduk extends AppCompatActivity {
             }
         }
     }
+
+//    public void addImage() {
+//        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        final View rowView=inflater.inflate(R.layout.item_img_multiple, null);
+//        // Add the new row before the add field button.
+//        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+//        parentLinearLayout.isFocusable();
+//
+//        selectedImage = rowView.findViewById(R.id.addImg);
+//    }
 }

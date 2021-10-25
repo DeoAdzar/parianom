@@ -67,6 +67,7 @@ public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.
                 intent.putExtra("nama_produk", PM.getNama());
                 intent.putExtra("nama", PM.getNama_toko());
                 intent.putExtra("alamat", PM.getAlamat());
+                intent.putExtra("deskripsi", PM.getDeskripsi());
                 intent.putExtra("stok", String.valueOf(PM.getStok()));
                 intent.putExtra("harga_produk", String.valueOf(PM.getHarga()));
                 mContext.startActivity(intent);

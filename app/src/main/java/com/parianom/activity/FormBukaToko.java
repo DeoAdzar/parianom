@@ -56,7 +56,7 @@ import retrofit2.Response;
 
 public class FormBukaToko extends AppCompatActivity {
     Button bkToko, tahap1, tahap2, ktp;
-    EditText namaToko, nik, alamatToko, npwp, lainnya, wa;
+    EditText namaToko, nik, alamatToko, npwp, lainnya;
     LinearLayout lTahap1, lTahap2, lTahap3;
     AutoCompleteTextView kec;
 //    Bitmap bitmap;
@@ -272,6 +272,8 @@ public class FormBukaToko extends AppCompatActivity {
                         , RequestBody.create(MediaType.parse("text/plain"), user.get(SessionManager.kunci_id_user))
                         , RequestBody.create(MediaType.parse("text/plain"), namaToko.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), nik.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), npwp.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), lainnya.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), alamatToko.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), kec.getText().toString()));
                 update.enqueue(new Callback<ResponseBody>() {
