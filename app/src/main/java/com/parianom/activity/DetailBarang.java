@@ -17,12 +17,23 @@ import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.parianom.R;
+import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Locale;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailBarang extends AppCompatActivity {
     Button decrement, increment, chat;
@@ -73,33 +84,106 @@ public class DetailBarang extends AppCompatActivity {
         String harga = hargaProduk.getText().toString();
         String resultRupiah = formatRupiah(Double.parseDouble(harga));
         hargaProduk.setText(resultRupiah);
+        hargaTotalDetail.setText(getIntent().getStringExtra("harga_produk"));
 
-
-
+        HashMap<String,String> user = sessionManager.getUserDetails();
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (sessionManager.checkLogin()==1){
-                    Intent intent = new Intent(DetailBarang.this, Chat.class);
-                    intent.putExtra("id_penjual",getIntent().getStringExtra("id_penjual"));
-                    intent.putExtra("id_produk",getIntent().getStringExtra("id"));
-                    intent.putExtra("penjual", namaPenjual.getText());
-                    intent.putExtra("nama_produk", namaProduk.getText());
-                    intent.putExtra("jumlah", jumlah.getText());
-                    intent.putExtra("harga", harga);
-                    intent.putExtra("alamat", alamatPrBeranda.getText());
-                    intent.putExtra("gambar", getIntent().getStringExtra("foto_profil"));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
+                    BaseApiService mApiService = UtilsApi.getApiService();
+                    Call<ResponseBody> cek = mApiService.cekRoom(Integer.parseInt(getIntent().getStringExtra("id_penjual")), Integer.parseInt(user.get(SessionManager.kunci_id_user)));
+                    cek.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()){
+                                try {
+                                    JSONObject jsonResult =new JSONObject(response.body().string());
+                                    if (jsonResult.getString("message").equals("exist")){
+                                        String id_room = jsonResult.getJSONObject("data").getString("id");
+                                        Intent intent = new Intent(DetailBarang.this, Chat.class);
+                                        intent.putExtra("id_penjual",getIntent().getStringExtra("id_penjual"));
+                                        intent.putExtra("id_room",id_room);
+                                        intent.putExtra("id_produk",getIntent().getStringExtra("id"));
+                                        intent.putExtra("penjual", namaPenjual.getText());
+                                        intent.putExtra("nama_produk", namaProduk.getText());
+                                        intent.putExtra("jumlah", jumlah.getText());
+                                        intent.putExtra("harga", harga);
+                                        intent.putExtra("alamat", alamatPrBeranda.getText());
+                                        intent.putExtra("gambar", getIntent().getStringExtra("foto_profil"));
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }else{
+                                        createRoom();
+                                    }
+                                }catch (JSONException e ){
+                                    e.printStackTrace();
+                                }catch (IOException e){
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 }else{
                     Intent intent = new Intent(DetailBarang.this, Masuk.class);
-                        intent.putExtra("site","2");
+                    intent.putExtra("site","2");
                     startActivity(intent);
                 }
             }
         });
 
+    }
+
+    private void createRoom() {
+        HashMap<String,String> user = sessionManager.getUserDetails();
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<ResponseBody> cek = mApiService.createRoom(Integer.parseInt(getIntent().getStringExtra("id_penjual")), Integer.parseInt(user.get(SessionManager.kunci_id_user)));
+        cek.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        JSONObject jsonResult =new JSONObject(response.body().string());
+                        if (jsonResult.getString("message").equals("success")){
+                            String id_room = jsonResult.getString("id");
+                            Intent intent = new Intent(DetailBarang.this, Chat.class);
+                            intent.putExtra("id_penjual",getIntent().getStringExtra("id_penjual"));
+                            intent.putExtra("id_room",id_room);
+                            intent.putExtra("id_produk",getIntent().getStringExtra("id"));
+                            intent.putExtra("penjual", namaPenjual.getText());
+                            intent.putExtra("nama_produk", namaProduk.getText());
+                            intent.putExtra("jumlah", jumlah.getText());
+                            intent.putExtra("harga", hargaProduk.getText().toString());
+                            intent.putExtra("alamat", alamatPrBeranda.getText());
+                            intent.putExtra("gambar", getIntent().getStringExtra("foto_profil"));
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            createRoom();
+                        }
+                    }catch (JSONException e ){
+                        e.printStackTrace();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void increment(View view){//perintah tombol tambah

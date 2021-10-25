@@ -62,6 +62,16 @@
                         android:gravity="center"
                         android:text="Online"
                         android:textSize="12dp" />
+                    <TextView
+                        android:id="@+id/chat_nomer_penjual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/format"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
             </RelativeLayout>

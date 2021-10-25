@@ -4,12 +4,10 @@ public class ChatModel {
     String pesan, created_at;
     int id, id_room, id_sender;
 
-    public ChatModel(String pesan, String created_at, int id, int id_room, int id_sender) {
+    public ChatModel(String pesan, int id_room, int id_sender) {
         this.pesan = pesan;
-        this.id = id;
         this.id_room = id_room;
         this.id_sender = id_sender;
-        this.created_at = created_at;
     }
 
     public String getPesan() {
