@@ -210,44 +210,15 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!first){
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                        format = String.valueOf(Html.fromHtml("<p>===============</p>" +
-//                                        "<p>id Room : "+getIntent().getStringExtra("id_room")+
-//                                        "</p><p>Nama Pembeli : "+namaPem+
-//                                        "</p><p>Nama Produk : "+namaPr+
-//                                        "</p><p>Jumlah Produk : "+jumlahBeli.getText().toString()+
-//                                        "</p><p>Harga : "+hargaTotal.getText().toString()+
-//                                        "</p><p>Isi Pesan : "+isiPesan.getText().toString()+
-//                                        "</p><p>===============</p><p>nb: balas dengan format -> !bls.<<id_room>>.<<pesan anda>></p>"
-//                                , Html.FROM_HTML_MODE_COMPACT));
-//                    } else {
-//                        format = String.valueOf(Html.fromHtml("<p>===============</p>" +
-//                                        "<p>id Room : "+getIntent().getStringExtra("id_room")+
-//                                        "</p><p>Nama Pembeli : "+namaPem+
-//                                        "</p><p>Nama Produk : "+namaPr+
-//                                        "</p><p>Jumlah Produk : "+jumlahBeli.getText().toString()+
-//                                        "</p><p>Harga : "+hargaTotal.getText().toString()+
-//                                        "</p><p>Isi Pesan : "+isiPesan.getText().toString()+
-//                                        "</p><p>===============</p><br><p>nb: balas dengan format -> !bls.<<id_room>>.<<pesan anda>></p>"
-//                                ));
-//                    }
-//                    String mat = "===============\n" +
-//                            "idroom : \n" +
-//                            "nama Pembeli :\n" +
-//                            "nama Produk :\n" +
-//                            "jumlah Produk :\n" +
-//                            "harga : \n" +
-//                            "isi pesan :\n" +
-//                            "\"bla bla bla\"\n" +
-//                            "=================\n" +
-//                            "nb: balas dengan format -> !bls.<<id_room>>.<<pesan anda>>";
-                    tv_format.setText("=============== \n idroom : "+getIntent().getStringExtra("id_room")+
+                    tv_format.setText("CHAT PARIANOM\n"+
+                            "=============== \n Id Room : "+getIntent().getStringExtra("id_room")+
                             "\n Nama Pembeli : "+namaPem+"\n Nama Produk : "+namaPr+"\n Jumlah Produk : "+jumlahBeli.getText().toString()+
                             "\n Harga : "+hargaTotal.getText().toString()+"\n Isi Pesan : "+isiPesan.getText().toString()+
                             "\n =============== \n nb: balas dengan format -> !bls.<<id_room>>.<<pesan anda>>");
                     sendFormat(tv_format.getText().toString());
                 }else{
-                    send();
+                    String sFormat = "Nama Pembeli : "+namaPem+"\n"+isiPesan.getText().toString();
+                    send(sFormat);
                 }
             }
         });
@@ -261,7 +232,6 @@ public class Chat extends AppCompatActivity {
         chat.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(Chat.this,"Terkirim", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onResponsePesan: "+Phone.getText().toString()+" "+format);
             }
 
@@ -274,7 +244,6 @@ public class Chat extends AppCompatActivity {
         message.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(Chat.this,"Terkirim", Toast.LENGTH_SHORT).show();
                 ChatModel chatModel = new ChatModel(isiPesan.getText().toString(),Integer.parseInt(getIntent().getStringExtra("id_room")),Integer.parseInt(idPn));
                 mData.add(chatModel);
                 Log.d(TAG, "onResponsePesan: "+Phone.getText().toString()+" "+format);
@@ -286,18 +255,17 @@ public class Chat extends AppCompatActivity {
             }
         });
         isiPesan.setText("");
+        Toast.makeText(Chat.this, "Terkirim", Toast.LENGTH_SHORT).show();
         first = true;
     }
 
-    private void send() {
+    private void send(String sFormat) {
         BaseApiService service = UtilsApi.getApiService();
-        Call<ResponseBody> chat = service.send_chat(Phone.getText().toString(),isiPesan.getText().toString());
+        Call<ResponseBody> chat = service.send_chat(Phone.getText().toString(),sFormat);
         chat.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                Toast.makeText(Chat.this,"Terkirim", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onResponsePesan: "+noHp+" "+isiPesan.getText().toString());
+                Log.d(TAG, "onResponsePesan: "+noHp+" "+sFormat);
             }
 
             @Override
@@ -309,10 +277,9 @@ public class Chat extends AppCompatActivity {
         message.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(Chat.this,"Terkirim", Toast.LENGTH_SHORT).show();
                 ChatModel chatModel = new ChatModel(isiPesan.getText().toString(),Integer.parseInt(getIntent().getStringExtra("id_room")),Integer.parseInt(idPn));
                 mData.add(chatModel);
-                Log.d(TAG, "onResponsePesan: "+noHp+" "+isiPesan.getText().toString());
+                Log.d(TAG, "onResponsePesan: "+noHp+" "+sFormat);
             }
 
             @Override
@@ -321,6 +288,7 @@ public class Chat extends AppCompatActivity {
             }
         });
         isiPesan.setText("");
+        Toast.makeText(Chat.this, "Terkirim", Toast.LENGTH_SHORT).show();
     }
     public void refresh(){
         new Handler().postDelayed(new Runnable() {

@@ -259,4 +259,11 @@ public interface BaseApiService {
             @Field("id_sender") int id_sender,
             @Field("pesan") String pesan
     );
+    @FormUrlEncoded
+    @POST("gantiPw")
+    Call<ResponseBody> gantiPass(
+            @Field("id_user") int id_user,
+            @Field("kata_sandi") String kata_sandi,
+            @Field("kata_sandi_baru") String kata_sandi_baru
+    );
 }
