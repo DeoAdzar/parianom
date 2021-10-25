@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Parianom"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.Pengaduan"
+            android:exported="true" />
+        <activity
             android:name=".activity.BoardNoConnection"
             android:exported="true" />
         <activity
