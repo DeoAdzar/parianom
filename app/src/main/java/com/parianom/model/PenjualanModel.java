@@ -2,8 +2,16 @@ package com.parianom.model;
 
 public class PenjualanModel {
 
-   private String kategori,kategori_sub,nama,foto_produk,timestamp,nama_toko,alamat,kec;
+   private String kategori,kategori_sub,nama,foto_produk,timestamp,nama_toko,alamat,kec,deskripsi;
    private int id,id_penjual,harga,stok,id_user,status_deleted;
+
+   public String getDeskripsi() {
+      return deskripsi;
+   }
+
+   public void setDeskripsi(String deskripsi) {
+      this.deskripsi = deskripsi;
+   }
 
    public int getStatus_deleted() {
       return status_deleted;

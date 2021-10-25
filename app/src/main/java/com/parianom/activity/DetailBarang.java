@@ -39,7 +39,7 @@ public class DetailBarang extends AppCompatActivity {
     Button decrement, increment, chat;
     int quantity = 1;
     ImageView imgDetailPr;
-    TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda, stok, hargaTotalDetail;
+    TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda, stok, hargaTotalDetail,deskripsi;
     SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +72,13 @@ public class DetailBarang extends AppCompatActivity {
         hargaProduk = (TextView) findViewById(R.id.hargaProduk);
         jumlah = (TextView) findViewById(R.id.jumlah);
         stok = findViewById(R.id.stokPrBeranda);
+        deskripsi = findViewById(R.id.deskDetailBarang);
         hargaTotalDetail = findViewById(R.id.hargaTotalDetail);
         namaProduk.setText(getIntent().getStringExtra("nama_produk"));
         namaPenjual.setText(getIntent().getStringExtra("nama"));
         alamatPrBeranda.setText(getIntent().getStringExtra("alamat"));
         hargaProduk.setText(getIntent().getStringExtra("harga_produk"));
+        deskripsi.setText(getIntent().getStringExtra("deskripsi"));
         stok.setText("stok : "+getIntent().getStringExtra("stok"));
         Picasso.get().load(UtilsApi.IMAGES_PRODUK + getIntent().getStringExtra("foto_profil"))
                 .placeholder(R.drawable.ic_person)

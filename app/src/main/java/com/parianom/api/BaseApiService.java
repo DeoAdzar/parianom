@@ -73,6 +73,7 @@ public interface BaseApiService {
             ,@Part("kategori") RequestBody kategori
             ,@Part("kategori_sub") RequestBody kategori_sub
             ,@Part("nama") RequestBody nama
+            ,@Part("deskripsi") RequestBody deskripsi
             ,@Part("harga") RequestBody harga
             ,@Part("stok") RequestBody stok
     );

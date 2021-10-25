@@ -44,11 +44,12 @@ import retrofit2.Response;
 
 public class TambahProduk extends AppCompatActivity {
     Button simpan;
-    ImageView img, selectedImage;
+    ImageView img;
     Spinner kategori, jenis;
     private static final int REQUEST_PICK_PHOTO = 2;
     private static final int REQUEST_WRITE_PERMISSION = 786;
     String mediaPath, postPath;
+    CardView selectedImage;
     SessionManager sessionManager;
     EditText nama,harga,stok, deskripsi;
     private ProgressBar loading;
@@ -78,7 +79,8 @@ public class TambahProduk extends AppCompatActivity {
             }
         });
         sessionManager = new SessionManager(getApplicationContext());
-        img = (ImageView) findViewById(R.id.imgTambahPr);
+        img = (ImageView) findViewById(R.id.preview_img);
+        selectedImage = findViewById(R.id.imgTambahPr);
 //        v1 = (ImageView) findViewById(R.id.v1);
         kategori = (Spinner) findViewById(R.id.kategori);
         jenis = (Spinner) findViewById(R.id.jenis);
@@ -107,7 +109,7 @@ public class TambahProduk extends AppCompatActivity {
             }
         });
 
-        img.setOnClickListener(new View.OnClickListener() {
+        selectedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -151,7 +153,8 @@ public class TambahProduk extends AppCompatActivity {
         loading.setVisibility(View.VISIBLE);
         if (nama.getText().toString().isEmpty()
                 || harga.getText().toString().isEmpty()
-                || stok.getText().toString().isEmpty()) {
+                || stok.getText().toString().isEmpty()
+                || deskripsi.getText().toString().isEmpty()) {
             Toast.makeText(TambahProduk.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
             simpan.setVisibility(View.VISIBLE);
             loading.setVisibility(View.GONE);
@@ -177,6 +180,7 @@ public class TambahProduk extends AppCompatActivity {
                         , RequestBody.create(MediaType.parse("text/plain"), kategori.getSelectedItem().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), jenis.getSelectedItem().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), deskripsi.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), harga.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), stok.getText().toString()));
                 update.enqueue(new Callback<ResponseBody>() {
