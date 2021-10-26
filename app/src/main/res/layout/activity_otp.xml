@@ -175,16 +175,27 @@
                         android:textColor="@color/black"
                         />
                 </FrameLayout>
-
             </LinearLayout>
-            <Button
-                android:id="@+id/btnVerif"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/verifikasi"
-                android:background="@drawable/button"
-                style="@style/fontBtn"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="50dp">
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/progress_otp"
+                    android:visibility="gone"/>
+                <Button
+                    android:id="@+id/btnVerif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/verifikasi"
+                    android:background="@drawable/button"
+                    style="@style/fontBtn"
+                    android:layout_marginTop="10dp"/>
+            </FrameLayout>
         </LinearLayout>
     </ScrollView>
 

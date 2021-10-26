@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -28,6 +29,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.parianom.R;
+import com.parianom.activity.Search;
 import com.parianom.adapter.BerandaAdapter;
 import com.parianom.adapter.PenjualanRvAdapter;
 import com.parianom.api.BaseApiService;
@@ -56,6 +58,7 @@ public class BerandaFragment extends Fragment {
     CardView makanan, minuman, camilan, bBPangan, hasilKriya, bBKriya;
     private TextView titlePangan, titleKriya, jnsMakanan, jnsMinuman, jnsCamilan, jnsBBPangan, jnsHasilKriya, jnsBBKriya;
     private ShimmerFrameLayout shimmer;
+    private SearchView searchView;
 
     ViewPager viewPager;
     TabLayout tabLayout;
@@ -88,6 +91,7 @@ public class BerandaFragment extends Fragment {
         jnsHasilKriya = (TextView) v.findViewById(R.id.textHasilKriya);
         jnsBBKriya = (TextView) v.findViewById(R.id.textBBakuKriya);
         shimmer = (ShimmerFrameLayout) v.findViewById(R.id.shimmerBeranda);
+        searchView = v.findViewById(R.id.searchBeranda);
         int nonAktif = ContextCompat.getColor(getContext(), R.color.label_input);
         int aktif = ContextCompat.getColor(getContext(), R.color.primer);
         shimmer.showShimmer(true);
@@ -228,8 +232,29 @@ public class BerandaFragment extends Fragment {
         });
 
         rvBeranda = (RecyclerView) v.findViewById(R.id.berandaRv);
+
+        //Seacrh from beranda
+        searchView.setFocusable(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getContext(), query, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), Search.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return v;
     }
+
+
 
 //    @Override
 //    public void onActivityCreated(@Nullable Bundle savedInstanceState) {

@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ public class UbahKataSandi extends AppCompatActivity {
     TextView lupaSandi;
     Button simpanSandi;
     SessionManager sessionManager;
+    private ProgressBar loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class UbahKataSandi extends AppCompatActivity {
         konfirmasi = findViewById(R.id.konfKataSandiBaru);
         lupaSandi = findViewById(R.id.lupaKataSandi);
         simpanSandi = findViewById(R.id.btnSimpanSandi);
+        loading = findViewById(R.id.progress_masuk);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");

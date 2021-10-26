@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ public class Otp extends AppCompatActivity {
     TextView resend,countdown;
     String verificationId,username,nama_lengkap,email,no_hp,alamat,kata_sandi;
     SessionManager sessionManager;
+    private ProgressBar loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,8 @@ public class Otp extends AppCompatActivity {
         otp6 = (EditText) findViewById(R.id.otp6);
         resend = findViewById(R.id.resend);
         countdown = findViewById(R.id.countdown);
+        loading = findViewById(R.id.progress_otp);
+
         verificationId = getIntent().getStringExtra("verificationId");
         nama_lengkap = getIntent().getStringExtra("nama_lengkap");
         username = getIntent().getStringExtra("username");
@@ -89,6 +94,8 @@ public class Otp extends AppCompatActivity {
                         || otp4.getText().toString().trim().isEmpty()
                         || otp5.getText().toString().trim().isEmpty()
                         || otp6.getText().toString().trim().isEmpty()) {
+                    verif.setVisibility(View.GONE);
+                    loading.setVisibility(View.VISIBLE);
                     Toast.makeText(Otp.this, "Masukkan kode verifikasi", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -103,12 +110,16 @@ public class Otp extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
+                                        verif.setVisibility(View.GONE);
+                                        loading.setVisibility(View.VISIBLE);
                                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         i.putExtra("site","3");
                                         startActivity(i);
                                         addToDatabase(username,nama_lengkap,email,no_hp,alamat,kata_sandi);
                                     }else{
+                                        verif.setVisibility(View.GONE);
+                                        loading.setVisibility(View.VISIBLE);
                                         Toast.makeText(Otp.this, "Kode verifikasi yang anda masukkan tidak valid", Toast.LENGTH_SHORT).show();
                                     }
                                 }

@@ -50,7 +50,7 @@ public class TambahProduk extends AppCompatActivity {
     private static final int REQUEST_WRITE_PERMISSION = 786;
     String mediaPath, postPath;
     SessionManager sessionManager;
-    EditText nama,harga,stok, deskripsi;
+    EditText nama, harga, stok, deskripsi;
     private ProgressBar loading;
     private LinearLayout parentLinearLayout;
 
@@ -153,12 +153,8 @@ public class TambahProduk extends AppCompatActivity {
                 || harga.getText().toString().isEmpty()
                 || stok.getText().toString().isEmpty()) {
             Toast.makeText(TambahProduk.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
-            simpan.setVisibility(View.VISIBLE);
-            loading.setVisibility(View.GONE);
         }else if (mediaPath == null){
             Toast.makeText(TambahProduk.this, "Isi Foto Produk", Toast.LENGTH_SHORT).show();
-            simpan.setVisibility(View.VISIBLE);
-            loading.setVisibility(View.GONE);
         }
         else {
             File imagefile = new File(mediaPath);
@@ -166,8 +162,6 @@ public class TambahProduk extends AppCompatActivity {
             int size = (int) length / 1024;
             if (size > 4096) {
                 Toast.makeText(TambahProduk.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
-                simpan.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
             } else {
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
                 MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_produk", imagefile.getName(), reqBody);
@@ -191,14 +185,11 @@ public class TambahProduk extends AppCompatActivity {
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("debug", "OnFailure : Error -> " + t.getMessage());
                         Toast.makeText(TambahProduk.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                        simpan.setVisibility(View.VISIBLE);
-                        loading.setVisibility(View.GONE);
                     }
                 });
             }
         }
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
