@@ -248,5 +248,19 @@
         android:layout_gravity="center">
         <include layout="@layout/shimmer_beranda"/>
     </com.facebook.shimmer.ShimmerFrameLayout>
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/tlBeranda"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
 
+<!--        </com.google.android.material.tabs.TabLayout>-->
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/vpBeranda"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
 </LinearLayout>

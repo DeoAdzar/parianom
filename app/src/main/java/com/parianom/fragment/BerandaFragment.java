@@ -23,9 +23,12 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.parianom.R;
+import com.parianom.adapter.BerandaAdapter;
 import com.parianom.adapter.PenjualanRvAdapter;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -53,6 +56,9 @@ public class BerandaFragment extends Fragment {
     CardView makanan, minuman, camilan, bBPangan, hasilKriya, bBKriya;
     private TextView titlePangan, titleKriya, jnsMakanan, jnsMinuman, jnsCamilan, jnsBBPangan, jnsHasilKriya, jnsBBKriya;
     private ShimmerFrameLayout shimmer;
+
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     @Nullable
     @Override
@@ -88,6 +94,10 @@ public class BerandaFragment extends Fragment {
         shimmer.startShimmer();
         shimmer.setVisibility(View.VISIBLE);
         getMakanan();
+
+//        viewPager = v.findViewById(R.id.vpBeranda);
+//        tabLayout = v.findViewById(R.id.tlBeranda);
+
         // button pangan
         pangan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +230,38 @@ public class BerandaFragment extends Fragment {
         rvBeranda = (RecyclerView) v.findViewById(R.id.berandaRv);
         return v;
     }
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//        setUpViewPager(viewPager);
+//        tabLayout.setupWithViewPager(viewPager);
+//
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+//    }
+//
+//    private void setUpViewPager(ViewPager viewPager) {
+//        BerandaAdapter adapter = new BerandaAdapter(getChildFragmentManager());
+//        adapter.addFragement(new MakananFragment(), "Makanan");
+//        adapter.addFragement(new PanganFragment(), "pangan");
+//    }
+
     public void getMakanan(){
 
         BaseApiService mApiService = UtilsApi.getApiService();
@@ -255,10 +297,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getMinuman(){
-//        rvBeranda.setVisibility(View.GONE);
-//        shimmer.startShimmer();
-//        shimmer.stopShimmer();
-//        shimmer.setVisibility(View.VISIBLE);
+        rvBeranda.setVisibility(View.GONE);
+        shimmer.startShimmer();
+        shimmer.stopShimmer();
+        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Minuman");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -290,10 +332,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getCamilan(){
-//        rvBeranda.setVisibility(View.GONE);
-//        shimmer.startShimmer();
-//        shimmer.stopShimmer();
-//        shimmer.setVisibility(View.VISIBLE);
+        rvBeranda.setVisibility(View.GONE);
+        shimmer.startShimmer();
+        shimmer.stopShimmer();
+        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Camilan");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -325,10 +367,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getBBPangan(){
-//        rvBeranda.setVisibility(View.GONE);
-//        shimmer.startShimmer();
-//        shimmer.stopShimmer();
-//        shimmer.setVisibility(View.VISIBLE);
+        rvBeranda.setVisibility(View.GONE);
+        shimmer.startShimmer();
+        shimmer.stopShimmer();
+        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Bahan Baku");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -360,10 +402,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getHasilKriya(){
-//        rvBeranda.setVisibility(View.GONE);
-//        shimmer.startShimmer();
-//        shimmer.stopShimmer();
-//        shimmer.setVisibility(View.VISIBLE);
+        rvBeranda.setVisibility(View.GONE);
+        shimmer.startShimmer();
+        shimmer.stopShimmer();
+        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Kriya","Hasil Kriya");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -395,10 +437,10 @@ public class BerandaFragment extends Fragment {
         });
     }
     public void getBBKriya(){
-//        rvBeranda.setVisibility(View.GONE);
-//        shimmer.startShimmer();
-//        shimmer.stopShimmer();
-//        shimmer.setVisibility(View.VISIBLE);
+        rvBeranda.setVisibility(View.GONE);
+        shimmer.startShimmer();
+        shimmer.stopShimmer();
+        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Kriya","Bahan Baku");
         get.enqueue(new Callback<PenjualanResponseModel>() {

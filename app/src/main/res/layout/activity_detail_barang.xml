@@ -34,18 +34,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:elevation="0dp"
-                    android:backgroundTint="@android:color/transparent">
+                    android:backgroundTint="#A9E7E7E7">
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-
                         android:layout_marginLeft="5dp">
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:backgroundTint="#B7E7E7E7"
+                            android:backgroundTint="@android:color/transparent"
                             app:cardCornerRadius="5dp"
                             app:cardElevation="0dp">
                             <TextView
@@ -55,8 +54,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:paddingHorizontal="10dp"
-                                android:paddingVertical="5dp"
                                 android:text="Nama Toko"
                                 android:textSize="16dp" />
                         </androidx.cardview.widget.CardView>
@@ -203,6 +200,7 @@
                 android:orientation="vertical"
                 android:layout_weight="1"
                 android:gravity="right"
+                android:paddingHorizontal="5dp"
                 android:layout_gravity="right">
                 <TextView
                     android:layout_width="wrap_content"
@@ -213,7 +211,6 @@
                     android:id="@+id/hargaTotalDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp10.000"
                     android:textSize="16dp"
                     android:textColor="@color/primer"
                     style="@style/fontTitleContent"/>

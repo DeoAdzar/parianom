@@ -86,7 +86,8 @@ public class DetailBarang extends AppCompatActivity {
         String harga = hargaProduk.getText().toString();
         String resultRupiah = formatRupiah(Double.parseDouble(harga));
         hargaProduk.setText(resultRupiah);
-        hargaTotalDetail.setText(getIntent().getStringExtra("harga_produk"));
+
+        hargaTotalDetail.setText(formatRupiah(Double.parseDouble(getIntent().getStringExtra("harga_produk"))));
 
         HashMap<String,String> user = sessionManager.getUserDetails();
         chat.setOnClickListener(new View.OnClickListener() {

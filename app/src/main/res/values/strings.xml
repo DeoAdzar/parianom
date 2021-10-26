@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Parianom</string>
     <string name="masuk">Masuk</string>
-    <string name="username">Nama/Username</string>
-    <string name="password">Kata Sandi/Password</string>
+    <string name="username">Nama / Username</string>
+    <string name="password">Kata Sandi / Password</string>
     <string name="email">Email</string>
     <string name="hp">No. Handphone</string>
     <string name="daftar">Daftar</string>
@@ -43,10 +43,10 @@
     <string name="kriya">Kriya</string>
     <string name="parianom_buka_toko">Parianom memberikan solusi penguatan ekonomi masyarakat di Kabupaten Madiun</string>
     <string name="persiapan_buka_toko">Siapkan KTP Anda terlebih dahulu untuk pengisian data pada saat pendaftaran pembuatan toko</string>
-    <string name="nama_toko">NAMA TOKO</string>
+    <string name="nama_toko">Nama Toko</string>
     <string name="nik">Nomor Nik</string>
     <string name="alamat">Alamat</string>
-    <string name="alamat_asing">Alamat/Address</string>
+    <string name="alamat_asing">Alamat / Address</string>
     <string name="foto_ktp">foto ktp</string>
     <string name="pilih_file_ktp">Pilih File KTP</string>
     <string name="simpan">Simpan</string>
@@ -82,7 +82,7 @@
     <string name="silahkan_masuk_terlebih_dahulu">Silahkan Masuk Terlebih Dahulu</string>
     <string name="kata_sandi">Kata Sandi</string>
     <string name="ubah_kata_sandi">Ubah Kata Sandi</string>
-    <string name="nama_lengkap">Nama Lengkap/Full Name</string>
+    <string name="nama_lengkap">Nama Lengkap / Full Name</string>
     <string name="koneksi_jaringan_anda_terputus">Koneksi jaringan Anda terputus</string>
     <string name="produk_belum_tersedia">Produk Belum Tersedia</string>
     <string name="lupa_kata_sandi">Lupa Kata Sandi?</string>
@@ -99,6 +99,10 @@
     <string name="nomor_npwp">Nomor NPWP</string>
     <string name="lain_lain">Lain - lain</string>
     <string name="deskripsi">Deskripsi</string>
+    <string name="laporkan">Laporkan Penjual</string>
+    <string name="tambahkan_bukti">Tambahkan Bukti</string>
+    <string name="keterangan">Keterangan</string>
+    <string name="pengaduan">Pengaduan</string>
     <string-array name="kecamatan">
         <item>Dagangan</item>
         <item>Wungu</item>
@@ -116,5 +120,11 @@
     <string-array name="jenisKriya">
         <item>Hasil Kriya</item>
         <item>Bahan Baku</item>
+    </string-array>
+    <string-array name="poinPengaduan">
+        <item>Penjualan mengindikasikan penipuan</item>
+        <item>Produk melanggar ketentuan penjualan</item>
+        <item>Produk melanggar hak cipta atau distribusi</item>
+        <item>Produk mencuri foto, judul, atau deskripsi produk lain tanpa izin</item>
     </string-array>
 </resources>
