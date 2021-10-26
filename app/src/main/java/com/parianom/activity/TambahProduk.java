@@ -177,8 +177,8 @@ public class TambahProduk extends AppCompatActivity {
                         , RequestBody.create(MediaType.parse("text/plain"), kategori.getSelectedItem().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), jenis.getSelectedItem().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
-                        , RequestBody.create(MediaType.parse("text/plain"), harga.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), deskripsi.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), harga.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), stok.getText().toString()));
                 update.enqueue(new Callback<ResponseBody>() {
                     @Override
