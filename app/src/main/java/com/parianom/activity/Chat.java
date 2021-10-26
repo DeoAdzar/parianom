@@ -450,11 +450,4 @@ public class Chat extends AppCompatActivity {
         super.onDestroy();
         first = false;
     }
-    //    public void data() {
-//        mData = new ArrayList<>();
-//        mData.add(new ChatModel("tes", "17.00", 12, 1, 1));
-//        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "17.00", 13, 1, 0));
-//        mData.add(new ChatModel("OKE DITUNGGU YAAAAAAA", "17.00", 14, 1, 1));
-//        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "17.00", 15, 1, 1));
-//    }
 }
