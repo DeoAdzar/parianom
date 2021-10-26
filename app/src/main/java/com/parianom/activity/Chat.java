@@ -211,15 +211,16 @@ public class Chat extends AppCompatActivity {
         kirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String sFormat;
                 if (!first){
-                    tv_format.setText("CHAT PARIANOM\n"+
+                    sFormat = "CHAT PARIANOM\n"+
                             "=============== \n Id Room : "+getIntent().getStringExtra("id_room")+
                             "\n Nama Pembeli : "+namaPem+"\n Nama Produk : "+namaPr+"\n Jumlah Produk : "+jumlahBeli.getText().toString()+
                             "\n Harga : "+hargaTotal.getText().toString()+"\n Isi Pesan : "+isiPesan.getText().toString()+
-                            "\n =============== \n nb: balas dengan format -> !bls.<<id_room>>.<<pesan anda>>");
-                    sendFormat(tv_format.getText().toString());
+                            "\n =============== \n nb: balas dengan format -> !bls."+getIntent().getStringExtra("id_room")+".(isi pesan anda)";
+                    sendFormat(sFormat);
                 }else{
-                    String sFormat = "Nama Pembeli : "+namaPem+" \n->"+isiPesan.getText().toString();
+                    sFormat = "Nama Pembeli : "+namaPem+"\nId Room : "+getIntent().getStringExtra("id_room")+" \n->"+isiPesan.getText().toString();
                     send(sFormat);
                 }
             }
