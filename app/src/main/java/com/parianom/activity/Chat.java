@@ -219,7 +219,7 @@ public class Chat extends AppCompatActivity {
                             "\n =============== \n nb: balas dengan format -> !bls.<<id_room>>.<<pesan anda>>");
                     sendFormat(tv_format.getText().toString());
                 }else{
-                    String sFormat = "Nama Pembeli : "+namaPem+"\n"+isiPesan.getText().toString();
+                    String sFormat = "Nama Pembeli : "+namaPem+" \n->"+isiPesan.getText().toString();
                     send(sFormat);
                 }
             }
