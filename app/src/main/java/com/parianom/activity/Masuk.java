@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public class Masuk extends AppCompatActivity {
     SessionManager sessionManager;
     EditText etUsername,etPassword;
     String site;
+    private ProgressBar loading;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +44,12 @@ public class Masuk extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         site = getIntent().getStringExtra("site");
         btnMasuk = (Button) findViewById(R.id.btnMasuk);
+        loading = findViewById(R.id.progress_masuk);
         btnMasuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnMasuk.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
                 cekLogin(etUsername.getText().toString(),etPassword.getText().toString());
             }
         });
@@ -105,6 +111,8 @@ public class Masuk extends AppCompatActivity {
 //                                    finish();
 //                            }
                         }else{
+                            btnMasuk.setVisibility(View.VISIBLE);
+                            loading.setVisibility(View.GONE);
                             Toast.makeText(Masuk.this, "Username Atau Password Salah", Toast.LENGTH_SHORT).show();
                         }
                     }catch (JSONException e ){

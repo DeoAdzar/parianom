@@ -48,7 +48,7 @@
                 android:layout_marginVertical="3dp"
                 android:backgroundTint="@color/label_input"
                 android:singleLine="true"
-                android:inputType="text"
+                android:inputType="textCapCharacters"
                 android:textColor="@color/black" />
 
             <TextView

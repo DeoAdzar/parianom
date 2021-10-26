@@ -1,35 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginTop="70dp"
-    android:background="@drawable/card_profil">
-
+    android:layout_marginHorizontal="25dp"
+    android:layout_marginTop="60dp"
+    android:layout_marginBottom="10dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="10dp">
-
-        <EditText
-            android:id="@+id/filter"
-            style="@style/fontMasuk"
+        android:background="@drawable/card_profil">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchBeranda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:capitalize="words"
-            android:drawableLeft="@drawable/ic_search"
-            android:drawablePadding="10dp"
-            android:hint="@string/cari_kecamatan"
-            android:paddingBottom="8dp"
-            android:singleLine="true"
-            android:textColorHint="@color/label_input"
-            android:textSize="14dp" />
+            android:backgroundTint="@android:color/transparent"
+            android:theme="@style/fontEdit"
+            android:inputType="textCapWords"
+            app:iconifiedByDefault="false"
+            app:queryHint="Cari" />
     </RelativeLayout>
-
 </LinearLayout>

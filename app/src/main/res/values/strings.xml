@@ -104,7 +104,21 @@
     <string name="keterangan">Keterangan</string>
     <string name="pengaduan">Pengaduan</string>
     <string-array name="kecamatan">
+        <item>Pilih Kecamatan</item>
+        <item>Balerejo</item>
         <item>Dagangan</item>
+        <item>Dolopo</item>
+        <item>Geger</item>
+        <item>Gemarang</item>
+        <item>Jiwan</item>
+        <item>Kare</item>
+        <item>Kebonsari</item>
+        <item>Madiun</item>
+        <item>Mejayan</item>
+        <item>Pilangkenceng</item>
+        <item>Saradan</item>
+        <item>Sawahan</item>
+        <item>Wonoasri</item>
         <item>Wungu</item>
     </string-array>
     <string-array name="kategori">

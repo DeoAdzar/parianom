@@ -16,6 +16,10 @@
         android:theme="@style/Theme.Parianom"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.Search"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+        <activity
             android:name=".activity.Pengaduan"
             android:exported="true" />
         <activity
