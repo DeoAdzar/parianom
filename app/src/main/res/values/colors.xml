@@ -11,4 +11,5 @@
     <color name="label_input">#7D849A</color>
     <color name="shimmer">#E7E7E7</color>
     <color name="bg_img">#EEF3FC</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

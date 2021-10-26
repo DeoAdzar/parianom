@@ -20,6 +20,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -193,7 +195,6 @@ public class Chat extends AppCompatActivity {
 
             }
         });
-        data();
         rv = findViewById(R.id.isiChatRv);
         ChatRVAdapter adapter = new ChatRVAdapter(mData);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -263,11 +264,29 @@ public class Chat extends AppCompatActivity {
         }
     }
 
-    public void data() {
-        mData = new ArrayList<>();
-        mData.add(new ChatModel("tes", "17.00", 12, 1, 1));
-        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "17.00", 13, 1, 0));
-        mData.add(new ChatModel("OKE DITUNGGU YAAAAAAA", "17.00", 14, 1, 1));
-        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "17.00", 15, 1, 1));
+//    public void data() {
+//        mData = new ArrayList<>();
+//        mData.add(new ChatModel("tes", "17.00", 12, 1, 1));
+//        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "17.00", 13, 1, 0));
+//        mData.add(new ChatModel("OKE DITUNGGU YAAAAAAA", "17.00", 14, 1, 1));
+//        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "17.00", 15, 1, 1));
+//    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.chat_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuPengaduan:
+                Intent intent = new Intent(Chat.this, Pengaduan.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

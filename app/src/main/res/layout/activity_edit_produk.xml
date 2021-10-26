@@ -58,64 +58,102 @@
                     android:textAllCaps="true"
                     style="@style/fontMasuk"/>
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="10dp"
+                        android:backgroundTint="@color/bg_img"
+                        android:minHeight="100dp"
+                        android:minWidth="100dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginHorizontal="5dp">
+                        <ImageView
+                            android:id="@+id/etImgEditPr"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_add_photo"
+                            android:layout_gravity="center"
+                            android:scaleType="centerInside"
+                            android:adjustViewBounds="true"
+                            android:backgroundTint="@color/white"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="10dp"
+                        android:backgroundTint="@color/bg_img"
+                        android:minHeight="100dp"
+                        android:minWidth="100dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginHorizontal="5dp">
+                        <ImageView
+                            android:id="@+id/etImgEditPr2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_add_photo"
+                            android:layout_gravity="center"
+                            android:scaleType="centerInside"
+                            android:adjustViewBounds="true"
+                            android:backgroundTint="@color/white"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="10dp"
+                        android:backgroundTint="@color/bg_img"
+                        android:minHeight="100dp"
+                        android:minWidth="100dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginHorizontal="5dp">
+                        <ImageView
+                            android:id="@+id/etImgEditPr3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_add_photo"
+                            android:layout_gravity="center"
+                            android:scaleType="centerInside"
+                            android:adjustViewBounds="true"
+                            android:backgroundTint="@color/white"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/nama_produk"
+                    android:textAllCaps="true"
+                    style="@style/fontMasuk" />
+                <EditText
+                    android:id="@+id/etNamaEditPr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    style="@style/fontMasuk"
+                    android:inputType="textCapWords"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/label_input"
+                    android:singleLine="true"/>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            app:cardElevation="0dp"
-                            app:cardCornerRadius="10dp"
-                            android:backgroundTint="@color/bg_img"
-                            android:minHeight="150dp"
-                            android:minWidth="150dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="5dp">
-                            <ImageView
-                                android:id="@+id/etImgEditPr"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:src="@drawable/ic_add_photo"
-                                android:layout_gravity="center"
-                                android:scaleType="centerInside"
-                                android:adjustViewBounds="true"
-                                android:backgroundTint="@color/white"/>
-                        </androidx.cardview.widget.CardView>
-                        <LinearLayout
-                            android:id="@+id/lyViewImage"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                        </LinearLayout>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingLeft="10dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginLeft="4dp"
-                            android:text="@string/nama_produk"
-                            android:textAllCaps="true"
-                            style="@style/fontMasuk" />
-                        <EditText
-                            android:id="@+id/etNamaEditPr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="3dp"
-                            style="@style/fontMasuk"
-                            android:inputType="textCapWords"
-                            android:textColor="@color/black"
-                            android:backgroundTint="@color/label_input"
-                            android:singleLine="true"/>
+                        android:layout_marginRight="15dp">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -131,7 +169,7 @@
                             <EditText
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="3dp"
+                                android:layout_marginBottom="10dp"
                                 android:enabled="false"
                                 style="@style/fontMasuk"
                                 android:textColor="@color/black"
@@ -141,13 +179,39 @@
                                 android:id="@+id/etHargaEditPr"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="3dp"
+                                android:layout_marginBottom="10dp"
                                 style="@style/fontMasuk"
                                 android:textColor="@color/black"
                                 android:backgroundTint="@color/label_input"
                                 android:singleLine="true"
                                 android:inputType="number"/>
                         </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="4dp"
+                            android:text="@string/stok"
+                            android:textAllCaps="true"
+                            style="@style/fontMasuk"/>
+                        <EditText
+                            android:id="@+id/etStokEditPr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            style="@style/fontMasuk"
+                            android:textColor="@color/black"
+                            android:backgroundTint="@color/label_input"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"/>
                     </LinearLayout>
                 </LinearLayout>
                 <TextView
@@ -162,11 +226,12 @@
                     android:id="@+id/etKategoriEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="10dp"
-                    android:layout_marginVertical="3dp"
+                    android:paddingVertical="12dp"
+                    android:layout_marginBottom="10dp"
                     android:entries="@array/kategori"
                     android:theme="@style/fontEdit"
-                    android:backgroundTint="@color/label_input"/>
+                    android:backgroundTint="@color/label_input"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,30 +244,12 @@
                     android:id="@+id/etJenisEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="10dp"
-                    android:layout_marginVertical="3dp"
+                    android:paddingVertical="12dp"
+                    android:layout_marginBottom="10dp"
                     android:entries="@array/jenisPangan"
                     android:theme="@style/fontEdit"
-                    android:backgroundTint="@color/label_input"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="4dp"
-                    android:text="@string/stok"
-                    android:textAllCaps="true"
-                    style="@style/fontMasuk"/>
-                <EditText
-                    android:id="@+id/etStokEditPr"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    style="@style/fontMasuk"
-                    android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
-                    android:singleLine="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"/>
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -215,7 +262,7 @@
                     android:id="@+id/etDeskEditPr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
+                    android:layout_marginBottom="10dp"
                     style="@style/fontMasuk"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/label_input"
@@ -244,5 +291,4 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-
 </LinearLayout>
