@@ -226,14 +226,4 @@ public class TambahProduk extends AppCompatActivity {
             }
         }
     }
-
-//    public void addImage() {
-//        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        final View rowView=inflater.inflate(R.layout.item_img_multiple, null);
-//        // Add the new row before the add field button.
-//        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
-//        parentLinearLayout.isFocusable();
-//
-//        selectedImage = rowView.findViewById(R.id.addImg);
-//    }
 }
