@@ -16,12 +16,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -40,11 +41,16 @@ import com.parianom.adapter.PesanRVAdapter;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
 import com.parianom.model.ChatModel;
+import com.parianom.model.ChatResponseModel;
 import com.parianom.model.PenjualanModel;
 import com.parianom.model.PesanModel;
 import com.parianom.utils.SessionManager;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,7 +66,7 @@ import retrofit2.Response;
 
 public class Chat extends AppCompatActivity {
     Context context;
-    private TextView namaPenjual, namaProduk, alamatProduk, jumlahBeli, hargaSatuan, hargaTotal, galeri, kamera, lokasi;
+    private TextView namaPenjual, namaProduk, alamatProduk, jumlahBeli, hargaSatuan, hargaTotal, galeri, kamera, lokasi,Phone,tv_format;
     private ImageView imgProduk;
     private CardView beli;
     private EditText isiPesan;
@@ -70,9 +76,9 @@ public class Chat extends AppCompatActivity {
     SessionManager sessionManager;
     Calendar calendar;
     SimpleDateFormat sdf,sdf2;
-    String harga,namaP,jumlah,namaPr,alamat,gambar,idPr,idPn, mediaPath, postPath;
+    String harga,namaP,jumlah,namaPr,alamat,gambar,noHp,namaPem,idPr,idPn, mediaPath, postPath,format;
     private static final int REQUEST_PICK_PHOTO = 2;
-
+    boolean first;
     private List<ChatModel> mData;
 
     private void setInit() {
@@ -99,9 +105,10 @@ public class Chat extends AppCompatActivity {
                 finish();
             }
         });
+        sessionManager = new SessionManager(getApplicationContext());
 
         setInit();
-
+        first=false;
         harga = getIntent().getStringExtra("harga");
         namaP=getIntent().getStringExtra("penjual");
         jumlah = getIntent().getStringExtra("jumlah");
@@ -110,34 +117,36 @@ public class Chat extends AppCompatActivity {
         gambar = getIntent().getStringExtra("gambar");
         idPn = getIntent().getStringExtra("id_penjual");
         idPr= getIntent().getStringExtra("id_produk");
-        sessionManager = new SessionManager(getApplicationContext());
         HashMap<String,String> user = sessionManager.getUserDetails();
         calendar = Calendar.getInstance();
         sdf = new SimpleDateFormat("yyMMdd");
         sdf2 = new SimpleDateFormat("HHmm");
         namaPenjual = findViewById(R.id.namaPenjualChat);
         namaProduk = findViewById(R.id.namaPrChat);
+        tv_format = findViewById(R.id.format);
         alamatProduk = findViewById(R.id.alamatPrChat);
         jumlahBeli = findViewById(R.id.jmlBeliChat);
         hargaSatuan = findViewById(R.id.hargaSatuan);
         hargaTotal = findViewById(R.id.hargaTotalChat);
         imgProduk = findViewById(R.id.imgPrChat);
         beli = findViewById(R.id.btnBeli);
+        Phone = findViewById(R.id.chat_nomer_penjual);
+
         hargaSatuan.setText(harga);
         namaPenjual.setText(namaP);
         jumlahBeli.setText(jumlah);
         namaProduk.setText(namaPr);
         alamatProduk.setText(alamat);
+        kirim = findViewById(R.id.kirimChat);
         Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK+gambar))
         .placeholder(R.color.shimmer).into(imgProduk);
-
+        getPhone();
         String hargaSt = formatRupiah(Double.parseDouble(harga));
         hargaSatuan.setText(hargaSt);
 
         int jumlah = Integer.parseInt(jumlahBeli.getText().toString())*Integer.parseInt(String.valueOf(harga));
         String total = formatRupiah(Double.parseDouble(String.valueOf(jumlah)));
-        hargaTotal.setText(String.valueOf(total));
-
+        hargaTotal.setText(total);
         String kode_pesanan = sdf.format(calendar.getTime())+ sdf2.format(calendar.getTime())+idPr+user.get(SessionManager.kunci_id_user);
         beli.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,14 +204,180 @@ public class Chat extends AppCompatActivity {
 
             }
         });
+        getMessage();
         rv = findViewById(R.id.isiChatRv);
-        ChatRVAdapter adapter = new ChatRVAdapter(mData);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rv.setLayoutManager(layoutManager);
-        rv.setItemAnimator(new DefaultItemAnimator());
-        rv.setAdapter(adapter);
+        kirim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!first){
+                    tv_format.setText("CHAT PARIANOM\n"+
+                            "=============== \n Id Room : "+getIntent().getStringExtra("id_room")+
+                            "\n Nama Pembeli : "+namaPem+"\n Nama Produk : "+namaPr+"\n Jumlah Produk : "+jumlahBeli.getText().toString()+
+                            "\n Harga : "+hargaTotal.getText().toString()+"\n Isi Pesan : "+isiPesan.getText().toString()+
+                            "\n =============== \n nb: balas dengan format -> !bls.<<id_room>>.<<pesan anda>>");
+                    sendFormat(tv_format.getText().toString());
+                }else{
+                    String sFormat = "Nama Pembeli : "+namaPem+"\n"+isiPesan.getText().toString();
+                    send(sFormat);
+                }
+            }
+        });
 
 
+    }
+
+    private void sendFormat(String format) {
+        BaseApiService service = UtilsApi.getApiService();
+        Call<ResponseBody> chat = service.send_chat(Phone.getText().toString(), format);
+        chat.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponsePesan: "+Phone.getText().toString()+" "+format);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+        Call<ResponseBody> message = service.inputMessage(Integer.parseInt(getIntent().getStringExtra("id_room")),1,isiPesan.getText().toString());
+        message.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                ChatModel chatModel = new ChatModel(isiPesan.getText().toString(),Integer.parseInt(getIntent().getStringExtra("id_room")),Integer.parseInt(idPn));
+                mData.add(chatModel);
+                Log.d(TAG, "onResponsePesan: "+Phone.getText().toString()+" "+format);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+        isiPesan.setText("");
+        Toast.makeText(Chat.this, "Terkirim", Toast.LENGTH_SHORT).show();
+        first = true;
+    }
+
+    private void send(String sFormat) {
+        BaseApiService service = UtilsApi.getApiService();
+        Call<ResponseBody> chat = service.send_chat(Phone.getText().toString(),sFormat);
+        chat.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponsePesan: "+noHp+" "+sFormat);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+        Call<ResponseBody> message = service.inputMessage(Integer.parseInt(getIntent().getStringExtra("id_room")),1,isiPesan.getText().toString());
+        message.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                ChatModel chatModel = new ChatModel(isiPesan.getText().toString(),Integer.parseInt(getIntent().getStringExtra("id_room")),Integer.parseInt(idPn));
+                mData.add(chatModel);
+                Log.d(TAG, "onResponsePesan: "+noHp+" "+sFormat);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+        isiPesan.setText("");
+        Toast.makeText(Chat.this, "Terkirim", Toast.LENGTH_SHORT).show();
+    }
+    public void refresh(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getMessage();
+            }
+        },2000);
+    }
+
+    private void getMessage() {
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<ChatResponseModel> get = mApiService.getMessage(Integer.parseInt(getIntent().getStringExtra("id_room")));
+        get.enqueue(new Callback<ChatResponseModel>() {
+            @Override
+            public void onResponse(Call<ChatResponseModel> call, Response<ChatResponseModel> response) {
+                mData = response.body().getData();
+                ChatRVAdapter adapter = new ChatRVAdapter(mData);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
+                rv.setLayoutManager(layoutManager);
+                rv.setItemAnimator(new DefaultItemAnimator());
+                rv.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                rv.scrollToPosition(mData.size()-1);
+                refresh();
+            }
+
+            @Override
+            public void onFailure(Call<ChatResponseModel> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void getPhone() {
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<ResponseBody> get = mApiService.getHp(Integer.parseInt(idPn));
+        get.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        JSONObject jsonResult =new JSONObject(response.body().string());
+                        if (jsonResult.getString("message").equals("success")){
+                            String hp = jsonResult.getJSONObject("data").getString("no_hp");
+                            Phone.setText("0"+hp);
+
+                        }
+                    }catch (JSONException e ){
+                        e.printStackTrace();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        HashMap<String, String> user = sessionManager.getUserDetails();
+        Call<ResponseBody> Img = mApiService.getUser(Integer.parseInt(user.get(SessionManager.kunci_id_user)));
+        Img.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonResult = new JSONObject(response.body().string());
+                        if (jsonResult.getString("message").equals("success")) {
+                            String namas = jsonResult.getJSONObject("data").getString("nama_lengkap");
+                            namaPem = namas;
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Tidak ada Data", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
 
@@ -264,29 +439,15 @@ public class Chat extends AppCompatActivity {
         }
     }
 
-//    public void data() {
-//        mData = new ArrayList<>();
-//        mData.add(new ChatModel("tes", "17.00", 12, 1, 1));
-//        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "17.00", 13, 1, 0));
-//        mData.add(new ChatModel("OKE DITUNGGU YAAAAAAA", "17.00", 14, 1, 1));
-//        mData.add(new ChatModel("tesaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaa", "17.00", 15, 1, 1));
-//    }
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.chat_menu, menu);
-        return true;
+    protected void onStop() {
+        super.onStop();
+        first = false;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuPengaduan:
-                Intent intent = new Intent(Chat.this, Pengaduan.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    protected void onDestroy() {
+        super.onDestroy();
+        first = false;
     }
 }
