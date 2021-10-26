@@ -215,7 +215,7 @@ public class Chat extends AppCompatActivity {
                             "=============== \n Id Room : "+getIntent().getStringExtra("id_room")+
                             "\n Nama Pembeli : "+namaPem+"\n Nama Produk : "+namaPr+"\n Jumlah Produk : "+jumlahBeli.getText().toString()+
                             "\n Harga : "+hargaTotal.getText().toString()+"\n Isi Pesan : "+isiPesan.getText().toString()+
-                            "\n =============== \n nb: balas dengan format -> !bls.(id_room).(isi pesan anda)";
+                            "\n =============== \n nb: balas dengan format -> !bls."+getIntent().getStringExtra("id_room")+".(isi pesan anda)";
                     sendFormat(sFormat);
                 }else{
                     sFormat = "Nama Pembeli : "+namaPem+"\nId Room : "+getIntent().getStringExtra("id_room")+" \n->"+isiPesan.getText().toString();
