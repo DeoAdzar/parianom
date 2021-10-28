@@ -111,7 +111,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Maaf, Anda bukan penduduk Kab. Madiun"
+            android:text="@string/maaf_anda_bukan_penduduk_kab_madiun"
+            style="@style/fontMasuk"
+            android:textColor="@color/white"
+            android:layout_marginVertical="3dp"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/notifSuspend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#F85C65"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="5dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/suspend"
+            style="@style/fontMasuk"
+            android:textColor="@color/white"
+            android:layout_marginVertical="3dp"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/notifBanned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#F85C65"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="5dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/banned"
             style="@style/fontMasuk"
             android:textColor="@color/white"
             android:layout_marginVertical="3dp"/>

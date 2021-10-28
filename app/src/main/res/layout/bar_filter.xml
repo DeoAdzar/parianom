@@ -22,6 +22,6 @@
             android:theme="@style/fontEdit"
             android:inputType="textCapWords"
             app:iconifiedByDefault="false"
-            app:queryHint="Cari" />
+            app:queryHint="Cari Produk / Toko"  />
     </RelativeLayout>
 </LinearLayout>

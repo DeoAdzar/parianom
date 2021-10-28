@@ -38,8 +38,9 @@ import retrofit2.Response;
 public class DetailBarang extends AppCompatActivity {
     Button decrement, increment, chat;
     int quantity = 1;
-    ImageView imgDetailPr;
+    ImageView imgDetailPr, terverif;
     TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda, stok, hargaTotalDetail,deskripsi;
+    String status,foto_toko;
     SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,19 +75,26 @@ public class DetailBarang extends AppCompatActivity {
         stok = findViewById(R.id.stokPrBeranda);
         deskripsi = findViewById(R.id.deskDetailBarang);
         hargaTotalDetail = findViewById(R.id.hargaTotalDetail);
+        terverif = findViewById(R.id.terverif);
+        status = getIntent().getStringExtra("status_toko");
+        foto_toko = getIntent().getStringExtra("foto_toko");
         namaProduk.setText(getIntent().getStringExtra("nama_produk"));
         namaPenjual.setText(getIntent().getStringExtra("nama"));
         alamatPrBeranda.setText(getIntent().getStringExtra("alamat"));
         hargaProduk.setText(getIntent().getStringExtra("harga_produk"));
         deskripsi.setText(getIntent().getStringExtra("deskripsi"));
         stok.setText("stok : "+getIntent().getStringExtra("stok"));
-        Picasso.get().load(UtilsApi.IMAGES_PRODUK + getIntent().getStringExtra("foto_profil"))
+        Picasso.get().load(UtilsApi.IMAGES_PRODUK + getIntent().getStringExtra("foto_produk"))
                 .placeholder(R.drawable.ic_person)
                 .into(imgDetailPr);
         String harga = hargaProduk.getText().toString();
         String resultRupiah = formatRupiah(Double.parseDouble(harga));
         hargaProduk.setText(resultRupiah);
-
+        if (status.equals("1")){
+            terverif.setVisibility(View.GONE);
+        }else if (status.equals("2")){
+            terverif.setVisibility(View.VISIBLE);
+        }
         hargaTotalDetail.setText(formatRupiah(Double.parseDouble(getIntent().getStringExtra("harga_produk"))));
 
         HashMap<String,String> user = sessionManager.getUserDetails();
@@ -113,7 +121,8 @@ public class DetailBarang extends AppCompatActivity {
                                         intent.putExtra("jumlah", jumlah.getText());
                                         intent.putExtra("harga", harga);
                                         intent.putExtra("alamat", alamatPrBeranda.getText());
-                                        intent.putExtra("gambar", getIntent().getStringExtra("foto_profil"));
+                                        intent.putExtra("gambar", getIntent().getStringExtra("foto_produk"));
+                                        intent.putExtra("gambar_toko", getIntent().getStringExtra("foto_toko"));
                                         intent.putExtra("status_chat","0");
 
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -168,7 +177,8 @@ public class DetailBarang extends AppCompatActivity {
                             intent.putExtra("jumlah", jumlah.getText());
                             intent.putExtra("harga", hargaProduk.getText().toString());
                             intent.putExtra("alamat", alamatPrBeranda.getText());
-                            intent.putExtra("gambar", getIntent().getStringExtra("foto_profil"));
+                            intent.putExtra("gambar", getIntent().getStringExtra("foto_produk"));
+                            intent.putExtra("gambar_toko", getIntent().getStringExtra("foto_toko"));
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();

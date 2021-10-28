@@ -88,14 +88,16 @@ public class Otp extends AppCompatActivity {
         verif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                verif.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
                 if (otp1.getText().toString().trim().isEmpty()
                         || otp2.getText().toString().trim().isEmpty()
                         || otp3.getText().toString().trim().isEmpty()
                         || otp4.getText().toString().trim().isEmpty()
                         || otp5.getText().toString().trim().isEmpty()
                         || otp6.getText().toString().trim().isEmpty()) {
-                    verif.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
+                    verif.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     Toast.makeText(Otp.this, "Masukkan kode verifikasi", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -110,16 +112,16 @@ public class Otp extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
-                                        verif.setVisibility(View.GONE);
-                                        loading.setVisibility(View.VISIBLE);
+                                        verif.setVisibility(View.VISIBLE);
+                                        loading.setVisibility(View.GONE);
                                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         i.putExtra("site","3");
                                         startActivity(i);
                                         addToDatabase(username,nama_lengkap,email,no_hp,alamat,kata_sandi);
                                     }else{
-                                        verif.setVisibility(View.GONE);
-                                        loading.setVisibility(View.VISIBLE);
+                                        verif.setVisibility(View.VISIBLE);
+                                        loading.setVisibility(View.GONE);
                                         Toast.makeText(Otp.this, "Kode verifikasi yang anda masukkan tidak valid", Toast.LENGTH_SHORT).show();
                                     }
                                 }

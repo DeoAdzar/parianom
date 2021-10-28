@@ -1,5 +1,7 @@
 package com.parianom.activity;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -44,11 +46,13 @@ import retrofit2.Response;
 
 public class TambahProduk extends AppCompatActivity {
     Button simpan;
-    ImageView img, selectedImage;
+    ImageView img, img2, img3, selectedImage;
     Spinner kategori, jenis;
-    private static final int REQUEST_PICK_PHOTO = 2;
+    private static final int select1 = 1;
+    private static final int select2 = 2;
+    private static final int select3 = 3;
     private static final int REQUEST_WRITE_PERMISSION = 786;
-    String mediaPath, postPath;
+    String mediaPath1, mediaPath2, mediaPath3, postPath;
     SessionManager sessionManager;
     EditText nama, harga, stok, deskripsi;
     private ProgressBar loading;
@@ -79,6 +83,8 @@ public class TambahProduk extends AppCompatActivity {
         });
         sessionManager = new SessionManager(getApplicationContext());
         img = (ImageView) findViewById(R.id.imgTambahPr);
+        img2 = (ImageView) findViewById(R.id.imgTambahPr2);
+        img3 = (ImageView) findViewById(R.id.imgTambahPr3);
 //        v1 = (ImageView) findViewById(R.id.v1);
         kategori = (Spinner) findViewById(R.id.kategori);
         jenis = (Spinner) findViewById(R.id.jenis);
@@ -111,7 +117,22 @@ public class TambahProduk extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galery, REQUEST_PICK_PHOTO);
+                startActivityForResult(galery, select1);
+            }
+        });
+
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galery, select2);
+            }
+        });
+        img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galery, select3);
             }
         });
     }
@@ -153,14 +174,20 @@ public class TambahProduk extends AppCompatActivity {
                 || harga.getText().toString().isEmpty()
                 || stok.getText().toString().isEmpty()) {
             Toast.makeText(TambahProduk.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
-        }else if (mediaPath == null){
+            simpan.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
+        }else if (mediaPath1 == null){
             Toast.makeText(TambahProduk.this, "Isi Foto Produk", Toast.LENGTH_SHORT).show();
+            simpan.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }
         else {
-            File imagefile = new File(mediaPath);
+            File imagefile = new File(mediaPath1);
             long length = imagefile.length();
             int size = (int) length / 1024;
             if (size > 4096) {
+                simpan.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
                 Toast.makeText(TambahProduk.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
             } else {
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
@@ -177,16 +204,23 @@ public class TambahProduk extends AppCompatActivity {
                 update.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Toast.makeText(TambahProduk.this, "Berhasil Update Data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TambahProduk.this, "Produk berhasil ditambahkan", Toast.LENGTH_SHORT).show();
                         finish();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("debug", "OnFailure : Error -> " + t.getMessage());
-                        Toast.makeText(TambahProduk.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        simpan.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
+                        Toast.makeText(TambahProduk.this, "Koneksi Anda terputus", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+//                postPath = mediaPath1+mediaPath2+mediaPath3;
+//                Toast.makeText(TambahProduk.this, postPath, Toast.LENGTH_SHORT).show();
+//                Log.d(TAG, "inputItem: "+postPath);
+
             }
         }
     }
@@ -195,7 +229,7 @@ public class TambahProduk extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_PICK_PHOTO) {
+            if (requestCode == select1) {
                 if (data != null) {
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -205,13 +239,44 @@ public class TambahProduk extends AppCompatActivity {
                     cursor.moveToFirst();
 
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    mediaPath = cursor.getString(columnIndex);
+                    mediaPath1 = cursor.getString(columnIndex);
                     img.setImageURI(data.getData());
                     cursor.close();
 
-                    postPath = mediaPath;
+                    postPath = mediaPath1;
                 }
             }
+//            if (requestCode == 2) {
+//                if (data != null) {
+//                    Uri selectedImage = data.getData();
+//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//
+//                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+//                    assert cursor != null;
+//                    cursor.moveToFirst();
+//
+//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                    mediaPath2 = cursor.getString(columnIndex);
+//                    img2.setImageURI(data.getData());
+//                    cursor.close();
+//                }
+//            }
+//            if (requestCode == select3) {
+//                if (data != null) {
+//                    Uri selectedImage = data.getData();
+//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//
+//                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+//                    assert cursor != null;
+//                    cursor.moveToFirst();
+//
+//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                    mediaPath3 = cursor.getString(columnIndex);
+//                    img3.setImageURI(data.getData());
+//                    cursor.close();
+//
+//                }
+//            }
         }
     }
 }

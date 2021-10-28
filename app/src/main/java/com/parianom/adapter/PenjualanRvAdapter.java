@@ -63,13 +63,15 @@ public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.
                 Intent intent = new Intent(mContext, DetailBarang.class);
                 intent.putExtra("id",String.valueOf(PM.getId()));
                 intent.putExtra("id_penjual",String.valueOf(PM.getId_penjual()));
-                intent.putExtra("foto_profil", PM.getFoto_produk());
+                intent.putExtra("foto_produk", PM.getFoto_produk());
+                intent.putExtra("foto_toko", PM.getFoto_toko());
                 intent.putExtra("nama_produk", PM.getNama());
                 intent.putExtra("nama", PM.getNama_toko());
                 intent.putExtra("alamat", PM.getAlamat());
                 intent.putExtra("deskripsi", PM.getDeskripsi());
                 intent.putExtra("stok", String.valueOf(PM.getStok()));
                 intent.putExtra("harga_produk", String.valueOf(PM.getHarga()));
+                intent.putExtra("status_toko", String.valueOf(PM.getStatus_toko()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
 

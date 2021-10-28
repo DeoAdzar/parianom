@@ -103,6 +103,8 @@ public class Pengaduan extends AppCompatActivity {
     }
 
     private void inputItem() {
+        kirim.setVisibility(View.GONE);
+        loading.setVisibility(View.VISIBLE);
         HashMap<String, String> user = sessionManager.getUserDetails();
         if (keterangan.getText().toString().isEmpty()||mediaPath.isEmpty()||mediaPath == null) {
             Toast.makeText(Pengaduan.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
@@ -115,6 +117,8 @@ public class Pengaduan extends AppCompatActivity {
             int size = (int) length / 1024;
             if (size > 4096) {
                 Toast.makeText(Pengaduan.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
+                kirim.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
             } else {
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
                 MultipartBody.Part partImage = MultipartBody.Part.createFormData("bukti_pengaduan", imagefile.getName(), reqBody);

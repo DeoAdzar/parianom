@@ -55,7 +55,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FormBukaToko extends AppCompatActivity {
-    Button bkToko, tahap1, tahap2, ktp;
+    Button bkToko, tahap1, tahap2, before1, before2, ktp;
     EditText namaToko, nik, alamatToko, npwp, lainnya;
     LinearLayout lTahap1, lTahap2, lTahap3;
     AutoCompleteTextView kec;
@@ -99,7 +99,9 @@ public class FormBukaToko extends AppCompatActivity {
         lainnya = findViewById(R.id.lainnya);
         tahap1 = (Button) findViewById(R.id.btnTahap1);
         tahap2 = (Button) findViewById(R.id.btnTahap2);
+        before1 = findViewById(R.id.btnSebelum);
         bkToko = (Button) findViewById(R.id.btnTahap3);
+        before2 = findViewById(R.id.btnSebelum2);
         ktp = (Button) findViewById(R.id.ktp);
         imgKtp = findViewById(R.id.imgKtp);
         loading = findViewById(R.id.progress_buka_toko);
@@ -131,12 +133,28 @@ public class FormBukaToko extends AppCompatActivity {
                 lTahap3.setVisibility(View.VISIBLE);
             }
         });
+        before1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lTahap1.setVisibility(View.VISIBLE);
+                lTahap2.setVisibility(View.GONE);
+                lTahap3.setVisibility(View.GONE);
+            }
+        });
         bkToko.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 lTahap1.setVisibility(View.GONE);
                 lTahap2.setVisibility(View.GONE);
                 requestPermission();
+            }
+        });
+        before2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lTahap1.setVisibility(View.GONE);
+                lTahap2.setVisibility(View.VISIBLE);
+                lTahap3.setVisibility(View.GONE);
             }
         });
         getDataKecamatan();
@@ -237,34 +255,41 @@ public class FormBukaToko extends AppCompatActivity {
     }
     private void inputItem() {
         bkToko.setVisibility(View.GONE);
+        before2.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
         if (namaToko.getText().toString().isEmpty()
                 ||nik.getText().toString().isEmpty()
                 ||alamatToko.getText().toString().isEmpty()
                 ||kec.getText().toString().isEmpty()){
-
             Toast.makeText(FormBukaToko.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
+            bkToko.setVisibility(View.VISIBLE);
+            before2.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }else if (mediaPath==null){
-//            bkToko.setVisibility(View.VISIBLE);
-//            loading.setVisibility(View.GONE);
+            bkToko.setVisibility(View.VISIBLE);
+            before2.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
             Toast.makeText(FormBukaToko.this, "Mohon upload foto ktp anda", Toast.LENGTH_SHORT).show();
         }else if(cekNik==false){
-//            bkToko.setVisibility(View.VISIBLE);
-//            loading.setVisibility(View.GONE);
             Toast.makeText(FormBukaToko.this, "Nik Sudah digunakan", Toast.LENGTH_SHORT).show();
+            bkToko.setVisibility(View.VISIBLE);
+            before2.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }else if(nik.getText().length()<16||nik.getText().length()>16){
-//            bkToko.setVisibility(View.VISIBLE);
-//            loading.setVisibility(View.GONE);
             Toast.makeText(FormBukaToko.this, "Isi Nik dengan benar", Toast.LENGTH_SHORT).show();
+            bkToko.setVisibility(View.VISIBLE);
+            before2.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }else {
             HashMap<String, String> user = sessionManager.getUserDetails();
             File imagefile = new File(mediaPath);
             long length = imagefile.length();
             int size = (int) length/1024;
             if (size>4096){
-//                bkToko.setVisibility(View.VISIBLE);
-//                loading.setVisibility(View.GONE);
                 Toast.makeText(FormBukaToko.this, "ukuran Gambar terlalu besar"+size, Toast.LENGTH_SHORT).show();
+                bkToko.setVisibility(View.VISIBLE);
+                before2.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
             }else {
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
                 MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_ktp", imagefile.getName(), reqBody);
@@ -288,9 +313,10 @@ public class FormBukaToko extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("debug", "OnFailure : Error -> " + t.getMessage());
-//                        bkToko.setVisibility(View.VISIBLE);
-//                        loading.setVisibility(View.GONE);
                         Toast.makeText(FormBukaToko.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        bkToko.setVisibility(View.VISIBLE);
+                        before2.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
                     }
                 });
             }

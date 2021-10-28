@@ -66,6 +66,8 @@ public class UbahKataSandi extends AppCompatActivity {
             public void onClick(View view) {
                 if (baru.getText().toString().equals(konfirmasi.getText().toString())){
                     BaseApiService mApiService = UtilsApi.getApiService();
+                    simpanSandi.setVisibility(View.GONE);
+                    loading.setVisibility(View.VISIBLE);
                     Call<ResponseBody> change = mApiService.gantiPass(Integer.parseInt(user.get(SessionManager.kunci_id_user)), lama.getText().toString(), baru.getText().toString());
                     change.enqueue(new Callback<ResponseBody>() {
                         @Override
@@ -83,6 +85,8 @@ public class UbahKataSandi extends AppCompatActivity {
                                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(i);
                                     } else {
+                                        simpanSandi.setVisibility(View.VISIBLE);
+                                        loading.setVisibility(View.GONE);
                                         Toast.makeText(UbahKataSandi.this, "Gagal Update", Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (JSONException e) {
@@ -96,10 +100,14 @@ public class UbahKataSandi extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            simpanSandi.setVisibility(View.VISIBLE);
+                            loading.setVisibility(View.GONE);
                             Toast.makeText(UbahKataSandi.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }else {
+                    simpanSandi.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
                     Toast.makeText(UbahKataSandi.this, "kata sandi tidak sama", Toast.LENGTH_SHORT).show();
                 }
             }
