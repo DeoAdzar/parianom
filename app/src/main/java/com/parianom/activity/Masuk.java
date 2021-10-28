@@ -76,6 +76,8 @@ public class Masuk extends AppCompatActivity {
     private void cekLogin(String username, String password) {
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<ResponseBody> cek = mApiService.login(username, password);
+        btnMasuk.setVisibility(View.GONE);
+        loading.setVisibility(View.VISIBLE);
         cek.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

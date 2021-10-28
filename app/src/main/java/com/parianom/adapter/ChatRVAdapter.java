@@ -59,7 +59,7 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.MyViewHold
             holder.textViewMessage.setText(chatModel.getPesan());
             holder.created.setText(chatModel.getCreated_at());
             holder.layout.setPadding(5,5, 150, 5);
-            holder.layoutCard.setGravity(Gravity.END);
+            holder.layoutCard.setGravity(Gravity.START);
             holder.layout.setGravity(Gravity.START);
         }
     }

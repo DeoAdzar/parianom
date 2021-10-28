@@ -38,9 +38,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -76,10 +78,10 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
         holder.subNamaTransaksi.setText(tr.getNama());
         holder.pembeli.setText(tr.getNama_lengkap());
         holder.jumlah.setText(String.valueOf(tr.getJumlah()));
-        holder.hargaTransaksi.setText(String.valueOf(tr.getTotal()));
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
         String convertedDate = null;
+        holder.hargaTransaksi.setText(formatRupiah(Double.parseDouble(String.valueOf(tr.getTotal()))));
         try {
             date = dateFormat.parse(tr.getTimestamp());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
@@ -250,5 +252,11 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
             batalkan = (Button) itemView.findViewById(R.id.btnBatalTransaksi);
             card = itemView.findViewById(R.id.cardTransaksi);
         }
+    }
+
+    private String formatRupiah(Double number){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeID);
+        return numberFormat.format(number);
     }
 }

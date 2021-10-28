@@ -78,7 +78,7 @@ public class PesanFragment extends Fragment {
                     shimmer.setVisibility(View.GONE);
                     empty.setVisibility(View.GONE);
                 }else{
-                    empty.setVisibility(View.VISIBLE);
+//                    empty.setVisibility(View.VISIBLE);
                     rv.setVisibility(View.VISIBLE);
                     shimmer.stopShimmer();
                     shimmer.hideShimmer();

@@ -47,10 +47,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_search"
+                    android:inputType="textCapWords"
                     android:theme="@style/fontEdit"
                     app:iconifiedByDefault="false"
-                    android:inputType="textCapWords"
-                    app:queryHint="Cari" />
+                    app:queryHint="Cari Produk / Toko" />
             </RelativeLayout>
         </LinearLayout>
         <View

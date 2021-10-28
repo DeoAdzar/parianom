@@ -53,7 +53,7 @@ public class ProfilFragment extends Fragment {
     CircleImageView img;
     SessionManager sessionManager;
     private ProgressBar loading;
-    CardView disapprove;
+    CardView disapprove, suspend, banned;
 
     @Nullable
     @Override
@@ -72,6 +72,8 @@ public class ProfilFragment extends Fragment {
         img = v.findViewById(R.id.imgUser);
         email = v.findViewById(R.id.emailUser);
         disapprove = v.findViewById(R.id.notifDisapprove);
+        suspend = v.findViewById(R.id.notifSuspend);
+        banned = v.findViewById(R.id.notifBanned);
         getResourceProfil();
         keluar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +165,7 @@ public class ProfilFragment extends Fragment {
                                     String status = jsonResult.getJSONObject("data").getString("status_toko");
                                     String id_penjual = jsonResult.getJSONObject("data").getString("id");
                                     String nama = jsonResult.getJSONObject("data").getString("nama_toko");
-                                    if (status.equals("1")) {
+                                    if (status.equals("1") || status.equals("2")) {
                                         Intent intent = new Intent(getContext(), Toko.class);
                                         intent.putExtra("id_penjual",id_penjual);
                                         intent.putExtra("nama_toko",nama);
@@ -175,8 +177,24 @@ public class ProfilFragment extends Fragment {
                                             public void run() {
                                                 disapprove.setVisibility(View.GONE);
                                             }
-                                        },3000);
-                                    }else{
+                                        },5000);
+                                    } else if (status.equals("3")) {
+                                        suspend.setVisibility(View.VISIBLE);
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                suspend.setVisibility(View.GONE);
+                                            }
+                                        },5000);
+                                    } else if (status.equals("4")) {
+                                        banned.setVisibility(View.VISIBLE);
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                banned.setVisibility(View.GONE);
+                                            }
+                                        },5000);
+                                    } else{
                                         Intent i = new Intent(getContext(), Konfirmasi.class);
                                         startActivity(i);
                                     }

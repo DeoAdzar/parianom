@@ -103,6 +103,9 @@
     <string name="tambahkan_bukti">Tambahkan Bukti</string>
     <string name="keterangan">Keterangan</string>
     <string name="pengaduan">Pengaduan</string>
+    <string name="maaf_anda_bukan_penduduk_kab_madiun">Maaf, Anda bukan penduduk Kab. Madiun</string>
+    <string name="suspend">Maaf, toko Anda ditutup selama 7 hari.\nSilahkan kunjungi pusat bantuan untuk informasi lebih lanjut.</string>
+    <string name="banned">Maaf, toko anda ditutup secara permanen.</string>
     <string-array name="kecamatan">
         <item>Pilih Kecamatan</item>
         <item>Balerejo</item>

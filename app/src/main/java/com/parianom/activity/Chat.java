@@ -51,6 +51,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,6 +64,7 @@ public class Chat extends AppCompatActivity {
     private CardView beli;
     private EditText isiPesan;
     private ImageButton tamlahLampiran;
+    private CircleImageView fotoUser;
     private FrameLayout kirim;
     private RecyclerView rv;
     LinearLayout produk;
@@ -127,8 +129,9 @@ public class Chat extends AppCompatActivity {
         beli = findViewById(R.id.btnBeli);
         Phone = findViewById(R.id.chat_nomer_penjual);
         produk = findViewById(R.id.intentPesanan);
+        fotoUser = findViewById(R.id.imgUserChat);
         namaPenjual.setText(namaP);
-
+        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_TOKO+getIntent().getStringExtra("gambar_toko"))).placeholder(R.drawable.ic_person).into(fotoUser);
         kirim = findViewById(R.id.kirimChat);
         if (status_chat.equals("0")) {
             produk.setVisibility(View.VISIBLE);
