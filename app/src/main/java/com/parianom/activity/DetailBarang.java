@@ -114,6 +114,8 @@ public class DetailBarang extends AppCompatActivity {
                                         intent.putExtra("harga", harga);
                                         intent.putExtra("alamat", alamatPrBeranda.getText());
                                         intent.putExtra("gambar", getIntent().getStringExtra("foto_profil"));
+                                        intent.putExtra("status_chat","0");
+
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                         finish();
