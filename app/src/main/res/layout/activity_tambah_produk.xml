@@ -248,8 +248,8 @@
                     android:layout_marginBottom="10dp"
                     android:entries="@array/jenisPangan"
                     android:spinnerMode="dropdown"
-                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                    android:backgroundTint="@color/label_input"/>
+                    android:theme="@style/fontEdit"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
