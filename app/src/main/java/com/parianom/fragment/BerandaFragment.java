@@ -247,6 +247,7 @@ public class BerandaFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 return false;
             }
         });

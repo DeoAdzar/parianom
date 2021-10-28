@@ -2,6 +2,7 @@ package com.parianom.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.R;
+import com.parianom.activity.Chat;
 import com.parianom.activity.DetailBarang;
-import com.parianom.model.PesanModel;
+import com.parianom.api.UtilsApi;
+import com.parianom.model.RoomModel;
+import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class PesanRVAdapter extends RecyclerView.Adapter<PesanRVAdapter.MyViewHolder> {
 
     Context mContext;
-    List<PesanModel> mData;
+    List<RoomModel> mData;
 
-    public PesanRVAdapter(Context mContext, List<PesanModel> mData) {
+    public PesanRVAdapter(Context mContext, List<RoomModel> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -40,19 +47,34 @@ public class PesanRVAdapter extends RecyclerView.Adapter<PesanRVAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final PesanModel pesanModel = mData.get(position);
+        final RoomModel rm = mData.get(position);
 
-        holder.titlePsn.setText(mData.get(position).getTitlePesan());
-        holder.isiPsn.setText(mData.get(position).getIsiPesan());
-        holder.imgPsn.setImageResource(mData.get(position).getImgPesan());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = null;
+        String convertedDate = null;
+        try {
+            date = dateFormat.parse(rm.getTanggal());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy");
+            convertedDate = simpleDateFormat.format(date);
+            holder.tanggal.setText(convertedDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        holder.layout.setOnClickListener(new View.OnClickListener() {
+        holder.titlePsn.setText(rm.getNama_toko());
+        holder.isiPsn.setText(rm.getAlamat());
+        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_TOKO+rm.getFoto_toko()))
+                .placeholder(R.drawable.ic_person).into(holder.imgPsn);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, DetailBarang.class);
-//                intent.putExtra("waktuBelanja", pesanModel.get());
-//                intent.putExtra("titlePembelian", riwayatModel.getTitleProduk());
-//                intent.putExtra("totalBelanja", riwayatModel.getHargaProduk());
+                Intent intent = new Intent(mContext, Chat.class);
+                intent.putExtra("id_penjual",String.valueOf(rm.getId_penjual()));
+                intent.putExtra("id_room",String.valueOf(rm.getId()));
+                intent.putExtra("penjual", rm.getNama_toko());
+                intent.putExtra("foto_toko", rm.getFoto_toko());
+                intent.putExtra("alamat", rm.getAlamat());
+                intent.putExtra("status_chat","1");
                 mContext.startActivity(intent);
             }
         });
@@ -65,17 +87,16 @@ public class PesanRVAdapter extends RecyclerView.Adapter<PesanRVAdapter.MyViewHo
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView titlePsn, isiPsn;
+        private TextView titlePsn, isiPsn,tanggal;
         private ImageView imgPsn;
         private LinearLayout layout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
+            tanggal = itemView.findViewById(R.id.tgl_chat);
             titlePsn = (TextView) itemView.findViewById(R.id.titlePesan);
             isiPsn = (TextView) itemView.findViewById(R.id.isiPesan);
             imgPsn = (ImageView) itemView.findViewById(R.id.imgPesan);
-            layout = (LinearLayout) itemView.findViewById(R.id.btnDetailPesan);
         }
     }
 }

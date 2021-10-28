@@ -9,6 +9,8 @@ import com.parianom.model.PenjualanModel;
 import com.parianom.model.PenjualanResponseModel;
 import com.parianom.model.PesananModel;
 import com.parianom.model.PesananResponseModel;
+import com.parianom.model.RecomendedResponseModel;
+import com.parianom.model.RoomResponseModel;
 import com.parianom.model.TransaksiResponseModel;
 
 import okhttp3.MultipartBody;
@@ -26,7 +28,8 @@ import retrofit2.http.Part;
 public interface BaseApiService {
     @GET("kecamatan")
     Call<KecamatanResponseModel> getKecamatan();
-
+    @GET("search")
+    Call<RecomendedResponseModel> getRecom();
     @FormUrlEncoded
     @POST("getUser")
     Call<ResponseBody> getUser(
@@ -266,5 +269,31 @@ public interface BaseApiService {
             @Field("id_user") int id_user,
             @Field("kata_sandi") String kata_sandi,
             @Field("kata_sandi_baru") String kata_sandi_baru
+    );
+    @FormUrlEncoded
+    @POST("getRoomByUser")
+    Call<RoomResponseModel> getRoom(
+            @Field("id_user") int id_user
+    );
+    @Multipart
+    @POST("inputAduan")
+    Call<ResponseBody> inputAduan(
+            @Part MultipartBody.Part bukti_pengaduan
+            ,@Part("id_user") RequestBody id_user
+            ,@Part("id_penjual") RequestBody id_penjual
+            ,@Part("kategori_pengaduan") RequestBody kategori_pengaduan
+            ,@Part("deskripsi") RequestBody deskripsi
+    );
+    @FormUrlEncoded
+    @POST("searchByKecamatan")
+    Call<PenjualanResponseModel> searchProduk(
+            @Field("nama_produk") String nama_produk,
+            @Field("kecamatan") String kecamatan
+    );
+    @FormUrlEncoded
+    @POST("searchByPenjual")
+    Call<PenjualanResponseModel> searchProdukByPenjual(
+            @Field("nama_toko") String nama_toko,
+            @Field("kecamatan") String kecamatan
     );
 }
