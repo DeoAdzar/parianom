@@ -47,7 +47,7 @@ public class UbahKataSandi extends AppCompatActivity {
         konfirmasi = findViewById(R.id.konfKataSandiBaru);
         lupaSandi = findViewById(R.id.lupaKataSandi);
         simpanSandi = findViewById(R.id.btnSimpanSandi);
-        loading = findViewById(R.id.progress_masuk);
+        loading = findViewById(R.id.progress_ubah_pass);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");

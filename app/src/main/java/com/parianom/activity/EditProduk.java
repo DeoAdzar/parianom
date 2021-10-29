@@ -127,6 +127,7 @@ public class EditProduk extends AppCompatActivity {
                             String hargas = jsonResult.getJSONObject("data").getString("harga");
                             String stoks = jsonResult.getJSONObject("data").getString("stok");
                             String images = jsonResult.getJSONObject("data").getString("foto_produk");
+                            String deskrip = jsonResult.getJSONObject("data").getString("deskripsi");
                             Picasso.get().load(UtilsApi.IMAGES_PRODUK + images)
                                     .placeholder(R.drawable.ic_person)
                                     .into(img);
@@ -155,6 +156,7 @@ public class EditProduk extends AppCompatActivity {
                             nama.setText(namas);
                             harga.setText(hargas);
                             stok.setText(stoks);
+                            deskripsi.setText(deskrip);
                         } else {
                             Toast.makeText(getApplicationContext(), "Tidak ada Data", Toast.LENGTH_SHORT).show();
                         }
@@ -211,6 +213,7 @@ public class EditProduk extends AppCompatActivity {
                     kategori.getSelectedItem().toString()
                     ,jenis.getSelectedItem().toString()
                     , nama.getText().toString()
+                    , deskripsi.getText().toString()
                     ,Integer.parseInt(harga.getText().toString())
                     ,Integer.parseInt(stok.getText().toString())
                     , Integer.parseInt(getIntent().getStringExtra("id_produk")));
@@ -248,6 +251,7 @@ public class EditProduk extends AppCompatActivity {
                         , RequestBody.create(MediaType.parse("text/plain"), jenis.getSelectedItem().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), harga.getText().toString())
+                        , RequestBody.create(MediaType.parse("text/plain"), deskripsi.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), stok.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("id_produk")));
                 update.enqueue(new Callback<ResponseBody>() {

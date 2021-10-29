@@ -42,6 +42,7 @@ public class GenerateQR extends AppCompatActivity {
     private String kode;
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class GenerateQR extends AppCompatActivity {
                 finish();
             }
         });
-
+        handler = new Handler();
         qrCode = (ImageView) findViewById(R.id.qrCode);
         kode = getIntent().getStringExtra("kode_pesanan");
 
@@ -91,7 +92,7 @@ public class GenerateQR extends AppCompatActivity {
     }
 
     private void refresh() {
-        new Handler().postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 getKonfirmasi();
@@ -137,5 +138,17 @@ public class GenerateQR extends AppCompatActivity {
                 Log.d(TAG, "onFailure: "+t.getMessage());
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
     }
 }

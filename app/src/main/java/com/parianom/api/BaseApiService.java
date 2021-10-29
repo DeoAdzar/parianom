@@ -88,6 +88,7 @@ public interface BaseApiService {
             ,@Part("kategori_sub") RequestBody kategori_sub
             ,@Part("nama") RequestBody nama
             ,@Part("harga") RequestBody harga
+            ,@Part("deskripsi") RequestBody deskripsi
             ,@Part("stok") RequestBody stok
             ,@Part("id") RequestBody id_produk
     );
@@ -97,6 +98,7 @@ public interface BaseApiService {
             @Field("kategori") String kategori
             ,@Field("kategori_sub") String kategori_sub
             ,@Field("nama") String nama
+            ,@Field("deskripsi") String deskripsi
             ,@Field("harga") int harga
             ,@Field("stok") int stok
             ,@Field("id") int id_produk

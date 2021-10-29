@@ -70,6 +70,7 @@ public class Chat extends AppCompatActivity {
     LinearLayout produk;
     SessionManager sessionManager;
     Calendar calendar;
+    Handler handler;
     SimpleDateFormat sdf, sdf2;
     String harga, namaP, jumlah, namaPr, alamat, gambar, noHp, namaPem, idPr, idPn, mediaPath, postPath,status_chat,roomId;
     private static final int REQUEST_PICK_PHOTO = 2;
@@ -101,7 +102,7 @@ public class Chat extends AppCompatActivity {
             }
         });
         sessionManager = new SessionManager(getApplicationContext());
-
+        handler = new Handler();
         setInit();
         first = false;
         harga = getIntent().getStringExtra("harga");
@@ -301,7 +302,7 @@ public class Chat extends AppCompatActivity {
     }
 
     public void refresh() {
-        new Handler().postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 getMessage();
@@ -454,12 +455,14 @@ public class Chat extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         first = false;
+        handler.removeCallbacksAndMessages(null);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         first = false;
+        handler.removeCallbacksAndMessages(null);
     }
 
     @Override
