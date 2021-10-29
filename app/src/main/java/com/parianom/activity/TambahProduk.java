@@ -15,6 +15,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +36,9 @@ import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
 
 import java.io.File;
+import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -53,6 +57,7 @@ public class TambahProduk extends AppCompatActivity {
     private static final int select3 = 3;
     private static final int REQUEST_WRITE_PERMISSION = 786;
     String mediaPath1, mediaPath2, mediaPath3, postPath;
+    String harga2;
     SessionManager sessionManager;
     EditText nama, harga, stok, deskripsi;
     private ProgressBar loading;
@@ -93,6 +98,9 @@ public class TambahProduk extends AppCompatActivity {
         stok = findViewById(R.id.edtStokPr);
         deskripsi = findViewById(R.id.edtDeskPr);
         loading = findViewById(R.id.progress_tambah_produk);
+
+//        harga2 = harga.getText().toString();
+
 //        if (kategori.getSelectedItem().equals("Pangan")) {
 //            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
 //            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
@@ -135,7 +143,47 @@ public class TambahProduk extends AppCompatActivity {
                 startActivityForResult(galery, select3);
             }
         });
+//        harga.addTextChangedListener(new TextWatcher() {
+//            private String current = harga.getText().toString().trim();
+//            private String view;
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                if (!editable.toString().equals(current)) {
+//                    harga.removeTextChangedListener(this);
+//
+//                    String replaceable = String.format("[%s,.\\s]",   NumberFormat.getCurrencyInstance().getCurrency().getSymbol());
+//                    String cleanString = editable.toString().replaceAll(replaceable, "");
+//
+//                    double parsed;
+//                    try {
+//                        parsed = Double.parseDouble(cleanString);
+//                    } catch (NumberFormatException e) {
+//                        parsed = 0.00;
+//                    }
+//                    NumberFormat formatter = NumberFormat.getCurrencyInstance();
+//                    formatter.setMaximumFractionDigits(0);
+//                    String formatted = formatter.format((parsed));
+//
+//                    current = formatted;
+//                    harga.setText(formatted);
+//                    harga.setSelection(formatted.length());
+//                    harga.addTextChangedListener(this);
+//                }
+//            }
+//        });
+
     }
+
     public void change(){
         ArrayAdapter<CharSequence> adapterPangan = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
         adapterPangan.setDropDownViewResource(R.layout.custom_spinner_dropdown);
@@ -190,6 +238,7 @@ public class TambahProduk extends AppCompatActivity {
                 loading.setVisibility(View.GONE);
                 Toast.makeText(TambahProduk.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
             } else {
+
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
                 MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_produk", imagefile.getName(), reqBody);
                 BaseApiService mApiService = UtilsApi.getApiService();
@@ -217,9 +266,10 @@ public class TambahProduk extends AppCompatActivity {
                     }
                 });
 
+
 //                postPath = mediaPath1+mediaPath2+mediaPath3;
 //                Toast.makeText(TambahProduk.this, postPath, Toast.LENGTH_SHORT).show();
-//                Log.d(TAG, "inputItem: "+postPath);
+//                Log.d(TAG, "inputItem: "+harga.getText());
 
             }
         }
