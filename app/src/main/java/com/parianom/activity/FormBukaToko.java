@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -75,7 +76,7 @@ public class FormBukaToko extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_WRITE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            inputItem();
+            cekNik();
         }
     }
 
@@ -250,8 +251,38 @@ public class FormBukaToko extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
         }else {
-            inputItem();
+            cekNik();
         }
+    }
+    private void cekNik(){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("nik",nik.getText().toString());
+        BaseApiService api = UtilsApi.getApiServiceKtp();
+        Call<ResponseBody>cek = api.nik(jsonObject);
+        cek.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        JSONObject jsonResult =new JSONObject(response.body().string());
+                        if (jsonResult.getString("metadata").equals("OK")){
+                            inputItem();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Maaf anda bukan masyarakat kabupaten madiun", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "response Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private void inputItem() {
         bkToko.setVisibility(View.GONE);
@@ -305,8 +336,7 @@ public class FormBukaToko extends AppCompatActivity {
                 update.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Intent i = new Intent(FormBukaToko.this,Konfirmasi.class);
-                        startActivity(i);
+                        Toast.makeText(getApplicationContext(), "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
                         finish();
                     }
 

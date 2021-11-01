@@ -1,6 +1,7 @@
 package com.parianom.api;
 
 
+import com.google.gson.JsonObject;
 import com.parianom.model.ChatResponseModel;
 import com.parianom.model.DaftarJualanResponseModel;
 import com.parianom.model.KecamatanModel;
@@ -18,9 +19,11 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -298,4 +301,10 @@ public interface BaseApiService {
             @Field("nama_toko") String nama_toko,
             @Field("kecamatan") String kecamatan
     );
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("cek_nik.php")
+    Call<ResponseBody> nik(@Body JsonObject nik);
 }
