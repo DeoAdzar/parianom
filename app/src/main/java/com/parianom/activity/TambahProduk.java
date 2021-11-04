@@ -1,24 +1,21 @@
 package com.parianom.activity;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,15 +27,16 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.parianom.ImageResizer;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.text.NumberFormat;
+import java.io.FileOutputStream;
 import java.util.HashMap;
-import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -51,6 +49,7 @@ import retrofit2.Response;
 public class TambahProduk extends AppCompatActivity {
     Button simpan;
     ImageView img, img2, img3, selectedImage;
+    CardView cardImg2;
     Spinner kategori, jenis;
     private static final int select1 = 1;
     private static final int select2 = 2;
@@ -62,6 +61,7 @@ public class TambahProduk extends AppCompatActivity {
     EditText nama, harga, stok, deskripsi;
     private ProgressBar loading;
     private LinearLayout parentLinearLayout;
+    Bitmap yourBitmap;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -98,6 +98,7 @@ public class TambahProduk extends AppCompatActivity {
         stok = findViewById(R.id.edtStokPr);
         deskripsi = findViewById(R.id.edtDeskPr);
         loading = findViewById(R.id.progress_tambah_produk);
+        cardImg2 = findViewById(R.id.cardImg2);
 
 //        harga2 = harga.getText().toString();
 
@@ -230,17 +231,21 @@ public class TambahProduk extends AppCompatActivity {
             loading.setVisibility(View.GONE);
         }
         else {
-            File imagefile = new File(mediaPath1);
-            long length = imagefile.length();
-            int size = (int) length / 1024;
-            if (size > 4096) {
-                simpan.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
-                Toast.makeText(TambahProduk.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
-            } else {
+            Bitmap fullSizeBitmap = BitmapFactory.decodeFile(mediaPath1);
+            Bitmap reducedBitmap = ImageResizer.reduceBitmapSize(fullSizeBitmap, 1000000);
+            File reducedFile = getBitmapFile(reducedBitmap);
 
-                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
-                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_produk", imagefile.getName(), reqBody);
+//            File imagefile = new File(mediaPath1);
+//            long length = imagefile.length();
+//            int size = (int) length / 1024;
+//            if (size > 4096) {
+//                simpan.setVisibility(View.VISIBLE);
+//                loading.setVisibility(View.GONE);
+//                Toast.makeText(TambahProduk.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
+//            } else {
+
+                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), reducedFile);
+                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_produk", reducedFile.getName(), reqBody);
                 BaseApiService mApiService = UtilsApi.getApiService();
                 Call<ResponseBody> update = mApiService.inputProduk(partImage
                         , RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("id_penjual"))
@@ -271,8 +276,28 @@ public class TambahProduk extends AppCompatActivity {
 //                Toast.makeText(TambahProduk.this, postPath, Toast.LENGTH_SHORT).show();
 //                Log.d(TAG, "inputItem: "+harga.getText());
 
-            }
+//            }
+
         }
+    }
+
+    private File getBitmapFile(Bitmap reduceBitmap) {
+        File file = new File(Environment.getExternalStorageDirectory() + File.separator + "reduced_file");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        reduceBitmap.compress(Bitmap.CompressFormat.JPEG, 30, bos);
+        byte[] bitmapdata = bos.toByteArray();
+
+        try {
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+            return file;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 
     @Override
@@ -292,41 +317,39 @@ public class TambahProduk extends AppCompatActivity {
                     mediaPath1 = cursor.getString(columnIndex);
                     img.setImageURI(data.getData());
                     cursor.close();
-
-                    postPath = mediaPath1;
                 }
             }
-//            if (requestCode == 2) {
-//                if (data != null) {
-//                    Uri selectedImage = data.getData();
-//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//
-//                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-//                    assert cursor != null;
-//                    cursor.moveToFirst();
-//
-//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                    mediaPath2 = cursor.getString(columnIndex);
-//                    img2.setImageURI(data.getData());
-//                    cursor.close();
-//                }
-//            }
-//            if (requestCode == select3) {
-//                if (data != null) {
-//                    Uri selectedImage = data.getData();
-//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//
-//                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-//                    assert cursor != null;
-//                    cursor.moveToFirst();
-//
-//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                    mediaPath3 = cursor.getString(columnIndex);
-//                    img3.setImageURI(data.getData());
-//                    cursor.close();
-//
-//                }
-//            }
+            if (requestCode == 2) {
+                if (data != null) {
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    assert cursor != null;
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    mediaPath2 = cursor.getString(columnIndex);
+                    img2.setImageURI(data.getData());
+                    cursor.close();
+                }
+            }
+            if (requestCode == select3) {
+                if (data != null) {
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    assert cursor != null;
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    mediaPath3 = cursor.getString(columnIndex);
+                    img3.setImageURI(data.getData());
+                    cursor.close();
+
+                }
+            }
         }
     }
 }
