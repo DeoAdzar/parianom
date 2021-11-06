@@ -94,6 +94,15 @@ public class Search extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                String kec = null;
+                kec = spinner.getSelectedItem().toString();
+                if (kec.equals("Pilih Kecamatan")||kec.equals(null)||kec.isEmpty()){
+                    getData(newText,null);
+                }else if (newText==null){
+                    getData(null,kec);
+                }else{
+                    getData(newText,kec);
+                }
                 return false;
             }
         });
@@ -182,4 +191,5 @@ public class Search extends AppCompatActivity {
             }
         });
     }
+
 }

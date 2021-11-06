@@ -2,7 +2,10 @@ package com.parianom.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +51,9 @@ public class PenjualanRvAdapter extends RecyclerView.Adapter<PenjualanRvAdapter.
         PenjualanModel PM = penjualanModelList.get(position);
 
 //        holder.imgData.setImageURI(Uri.parse(UtilsApi.IMAGES_PROFIL+PM.getFoto_produk()));
-        Picasso.get().load(UtilsApi.IMAGES_PRODUK + PM.getFoto_produk())
-                .into(holder.imgData);
+        byte[] decodedString = Base64.decode(PM.getFoto_produk(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        holder.imgData.setImageBitmap(decodedByte);
         holder.namaData.setText(PM.getNama());
         holder.kecData.setText(PM.getKec());
         holder.hargaData.setText(String.valueOf(PM.getHarga()));

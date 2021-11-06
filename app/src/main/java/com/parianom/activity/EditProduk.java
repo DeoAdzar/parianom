@@ -8,10 +8,13 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +26,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.parianom.ImageResizer;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -32,6 +36,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -128,9 +133,9 @@ public class EditProduk extends AppCompatActivity {
                             String stoks = jsonResult.getJSONObject("data").getString("stok");
                             String images = jsonResult.getJSONObject("data").getString("foto_produk");
                             String deskrip = jsonResult.getJSONObject("data").getString("deskripsi");
-                            Picasso.get().load(UtilsApi.IMAGES_PRODUK + images)
-                                    .placeholder(R.drawable.ic_person)
-                                    .into(img);
+                            byte[] decodedString = Base64.decode(images, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            img.setImageBitmap(decodedByte);
                             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.kategori, android.R.layout.simple_spinner_item);
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             kategori.setAdapter(adapter);
@@ -234,19 +239,13 @@ public class EditProduk extends AppCompatActivity {
             });
         }
         else {
-
-            File imagefile = new File(mediaPath);
-            long length = imagefile.length();
-            int size = (int) length / 1024;
-            if (size > 4096) {
-                Toast.makeText(getApplicationContext(), "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
-                simpan.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
-            } else {
-                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
-                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_produk", imagefile.getName(), reqBody);
+            Bitmap fullSizeBitmap = BitmapFactory.decodeFile(mediaPath);
+            Bitmap reducedBitmap = ImageResizer.reduceBitmapSize(fullSizeBitmap, 1000000);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            reducedBitmap.compress(Bitmap.CompressFormat.JPEG,30,outputStream);
+            String imageBase64 = Base64.encodeToString(outputStream.toByteArray(),Base64.DEFAULT);
                 BaseApiService mApiService = UtilsApi.getApiService();
-                Call<ResponseBody> update = mApiService.updateProduk(partImage
+                Call<ResponseBody> update = mApiService.updateProduk(RequestBody.create(MediaType.parse("text/plain"), imageBase64)
                         , RequestBody.create(MediaType.parse("text/plain"),  kategori.getSelectedItem().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), jenis.getSelectedItem().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
@@ -270,7 +269,6 @@ public class EditProduk extends AppCompatActivity {
                     }
                 });
             }
-        }
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

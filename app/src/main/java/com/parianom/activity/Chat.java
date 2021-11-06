@@ -14,10 +14,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -132,7 +135,13 @@ public class Chat extends AppCompatActivity {
         produk = findViewById(R.id.intentPesanan);
         fotoUser = findViewById(R.id.imgUserChat);
         namaPenjual.setText(namaP);
-        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_TOKO+getIntent().getStringExtra("gambar_toko"))).placeholder(R.drawable.ic_person).into(fotoUser);
+        if (getIntent().getStringExtra("gambar_toko")!=null) {
+            byte[] decodedString = Base64.decode(getIntent().getStringExtra("gambar_toko"), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            fotoUser.setImageBitmap(decodedByte);
+        }else{
+            fotoUser.setImageResource(R.drawable.ic_person);
+        }
         kirim = findViewById(R.id.kirimChat);
         if (status_chat.equals("0")) {
             produk.setVisibility(View.VISIBLE);
@@ -140,8 +149,9 @@ public class Chat extends AppCompatActivity {
             jumlahBeli.setText(jumlah);
             namaProduk.setText(namaPr);
             alamatProduk.setText(alamat);
-            Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK + gambar))
-                    .placeholder(R.color.shimmer).into(imgProduk);
+            byte[] decodedString2 = Base64.decode(gambar, Base64.DEFAULT);
+            Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+            imgProduk.setImageBitmap(decodedByte2);
 
             String hargaSt = formatRupiah(Double.parseDouble(harga));
             hargaSatuan.setText(hargaSt);

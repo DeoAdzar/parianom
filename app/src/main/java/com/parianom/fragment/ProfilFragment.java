@@ -3,9 +3,12 @@ package com.parianom.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,14 +124,20 @@ public class ProfilFragment extends Fragment {
                             String emails = jsonResult.getJSONObject("data").getString("email");
                             String namas = jsonResult.getJSONObject("data").getString("nama_lengkap");
                             String images = jsonResult.getJSONObject("data").getString("foto_profil");
-                            Picasso.get().load(UtilsApi.IMAGES_PROFIL + images)
-                                    .placeholder(R.drawable.ic_person).into(img);
+                            if (images == "null"){
+                                img.setImageResource(R.drawable.ic_person);
+                            }else {
+                                byte[] decodedString = Base64.decode(images, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                img.setImageBitmap(decodedByte);
+                            }
                             email.setText(emails);
                             namaUser.setText(namas);
                             cardProfil.setVisibility(View.VISIBLE);
                             loading.setVisibility(View.GONE);
                         } else {
                             Toast.makeText(getContext(), "Tidak ada Data", Toast.LENGTH_SHORT).show();
+                            sessionManager.logout();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

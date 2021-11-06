@@ -7,11 +7,14 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.parianom.ImageResizer;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -34,6 +38,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -146,9 +151,14 @@ public class EditProfil extends AppCompatActivity {
                             String no_hps = jsonResult.getJSONObject("data").getString("no_hp");
                             String usernames = jsonResult.getJSONObject("data").getString("username");
                             String images = jsonResult.getJSONObject("data").getString("foto_profil");
-                            Picasso.get().load(UtilsApi.IMAGES_PROFIL + images)
-                                    .placeholder(R.drawable.ic_person)
-                                    .into(Image);
+                            if (images=="null"){
+                                Image.setImageResource(R.drawable.ic_person);
+                            }else{
+                                byte[] decodedString = Base64.decode(images, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                Image.setImageBitmap(decodedByte);
+                            }
+
                             email.setText(emails);
                             nama.setText(namas);
                             alamat.setText(alamats);
@@ -219,16 +229,13 @@ public class EditProfil extends AppCompatActivity {
         }
         else {
 
-            File imagefile = new File(mediaPath);
-            long length = imagefile.length();
-            int size = (int) length / 1024;
-            if (size > 4096) {
-                Toast.makeText(EditProfil.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
-            } else {
-                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
-                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_profil", imagefile.getName(), reqBody);
+            Bitmap fullSizeBitmap = BitmapFactory.decodeFile(mediaPath);
+            Bitmap reducedBitmap = ImageResizer.reduceBitmapSize(fullSizeBitmap, 1000000);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            reducedBitmap.compress(Bitmap.CompressFormat.JPEG,30,outputStream);
+            String imageBase64 = Base64.encodeToString(outputStream.toByteArray(),Base64.DEFAULT);
                 BaseApiService mApiService = UtilsApi.getApiService();
-                Call<ResponseBody> update = mApiService.updateUser(partImage
+                Call<ResponseBody> update = mApiService.updateUser(RequestBody.create(MediaType.parse("text/plain"), imageBase64)
                         , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), username.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), email.getText().toString())
@@ -249,7 +256,7 @@ public class EditProfil extends AppCompatActivity {
                     }
                 });
             }
-        }
+
     }
 
     @Override

@@ -6,7 +6,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,8 +93,9 @@ public class TransaksiRVAdapter extends RecyclerView.Adapter<TransaksiRVAdapter.
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK + tr.getFoto_produk()))
-                .placeholder(R.color.shimmer).into(holder.imgTransaksi);
+        byte[] decodedString = Base64.decode(tr.getFoto_produk(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        holder.imgTransaksi.setImageBitmap(decodedByte);
         switch (String.valueOf(tr.getStatus())) {
             case "1":
                 holder.selesai.setVisibility(View.GONE);

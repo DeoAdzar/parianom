@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.parianom.ImageResizer;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -313,19 +315,15 @@ public class FormBukaToko extends AppCompatActivity {
             loading.setVisibility(View.GONE);
         }else {
             HashMap<String, String> user = sessionManager.getUserDetails();
-            File imagefile = new File(mediaPath);
-            long length = imagefile.length();
-            int size = (int) length/1024;
-            if (size>4096){
-                Toast.makeText(FormBukaToko.this, "ukuran Gambar terlalu besar"+size, Toast.LENGTH_SHORT).show();
-                bkToko.setVisibility(View.VISIBLE);
-                before2.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
-            }else {
-                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
-                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_ktp", imagefile.getName(), reqBody);
+            Bitmap fullSizeBitmap = BitmapFactory.decodeFile(mediaPath);
+            Bitmap reducedBitmap = ImageResizer.reduceBitmapSize(fullSizeBitmap, 1000000);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            reducedBitmap.compress(Bitmap.CompressFormat.JPEG,30,outputStream);
+            String imageBase64 = Base64.encodeToString(outputStream.toByteArray(),Base64.DEFAULT);
+//                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
+//                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_ktp", imagefile.getName(), reqBody);
                 BaseApiService mApiService = UtilsApi.getApiService();
-                Call<ResponseBody> update = mApiService.registerPenjual(partImage
+                Call<ResponseBody> update = mApiService.registerPenjual(RequestBody.create(MediaType.parse("text/plain"), imageBase64)
                         , RequestBody.create(MediaType.parse("text/plain"), user.get(SessionManager.kunci_id_user))
                         , RequestBody.create(MediaType.parse("text/plain"), namaToko.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), nik.getText().toString())
@@ -350,7 +348,7 @@ public class FormBukaToko extends AppCompatActivity {
                     }
                 });
             }
-        }
+
     }
     private void getDataKecamatan() {
         BaseApiService mApiService = UtilsApi.getApiService();

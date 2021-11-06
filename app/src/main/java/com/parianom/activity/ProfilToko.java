@@ -7,10 +7,13 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.parianom.ImageResizer;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
@@ -31,6 +35,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -126,9 +131,14 @@ public class ProfilToko extends AppCompatActivity {
                             String alamat_toko = jsonResult.getJSONObject("data").getString("alamat");
                             String kec = jsonResult.getJSONObject("data").getString("kec");
                             String foto_toko =jsonResult.getJSONObject("data").getString("foto_toko");
-                            Picasso.get().load(UtilsApi.IMAGES_TOKO + foto_toko)
-                                    .placeholder(R.drawable.ic_person)
-                                    .into(imgToko);
+                            if (foto_toko == "null"){
+                                imgToko.setImageResource(R.drawable.ic_person);
+                            }else {
+                                byte[] decodedString = Base64.decode(foto_toko, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                imgToko.setImageBitmap(decodedByte);
+                            }
+
                             nama.setText(nama_toko);
                             alamat.setText(alamat_toko);
                             kecamatan.setText(kec);
@@ -216,19 +226,13 @@ public class ProfilToko extends AppCompatActivity {
                 }
             });
         }else {
-
-            File imagefile = new File(mediaPath);
-            long length = imagefile.length();
-            int size = (int) length/1024;
-            if (size>4096){
-                Toast.makeText(ProfilToko.this, "ukuran Gambar terlalu besar"+size, Toast.LENGTH_SHORT).show();
-                simpan.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
-            }else {
-                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
-                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_toko", imagefile.getName(), reqBody);
+            Bitmap fullSizeBitmap = BitmapFactory.decodeFile(mediaPath);
+            Bitmap reducedBitmap = ImageResizer.reduceBitmapSize(fullSizeBitmap, 1000000);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            reducedBitmap.compress(Bitmap.CompressFormat.JPEG,30,outputStream);
+            String imageBase64 = Base64.encodeToString(outputStream.toByteArray(),Base64.DEFAULT);
                 BaseApiService mApiService = UtilsApi.getApiService();
-                Call<ResponseBody> update = mApiService.updatePenjual(partImage
+                Call<ResponseBody> update = mApiService.updatePenjual(RequestBody.create(MediaType.parse("text/plain"), imageBase64)
                         , RequestBody.create(MediaType.parse("text/plain"), user.get(SessionManager.kunci_id_user))
                         , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
                         , RequestBody.create(MediaType.parse("text/plain"), kecamatan.getText().toString())
@@ -248,7 +252,7 @@ public class ProfilToko extends AppCompatActivity {
                         loading.setVisibility(View.GONE);
                     }
                 });
-            }
+
         }
     }
     @Override

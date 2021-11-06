@@ -4,7 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,9 +78,10 @@ public class DfJualanRVAdapter extends RecyclerView.Adapter<DfJualanRVAdapter.My
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK+dfJualanModel.getFoto_produk()))
-                .placeholder(R.color.shimmer).into(holder.img);
 
+        byte[] decodedString = Base64.decode(dfJualanModel.getFoto_produk(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        holder.img.setImageBitmap(decodedByte);
         String harga = holder.hargaPr.getText().toString();
         String resultRupiah = formatRupiah(Double.parseDouble(harga));
         holder.hargaPr.setText(resultRupiah);
