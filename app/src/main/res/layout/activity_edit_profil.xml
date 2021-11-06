@@ -61,7 +61,7 @@
                         android:id="@+id/imgUser"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@color/primer"/>
+                        android:src="@drawable/ic_person"/>
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

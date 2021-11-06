@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -109,8 +112,9 @@ public class DetailTransaksi extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             kategoriSub.setText(kategori);
-                            Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK+gambar))
-                            .placeholder(R.color.shimmer).into(img);
+                            byte[] decodedString2 = Base64.decode(gambar, Base64.DEFAULT);
+                            Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+                            img.setImageBitmap(decodedByte2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

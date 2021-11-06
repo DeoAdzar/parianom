@@ -5,8 +5,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -84,9 +87,9 @@ public class DetailBarang extends AppCompatActivity {
         hargaProduk.setText(getIntent().getStringExtra("harga_produk"));
         deskripsi.setText(getIntent().getStringExtra("deskripsi"));
         stok.setText("stok : "+getIntent().getStringExtra("stok"));
-        Picasso.get().load(UtilsApi.IMAGES_PRODUK + getIntent().getStringExtra("foto_produk"))
-                .placeholder(R.drawable.ic_person)
-                .into(imgDetailPr);
+        byte[] decodedString = Base64.decode(getIntent().getStringExtra("foto_produk"), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        imgDetailPr.setImageBitmap(decodedByte);
         String harga = hargaProduk.getText().toString();
         String resultRupiah = formatRupiah(Double.parseDouble(harga));
         hargaProduk.setText(resultRupiah);

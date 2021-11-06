@@ -2,7 +2,10 @@ package com.parianom.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +66,14 @@ public class PesanRVAdapter extends RecyclerView.Adapter<PesanRVAdapter.MyViewHo
 
         holder.titlePsn.setText(rm.getNama_toko());
         holder.isiPsn.setText(rm.getAlamat());
-        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_TOKO+rm.getFoto_toko()))
-                .placeholder(R.drawable.ic_person).into(holder.imgPsn);
+        if (rm.getFoto_toko()!=null){
+            byte[] decodedString = Base64.decode(rm.getFoto_toko(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.imgPsn.setImageBitmap(decodedByte);
+
+        }else {
+            holder.imgPsn.setImageResource(R.drawable.ic_person);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

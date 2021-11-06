@@ -7,10 +7,13 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,11 +24,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parianom.ImageResizer;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.HashMap;
 
@@ -112,18 +117,13 @@ public class Pengaduan extends AppCompatActivity {
             loading.setVisibility(View.GONE);
         }else {
 
-            File imagefile = new File(mediaPath);
-            long length = imagefile.length();
-            int size = (int) length / 1024;
-            if (size > 4096) {
-                Toast.makeText(Pengaduan.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
-                kirim.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.GONE);
-            } else {
-                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
-                MultipartBody.Part partImage = MultipartBody.Part.createFormData("bukti_pengaduan", imagefile.getName(), reqBody);
+            Bitmap fullSizeBitmap = BitmapFactory.decodeFile(mediaPath);
+            Bitmap reducedBitmap = ImageResizer.reduceBitmapSize(fullSizeBitmap, 1000000);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            reducedBitmap.compress(Bitmap.CompressFormat.JPEG,30,outputStream);
+            String imageBase64 = Base64.encodeToString(outputStream.toByteArray(),Base64.DEFAULT);
                 BaseApiService mApiService = UtilsApi.getApiService();
-                Call<ResponseBody> update = mApiService.inputAduan(partImage
+                Call<ResponseBody> update = mApiService.inputAduan(RequestBody.create(MediaType.parse("text/plain"), imageBase64)
                         , RequestBody.create(MediaType.parse("text/plain"), user.get(SessionManager.kunci_id_user))
                         , RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("id_penjual"))
                         , RequestBody.create(MediaType.parse("text/plain"), poinPengaduan.getSelectedItem().toString())
@@ -145,7 +145,7 @@ public class Pengaduan extends AppCompatActivity {
                         Toast.makeText(Pengaduan.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
+
         }
     }
 

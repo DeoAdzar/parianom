@@ -2,7 +2,10 @@ package com.parianom.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,9 +76,9 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
         String harga = holder.totalHarga.getText().toString();
         String resultRupiah = formatRupiah(Double.parseDouble(harga));
         holder.totalHarga.setText(resultRupiah);
-        Picasso.get().load(Uri.parse(UtilsApi.IMAGES_PRODUK) + pm.getFoto_produk())
-                .placeholder(R.color.shimmer)
-                .into(holder.imgProduk);
+        byte[] decodedString = Base64.decode(pm.getFoto_produk(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        holder.imgProduk.setImageBitmap(decodedByte);
         switch (String.valueOf(pm.getStatus())) {
             case "1":
                 holder.layout.setOnClickListener(new View.OnClickListener() {

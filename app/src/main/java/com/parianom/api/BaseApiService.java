@@ -41,7 +41,7 @@ public interface BaseApiService {
     @Multipart
     @POST("updateProfile")
     Call<ResponseBody> updateUser(
-            @Part MultipartBody.Part foto_profil
+            @Part ("foto_profil")RequestBody foto_profil
             ,@Part("nama_lengkap") RequestBody nama_lengkap
             ,@Part("username") RequestBody username
             ,@Part("email") RequestBody email
@@ -62,7 +62,7 @@ public interface BaseApiService {
     @Multipart
     @POST("registerPenjual")
     Call<ResponseBody> registerPenjual(
-            @Part MultipartBody.Part foto_ktp
+            @Part ("foto_produk") RequestBody foto_ktp
             ,@Part("id_user") RequestBody id_user
             ,@Part("nama_toko") RequestBody nama_toko
             ,@Part("nik") RequestBody nik
@@ -72,9 +72,9 @@ public interface BaseApiService {
             ,@Part("kec") RequestBody kec
     );
     @Multipart
-    @POST("inputProduk")
+    @POST("inputProdukBase")
     Call<ResponseBody> inputProduk(
-            @Part MultipartBody.Part foto_produk
+            @Part ("foto_produk") RequestBody foto_produk
             ,@Part("id_penjual") RequestBody id_penjual
             ,@Part("kategori") RequestBody kategori
             ,@Part("kategori_sub") RequestBody kategori_sub
@@ -86,7 +86,7 @@ public interface BaseApiService {
     @Multipart
     @POST("updateProduk")
     Call<ResponseBody> updateProduk(
-            @Part MultipartBody.Part foto_produk
+            @Part ("foto_produk")RequestBody foto_produk
             ,@Part("kategori") RequestBody kategori
             ,@Part("kategori_sub") RequestBody kategori_sub
             ,@Part("nama") RequestBody nama
@@ -109,7 +109,7 @@ public interface BaseApiService {
     @Multipart
     @POST("updatePenjual")
     Call<ResponseBody> updatePenjual(
-            @Part MultipartBody.Part foto_toko
+            @Part ("foto_toko")RequestBody foto_toko
             ,@Part("id_user") RequestBody id_user
             ,@Part("nama_toko") RequestBody nama_toko
             ,@Part("kec") RequestBody kec
@@ -283,7 +283,7 @@ public interface BaseApiService {
     @Multipart
     @POST("inputAduan")
     Call<ResponseBody> inputAduan(
-            @Part MultipartBody.Part bukti_pengaduan
+            @Part ("bukti_pengaduan") RequestBody bukti_pengaduan
             ,@Part("id_user") RequestBody id_user
             ,@Part("id_penjual") RequestBody id_penjual
             ,@Part("kategori_pengaduan") RequestBody kategori_pengaduan
