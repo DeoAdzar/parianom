@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,7 +39,9 @@ import com.parianom.utils.SessionManager;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -121,6 +126,8 @@ public class TambahProduk extends AppCompatActivity {
                 requestPermission();
             }
         });
+
+
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,21 +288,65 @@ public class TambahProduk extends AppCompatActivity {
         }
     }
 
-    private File getBitmapFile(Bitmap reduceBitmap) {
-        File file = new File(Environment.getExternalStorageDirectory() + File.separator + "reduced_file");
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        reduceBitmap.compress(Bitmap.CompressFormat.JPEG, 30, bos);
-        byte[] bitmapdata = bos.toByteArray();
+//    private void getBitmapFile(Bitmap reducedBitmap) {
+//        OutputStream fos;
+//        try {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//                ContentResolver resolver = getContentResolver();
+//                ContentValues contentValues = new ContentValues();
+//                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "image_"+".jpg");
+//                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
+//                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + "reduced_file");
+//                Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+//
+//                fos = resolver.openOutputStream(Objects.requireNonNull(imageUri));
+//                reducedBitmap.compress(Bitmap.CompressFormat.JPEG, 35, fos);
+//                Objects.requireNonNull(fos);
+//            } else {
+//                String path = Environment.getExternalStorageDirectory() + File.separator + "reduced_file";
+//                File file = new File(path);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        try {
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(bitmapdata);
-            fos.flush();
-            fos.close();
-            return file;
-        } catch (Exception e) {
-            e.printStackTrace();
+    private File getBitmapFile(Bitmap reducedBitmap) {
+//        File file = new File(Environment.getExternalStorageDirectory() + File.separator + "reduced_file");
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "reduced_file";
+//        File file = new File(path);
+//        String path = getExternalFilesDir(null).getAbsolutePath();
+        File file = new File(path);
+
+        if (file.exists()) {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            reducedBitmap.compress(Bitmap.CompressFormat.JPEG, 35, bos);
+            byte[] bitmapdata = bos.toByteArray();
+            try {
+                file.createNewFile();
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            file.mkdirs();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            reducedBitmap.compress(Bitmap.CompressFormat.JPEG, 35, bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+            try {
+                file.createNewFile();
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+                return file;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return file;
     }
