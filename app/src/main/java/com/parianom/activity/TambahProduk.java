@@ -238,18 +238,6 @@ public class TambahProduk extends AppCompatActivity {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             reducedBitmap.compress(Bitmap.CompressFormat.JPEG,30,outputStream);
             String imageBase64 = Base64.encodeToString(outputStream.toByteArray(),Base64.DEFAULT);
-
-//            File imagefile = new File(mediaPath1);
-//            long length = imagefile.length();
-//            int size = (int) length / 1024;
-//            if (size > 4096) {
-//                simpan.setVisibility(View.VISIBLE);
-//                loading.setVisibility(View.GONE);
-//                Toast.makeText(TambahProduk.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
-//            } else {
-
-//            RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), reducedFile);
-//            MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_produk", reducedFile.getName(), reqBody);
             BaseApiService mApiService = UtilsApi.getApiService();
             Call<ResponseBody> update = mApiService.inputProduk(RequestBody.create(MediaType.parse("text/plain"), imageBase64)
                     , RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("id_penjual"))
