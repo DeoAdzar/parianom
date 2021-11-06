@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -185,7 +186,7 @@ public class TambahProduk extends AppCompatActivity {
 
     }
 
-    public void change(){
+    public void change() {
         ArrayAdapter<CharSequence> adapterPangan = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
         adapterPangan.setDropDownViewResource(R.layout.custom_spinner_dropdown);
 
@@ -195,9 +196,9 @@ public class TambahProduk extends AppCompatActivity {
         kategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0){
+                if (i == 0) {
                     jenis.setAdapter(adapterPangan);
-                }else{
+                } else {
                     jenis.setAdapter(adapterKriya);
                 }
             }
@@ -208,6 +209,7 @@ public class TambahProduk extends AppCompatActivity {
             }
         });
     }
+
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
@@ -215,6 +217,7 @@ public class TambahProduk extends AppCompatActivity {
             inputItem();
         }
     }
+
     private void inputItem() {
         HashMap<String, String> user = sessionManager.getUserDetails();
         simpan.setVisibility(View.GONE);
@@ -225,80 +228,64 @@ public class TambahProduk extends AppCompatActivity {
             Toast.makeText(TambahProduk.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
             simpan.setVisibility(View.VISIBLE);
             loading.setVisibility(View.GONE);
-        }else if (mediaPath1 == null){
+        } else if (mediaPath1 == null) {
             Toast.makeText(TambahProduk.this, "Isi Foto Produk", Toast.LENGTH_SHORT).show();
             simpan.setVisibility(View.VISIBLE);
             loading.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             Bitmap fullSizeBitmap = BitmapFactory.decodeFile(mediaPath1);
             Bitmap reducedBitmap = ImageResizer.reduceBitmapSize(fullSizeBitmap, 1000000);
-            File reducedFile = getBitmapFile(reducedBitmap);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            reducedBitmap.compress(Bitmap.CompressFormat.JPEG,30,outputStream);
+            String imageBase64 = Base64.encodeToString(outputStream.toByteArray(),Base64.DEFAULT);
+            BaseApiService mApiService = UtilsApi.getApiService();
+            Call<ResponseBody> update = mApiService.inputProduk(RequestBody.create(MediaType.parse("text/plain"), imageBase64)
+                    , RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("id_penjual"))
+                    , RequestBody.create(MediaType.parse("text/plain"), kategori.getSelectedItem().toString())
+                    , RequestBody.create(MediaType.parse("text/plain"), jenis.getSelectedItem().toString())
+                    , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
+                    , RequestBody.create(MediaType.parse("text/plain"), deskripsi.getText().toString())
+                    , RequestBody.create(MediaType.parse("text/plain"), harga.getText().toString())
+                    , RequestBody.create(MediaType.parse("text/plain"), stok.getText().toString()));
+            update.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Toast.makeText(TambahProduk.this, "Produk berhasil ditambahkan", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
-//            File imagefile = new File(mediaPath1);
-//            long length = imagefile.length();
-//            int size = (int) length / 1024;
-//            if (size > 4096) {
-//                simpan.setVisibility(View.VISIBLE);
-//                loading.setVisibility(View.GONE);
-//                Toast.makeText(TambahProduk.this, "ukuran Gambar terlalu besar" + size, Toast.LENGTH_SHORT).show();
-//            } else {
-
-                RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), reducedFile);
-                MultipartBody.Part partImage = MultipartBody.Part.createFormData("foto_produk", reducedFile.getName(), reqBody);
-                BaseApiService mApiService = UtilsApi.getApiService();
-                Call<ResponseBody> update = mApiService.inputProduk(partImage
-                        , RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("id_penjual"))
-                        , RequestBody.create(MediaType.parse("text/plain"), kategori.getSelectedItem().toString())
-                        , RequestBody.create(MediaType.parse("text/plain"), jenis.getSelectedItem().toString())
-                        , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
-                        , RequestBody.create(MediaType.parse("text/plain"), deskripsi.getText().toString())
-                        , RequestBody.create(MediaType.parse("text/plain"), harga.getText().toString())
-                        , RequestBody.create(MediaType.parse("text/plain"), stok.getText().toString()));
-                update.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Toast.makeText(TambahProduk.this, "Produk berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.e("debug", "OnFailure : Error -> " + t.getMessage());
-                        simpan.setVisibility(View.VISIBLE);
-                        loading.setVisibility(View.GONE);
-                        Toast.makeText(TambahProduk.this, "Koneksi Anda terputus", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-//                postPath = mediaPath1+mediaPath2+mediaPath3;
-//                Toast.makeText(TambahProduk.this, postPath, Toast.LENGTH_SHORT).show();
-//                Log.d(TAG, "inputItem: "+harga.getText());
-
-//            }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e("debug", "OnFailure : Error -> " + t.getMessage());
+                    simpan.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
+                    Toast.makeText(TambahProduk.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
     }
 
-    private File getBitmapFile(Bitmap reduceBitmap) {
-        File file = new File(Environment.getExternalStorageDirectory() + File.separator + "reduced_file");
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        reduceBitmap.compress(Bitmap.CompressFormat.JPEG, 30, bos);
-        byte[] bitmapdata = bos.toByteArray();
-
-        try {
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(bitmapdata);
-            fos.flush();
-            fos.close();
-            return file;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return file;
-    }
+//    private File getBitmapFile(Bitmap reduceBitmap) {
+//
+//        File file = new File(Environment.getExternalStorageDirectory().toString()+ "/reduced_file");
+//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//        reduceBitmap.compress(Bitmap.CompressFormat.JPEG, 30, bos);
+//        byte[] bitmapdata = bos.toByteArray();
+//
+//        try {
+//            file.mkdirs();
+//            file.createNewFile();
+//            FileOutputStream fos = new FileOutputStream(file);
+//            fos.write(bitmapdata);
+//            fos.flush();
+//            fos.close();
+//            return file;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return file;
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
