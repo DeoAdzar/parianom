@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -49,14 +50,17 @@ import retrofit2.Response;
 
 public class TambahProduk extends AppCompatActivity {
     Button simpan;
-    ImageView img, img2, img3, selectedImage;
-    CardView cardImg2;
+    ImageView img, img2, img3,img4,img5, selectedImage;
+    CardView cardImg2,cardImg3,cardImg4,cardImg5;
     Spinner kategori, jenis;
     private static final int select1 = 1;
     private static final int select2 = 2;
     private static final int select3 = 3;
+    private static final int select4 = 4;
+    private static final int select5 = 5;
+    HorizontalScrollView hscroll;
     private static final int REQUEST_WRITE_PERMISSION = 786;
-    String mediaPath1, mediaPath2, mediaPath3, postPath;
+    String mediaPath1, mediaPath2, mediaPath3,mediaPath4,mediaPath5, imageBase64_2, imageBase64_3, imageBase64_4, imageBase64_5;
     String harga2;
     SessionManager sessionManager;
     EditText nama, harga, stok, deskripsi;
@@ -91,6 +95,8 @@ public class TambahProduk extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.imgTambahPr);
         img2 = (ImageView) findViewById(R.id.imgTambahPr2);
         img3 = (ImageView) findViewById(R.id.imgTambahPr3);
+        img4 = (ImageView) findViewById(R.id.imgTambahPr4);
+        img5 = (ImageView) findViewById(R.id.imgTambahPr5);
 //        v1 = (ImageView) findViewById(R.id.v1);
         kategori = (Spinner) findViewById(R.id.kategori);
         jenis = (Spinner) findViewById(R.id.jenis);
@@ -100,7 +106,10 @@ public class TambahProduk extends AppCompatActivity {
         deskripsi = findViewById(R.id.edtDeskPr);
         loading = findViewById(R.id.progress_tambah_produk);
         cardImg2 = findViewById(R.id.cardImg2);
-
+        cardImg3 = findViewById(R.id.cardImg3);
+        cardImg4 = findViewById(R.id.cardImg4);
+        cardImg5 = findViewById(R.id.cardImg5);
+        hscroll = findViewById(R.id.scrollH_add_produk);
 //        harga2 = harga.getText().toString();
 
 //        if (kategori.getSelectedItem().equals("Pangan")) {
@@ -119,6 +128,8 @@ public class TambahProduk extends AppCompatActivity {
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                simpan.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
                 requestPermission();
             }
         });
@@ -128,6 +139,7 @@ public class TambahProduk extends AppCompatActivity {
             public void onClick(View view) {
                 Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galery, select1);
+
             }
         });
 
@@ -136,6 +148,7 @@ public class TambahProduk extends AppCompatActivity {
             public void onClick(View view) {
                 Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galery, select2);
+
             }
         });
         img3.setOnClickListener(new View.OnClickListener() {
@@ -143,47 +156,25 @@ public class TambahProduk extends AppCompatActivity {
             public void onClick(View view) {
                 Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galery, select3);
+
             }
         });
-//        harga.addTextChangedListener(new TextWatcher() {
-//            private String current = harga.getText().toString().trim();
-//            private String view;
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                if (!editable.toString().equals(current)) {
-//                    harga.removeTextChangedListener(this);
-//
-//                    String replaceable = String.format("[%s,.\\s]",   NumberFormat.getCurrencyInstance().getCurrency().getSymbol());
-//                    String cleanString = editable.toString().replaceAll(replaceable, "");
-//
-//                    double parsed;
-//                    try {
-//                        parsed = Double.parseDouble(cleanString);
-//                    } catch (NumberFormatException e) {
-//                        parsed = 0.00;
-//                    }
-//                    NumberFormat formatter = NumberFormat.getCurrencyInstance();
-//                    formatter.setMaximumFractionDigits(0);
-//                    String formatted = formatter.format((parsed));
-//
-//                    current = formatted;
-//                    harga.setText(formatted);
-//                    harga.setSelection(formatted.length());
-//                    harga.addTextChangedListener(this);
-//                }
-//            }
-//        });
+        img4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galery, select4);
 
+            }
+        });
+        img5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galery, select5);
+
+            }
+        });
     }
 
     public void change() {
@@ -220,8 +211,6 @@ public class TambahProduk extends AppCompatActivity {
 
     private void inputItem() {
         HashMap<String, String> user = sessionManager.getUserDetails();
-        simpan.setVisibility(View.GONE);
-        loading.setVisibility(View.VISIBLE);
         if (nama.getText().toString().isEmpty()
                 || harga.getText().toString().isEmpty()
                 || stok.getText().toString().isEmpty()) {
@@ -238,15 +227,58 @@ public class TambahProduk extends AppCompatActivity {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             reducedBitmap.compress(Bitmap.CompressFormat.JPEG,30,outputStream);
             String imageBase64 = Base64.encodeToString(outputStream.toByteArray(),Base64.DEFAULT);
+
+            if (mediaPath2 != null) {
+                Bitmap fullSizeBitmap2 = BitmapFactory.decodeFile(mediaPath2);
+                Bitmap reducedBitmap2 = ImageResizer.reduceBitmapSize(fullSizeBitmap2, 1000000);
+                ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
+                reducedBitmap2.compress(Bitmap.CompressFormat.JPEG, 30, outputStream2);
+                imageBase64_2 = Base64.encodeToString(outputStream2.toByteArray(), Base64.DEFAULT);
+            } else {
+                imageBase64_2 = null;
+            }
+
+            if (mediaPath3 != null) {
+                Bitmap fullSizeBitmap3 = BitmapFactory.decodeFile(mediaPath3);
+                Bitmap reducedBitmap3 = ImageResizer.reduceBitmapSize(fullSizeBitmap3, 1000000);
+                ByteArrayOutputStream outputStream3 = new ByteArrayOutputStream();
+                reducedBitmap3.compress(Bitmap.CompressFormat.JPEG,30,outputStream3);
+                imageBase64_3 = Base64.encodeToString(outputStream3.toByteArray(),Base64.DEFAULT);
+            } else {
+                imageBase64_3 = null;
+            }
+            if (mediaPath4 != null) {
+                Bitmap fullSizeBitmap4 = BitmapFactory.decodeFile(mediaPath4);
+                Bitmap reducedBitmap4 = ImageResizer.reduceBitmapSize(fullSizeBitmap4, 1000000);
+                ByteArrayOutputStream outputStream4 = new ByteArrayOutputStream();
+                reducedBitmap4.compress(Bitmap.CompressFormat.JPEG,30,outputStream4);
+                imageBase64_4 = Base64.encodeToString(outputStream4.toByteArray(),Base64.DEFAULT);
+            } else {
+                imageBase64_4 = null;
+            }
+            if (mediaPath5 != null) {
+                Bitmap fullSizeBitmap5 = BitmapFactory.decodeFile(mediaPath5);
+                Bitmap reducedBitmap5 = ImageResizer.reduceBitmapSize(fullSizeBitmap5, 1000000);
+                ByteArrayOutputStream outputStream5 = new ByteArrayOutputStream();
+                reducedBitmap5.compress(Bitmap.CompressFormat.JPEG,30,outputStream5);
+                imageBase64_5 = Base64.encodeToString(outputStream5.toByteArray(),Base64.DEFAULT);
+            } else {
+                imageBase64_5 = null;
+            }
+
             BaseApiService mApiService = UtilsApi.getApiService();
-            Call<ResponseBody> update = mApiService.inputProduk(RequestBody.create(MediaType.parse("text/plain"), imageBase64)
-                    , RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("id_penjual"))
-                    , RequestBody.create(MediaType.parse("text/plain"), kategori.getSelectedItem().toString())
-                    , RequestBody.create(MediaType.parse("text/plain"), jenis.getSelectedItem().toString())
-                    , RequestBody.create(MediaType.parse("text/plain"), nama.getText().toString())
-                    , RequestBody.create(MediaType.parse("text/plain"), deskripsi.getText().toString())
-                    , RequestBody.create(MediaType.parse("text/plain"), harga.getText().toString())
-                    , RequestBody.create(MediaType.parse("text/plain"), stok.getText().toString()));
+            Call<ResponseBody> update = mApiService.inputProduk(imageBase64
+                    , imageBase64_2
+                    ,imageBase64_3
+                    ,imageBase64_4
+                    ,imageBase64_5
+                    ,Integer.parseInt(getIntent().getStringExtra("id_penjual"))
+                    ,kategori.getSelectedItem().toString()
+                    ,jenis.getSelectedItem().toString()
+                    ,nama.getText().toString()
+                    , deskripsi.getText().toString()
+                    , Integer.parseInt(harga.getText().toString())
+                    ,Integer.parseInt(stok.getText().toString()));
             update.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -304,6 +336,12 @@ public class TambahProduk extends AppCompatActivity {
                     mediaPath1 = cursor.getString(columnIndex);
                     img.setImageURI(data.getData());
                     cursor.close();
+                    if  (mediaPath1!=null){
+                        cardImg2.setVisibility(View.VISIBLE);
+
+                    }else{
+                        cardImg2.setVisibility(View.GONE);
+                    }
                 }
             }
             if (requestCode == 2) {
@@ -319,6 +357,12 @@ public class TambahProduk extends AppCompatActivity {
                     mediaPath2 = cursor.getString(columnIndex);
                     img2.setImageURI(data.getData());
                     cursor.close();
+                    if  (mediaPath2!=null){
+                        cardImg3.setVisibility(View.VISIBLE);
+
+                    }else{
+                        cardImg3.setVisibility(View.GONE);
+                    }
                 }
             }
             if (requestCode == select3) {
@@ -334,9 +378,51 @@ public class TambahProduk extends AppCompatActivity {
                     mediaPath3 = cursor.getString(columnIndex);
                     img3.setImageURI(data.getData());
                     cursor.close();
+                    if  (mediaPath3!=null){
+                        cardImg4.setVisibility(View.VISIBLE);
+                    }else{
+                        cardImg4.setVisibility(View.GONE);
+                    }
+                }
+            }
+            if (requestCode == select4){
+                if (data!=null){
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn,null,null,null);
+                    assert  cursor != null;
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    mediaPath4 = cursor.getString(columnIndex);
+                    img4.setImageURI(data.getData());
+                    cursor.close();
+                    if (mediaPath4!=null){
+                        cardImg5.setVisibility(View.VISIBLE);
+                    }else {
+                        cardImg5.setVisibility(View.GONE);
+                    }
+                }
+            }
+            if (requestCode == select5){
+                if (data!=null){
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn,null,null,null);
+                    assert  cursor != null;
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    mediaPath5 = cursor.getString(columnIndex);
+                    img5.setImageURI(data.getData());
+                    cursor.close();
 
                 }
             }
+
         }
+
     }
 }

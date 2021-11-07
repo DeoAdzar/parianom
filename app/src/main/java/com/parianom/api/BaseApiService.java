@@ -62,7 +62,7 @@ public interface BaseApiService {
     @Multipart
     @POST("registerPenjual")
     Call<ResponseBody> registerPenjual(
-            @Part ("foto_produk") RequestBody foto_ktp
+            @Part ("foto_ktp") RequestBody foto_ktp
             ,@Part("id_user") RequestBody id_user
             ,@Part("nama_toko") RequestBody nama_toko
             ,@Part("nik") RequestBody nik
@@ -71,29 +71,37 @@ public interface BaseApiService {
             ,@Part("alamat") RequestBody alamat
             ,@Part("kec") RequestBody kec
     );
-    @Multipart
+    @FormUrlEncoded
     @POST("inputProdukBase")
     Call<ResponseBody> inputProduk(
-            @Part ("foto_produk") RequestBody foto_produk
-            ,@Part("id_penjual") RequestBody id_penjual
-            ,@Part("kategori") RequestBody kategori
-            ,@Part("kategori_sub") RequestBody kategori_sub
-            ,@Part("nama") RequestBody nama
-            ,@Part("deskripsi") RequestBody deskripsi
-            ,@Part("harga") RequestBody harga
-            ,@Part("stok") RequestBody stok
+            @Field ("foto_produk") String foto_produk
+            ,@Field ("foto_produk2") String foto_produk2
+            ,@Field ("foto_produk3") String foto_produk3
+            ,@Field ("foto_produk4") String foto_produk4
+            ,@Field ("foto_produk5") String foto_produk5
+            ,@Field("id_penjual") int id_penjual
+            ,@Field("kategori") String kategori
+            ,@Field("kategori_sub") String kategori_sub
+            ,@Field("nama") String nama
+            ,@Field("deskripsi") String deskripsi
+            ,@Field("harga") int harga
+            ,@Field("stok") int stok
     );
-    @Multipart
+    @FormUrlEncoded
     @POST("updateProduk")
     Call<ResponseBody> updateProduk(
-            @Part ("foto_produk")RequestBody foto_produk
-            ,@Part("kategori") RequestBody kategori
-            ,@Part("kategori_sub") RequestBody kategori_sub
-            ,@Part("nama") RequestBody nama
-            ,@Part("harga") RequestBody harga
-            ,@Part("deskripsi") RequestBody deskripsi
-            ,@Part("stok") RequestBody stok
-            ,@Part("id") RequestBody id_produk
+            @Field ("foto_produk") String foto_produk
+            ,@Field ("foto_produk2") String foto_produk2
+            ,@Field ("foto_produk3") String foto_produk3
+            ,@Field ("foto_produk4") String foto_produk4
+            ,@Field ("foto_produk5") String foto_produk5
+            ,@Field("kategori") String kategori
+            ,@Field("kategori_sub") String kategori_sub
+            ,@Field("nama") String nama
+            ,@Field("harga") int harga
+            ,@Field("deskripsi") String deskripsi
+            ,@Field("stok") int stok
+            ,@Field("id") int id_produk
     );
     @FormUrlEncoded
     @POST("updateProduk")

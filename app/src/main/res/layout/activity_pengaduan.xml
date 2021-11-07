@@ -63,6 +63,10 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="4dp"
                     style="@style/fontMasuk"/>
+<!--                <Spinner-->
+<!--                    android:id="@+id/poinPengaduan"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content" />-->
                 <Spinner
                     android:id="@+id/poinPengaduan"
                     android:layout_width="match_parent"

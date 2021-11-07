@@ -41,7 +41,7 @@ public class Otp extends AppCompatActivity {
     TextView resend,countdown;
     String verificationId,username,nama_lengkap,email,no_hp,alamat,kata_sandi;
     SessionManager sessionManager;
-    private ProgressBar loading;
+    private ProgressBar loading, loading_resend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,7 @@ public class Otp extends AppCompatActivity {
         resend = findViewById(R.id.resend);
         countdown = findViewById(R.id.countdown);
         loading = findViewById(R.id.progress_otp);
+        loading_resend = findViewById(R.id.progress_resend);
 
         verificationId = getIntent().getStringExtra("verificationId");
         nama_lengkap = getIntent().getStringExtra("nama_lengkap");
@@ -81,6 +82,8 @@ public class Otp extends AppCompatActivity {
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resend.setVisibility(View.GONE);
+                loading_resend.setVisibility(View.VISIBLE);
                 resend();
             }
         });
@@ -184,6 +187,7 @@ public class Otp extends AppCompatActivity {
                         verificationId = newVerificationId;
                         countdown.setVisibility(View.VISIBLE);
                         resend.setVisibility(View.GONE);
+                        loading_resend.setVisibility(View.GONE);
                         countDown();
                         Toast.makeText(Otp  .this, "OTP sent", Toast.LENGTH_SHORT).show();
 

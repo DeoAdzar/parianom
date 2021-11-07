@@ -64,10 +64,14 @@ public class UbahKataSandi extends AppCompatActivity {
         simpanSandi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (baru.getText().toString().equals(konfirmasi.getText().toString())){
+                simpanSandi.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
+                if (lama.getText().toString().isEmpty() || baru.getText().toString().isEmpty() || konfirmasi.getText().toString().isEmpty()){
+                    Toast.makeText(UbahKataSandi.this, "Mohon Isi semua Data", Toast.LENGTH_SHORT).show();
+                    simpanSandi.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
+                } else if (baru.getText().toString().equals(konfirmasi.getText().toString())){
                     BaseApiService mApiService = UtilsApi.getApiService();
-                    simpanSandi.setVisibility(View.GONE);
-                    loading.setVisibility(View.VISIBLE);
                     Call<ResponseBody> change = mApiService.gantiPass(Integer.parseInt(user.get(SessionManager.kunci_id_user)), lama.getText().toString(), baru.getText().toString());
                     change.enqueue(new Callback<ResponseBody>() {
                         @Override
