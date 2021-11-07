@@ -30,23 +30,6 @@
                         android:id="@+id/imgDetailPr"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:gravity="center"
-                        android:layout_marginBottom="8dp">
-                        <me.relex.circleindicator.CircleIndicator
-                            android:id="@+id/indikatorSlide"
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            android:paddingHorizontal="5dp"
-                            android:background="@drawable/slider_indikator"
-                            android:gravity="center"
-                            android:layout_gravity="bottom"
-                            tools:ignore="MissingClass"
-                            app:ci_gravity="center"/>
-                    </LinearLayout>
                 </FrameLayout>
 <!--                <ImageView-->
 <!--                    android:id="@+id/imgDetailPr"-->
@@ -59,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:elevation="0dp"
-                    android:backgroundTint="#A9E7E7E7">
+                    android:background="@color/transparent">
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
@@ -69,18 +52,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:backgroundTint="@android:color/transparent"
-                            app:cardCornerRadius="5dp"
+                            android:backgroundTint="#73C4C4C4"
+                            app:cardCornerRadius="6dp"
                             app:cardElevation="0dp">
                             <TextView
                                 android:id="@+id/namaPenjual"
                                 style="@style/fontTitleContent"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="28dp"
                                 android:layout_gravity="center"
                                 android:gravity="center"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="1dp"
                                 android:text="Nama Toko"
-                                android:textSize="16dp" />
+                                android:textColor="@color/white"
+                                android:textSize="16dp"/>
                         </androidx.cardview.widget.CardView>
                     </androidx.appcompat.widget.Toolbar>
                 </com.google.android.material.appbar.AppBarLayout>
@@ -92,6 +78,23 @@
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="20dp"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center">
+                    <me.relex.circleindicator.CircleIndicator
+                        android:id="@+id/indikatorSlide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:paddingHorizontal="5dp"
+                        android:gravity="center"
+                        android:layout_gravity="bottom"
+                        tools:ignore="MissingClass"
+                        app:ci_gravity="center"
+                        app:ci_drawable="@drawable/button"
+                        app:ci_drawable_unselected="@drawable/unselect"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

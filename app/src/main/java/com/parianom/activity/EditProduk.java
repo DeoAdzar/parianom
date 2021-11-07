@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -76,6 +77,8 @@ public class EditProduk extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_edit_produk);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -116,7 +119,6 @@ public class EditProduk extends AppCompatActivity {
                 requestPermission();
             }
         });
-        change();
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,17 +227,20 @@ public class EditProduk extends AppCompatActivity {
                                     cardImg5.setVisibility(View.GONE);
                                 }
                             }
-                            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.kategori, android.R.layout.simple_spinner_item);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.kategori, android.R.layout.simple_spinner_item);
+//                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                            kategori.setAdapter(adapter);
+                            ArrayAdapter<String> adapter = new ArrayAdapter(EditProduk.this, R.layout.custom_dropdown, getResources().getStringArray(R.array.kategori));
+                            adapter.setDropDownViewResource(R.layout.custom_dropdown);
                             kategori.setAdapter(adapter);
                             if (kategoris != null) {
                                 int spinnerPosition = adapter.getPosition(kategoris);
                                 kategori.setSelection(spinnerPosition);
                             }
-                            ArrayAdapter<CharSequence> adapterPangan = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, android.R.layout.simple_spinner_item);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            ArrayAdapter<CharSequence> adapterKriya = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisKriya, android.R.layout.simple_spinner_item);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            ArrayAdapter<String> adapterPangan = new ArrayAdapter(EditProduk.this, R.layout.custom_dropdown, getResources().getStringArray(R.array.jenisPangan));
+                            adapterPangan.setDropDownViewResource(R.layout.custom_dropdown);
+                            ArrayAdapter<String> adapterKriya = new ArrayAdapter(EditProduk.this, R.layout.custom_dropdown, getResources().getStringArray(R.array.jenisKriya));
+                            adapterKriya.setDropDownViewResource(R.layout.custom_dropdown);
                             if  (kategori_sub!=null){
                                 int spinnerPangan = adapterPangan.getPosition(kategori_sub);
                                 int spinnerKriya = adapterKriya.getPosition(kategori_sub);
@@ -276,27 +281,7 @@ public class EditProduk extends AppCompatActivity {
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         imageView.setImageBitmap(decodedByte);
     }
-    public void change(){
-        ArrayAdapter<CharSequence> adapterPangan = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
-        adapterPangan.setDropDownViewResource(R.layout.custom_spinner_dropdown);
-        ArrayAdapter<CharSequence> adapterKriya = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisKriya, R.layout.custom_spinner);
-        adapterKriya.setDropDownViewResource(R.layout.custom_spinner_dropdown);
-        kategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0){
-                    jenis.setAdapter(adapterPangan);
-                }else{
-                    jenis.setAdapter(adapterKriya);
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-    }
     private void inputItem() {
         if (nama.getText().toString().isEmpty()
                 || harga.getText().toString().isEmpty()

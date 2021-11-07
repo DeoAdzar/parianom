@@ -3,6 +3,10 @@
     android:id="@+id/custom_dropdown"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="?attr/spinnerDropDownItemStyle"
-    android:layout_marginVertical="5dp"
-    android:ellipsize="marquee"/>
+    style="@style/fontEdit"
+    android:paddingVertical="8dp"
+    android:ellipsize="marquee"
+    android:singleLine="false"
+    android:layout_marginHorizontal="5dp"
+    android:paddingHorizontal="10dp"/>
+<!--    style="?attr/spinnerDropDownItemStyle"-->

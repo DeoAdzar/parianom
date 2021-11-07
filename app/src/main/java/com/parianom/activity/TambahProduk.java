@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -79,6 +80,8 @@ public class TambahProduk extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_tambah_produk);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -175,15 +178,20 @@ public class TambahProduk extends AppCompatActivity {
 
             }
         });
+        ArrayAdapter<String> adapterKat = new ArrayAdapter(this, R.layout.custom_dropdown, getResources().getStringArray(R.array.kategori));
+        adapterKat.setDropDownViewResource(R.layout.custom_dropdown);
+        kategori.setAdapter(adapterKat);
     }
 
     public void change() {
-        ArrayAdapter<CharSequence> adapterPangan = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
-        adapterPangan.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+//        ArrayAdapter<CharSequence> adapterPangan = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisPangan, R.layout.custom_spinner);
+//        adapterPangan.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        ArrayAdapter<String> adapterPangan = new ArrayAdapter(this, R.layout.custom_dropdown, getResources().getStringArray(R.array.jenisPangan));
+        adapterPangan.setDropDownViewResource(R.layout.custom_dropdown);
 
 //        jenis.setPadding(10, 0, 0, 0);
-        ArrayAdapter<CharSequence> adapterKriya = ArrayAdapter.createFromResource(getApplicationContext(), R.array.jenisKriya, R.layout.custom_spinner);
-        adapterKriya.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        ArrayAdapter<String> adapterKriya = new ArrayAdapter(this, R.layout.custom_dropdown, getResources().getStringArray(R.array.jenisKriya));
+        adapterKriya.setDropDownViewResource(R.layout.custom_dropdown);
         kategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

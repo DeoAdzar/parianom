@@ -57,7 +57,8 @@ public class DetailBarang extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().setStatusBarColor(ContextCompat.getColor(DetailBarang.this, R.color.white));
+        getWindow().setStatusBarColor(ContextCompat.getColor(DetailBarang.this, R.color.white));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_detail_barang);
         sessionManager = new SessionManager(getApplicationContext());
 //        StatusBarUtil.setTransparent(DetailBarang.this);
@@ -69,7 +70,7 @@ public class DetailBarang extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setNavigationIcon(R.drawable.ic_back_bg);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,7 +126,13 @@ public class DetailBarang extends AppCompatActivity {
 
         SliderAdapter adapter = new SliderAdapter(list);
         image.setAdapter(adapter);
-        indikator.setViewPager(image);
+
+        if (foto_p2 == null) {
+            indikator.setVisibility(View.GONE);
+        } else {
+            indikator.setViewPager(image);
+        }
+
 
         String harga = hargaProduk.getText().toString();
         String resultRupiah = formatRupiah(Double.parseDouble(harga));
