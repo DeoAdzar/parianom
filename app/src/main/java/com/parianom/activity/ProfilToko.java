@@ -95,6 +95,8 @@ public class ProfilToko extends AppCompatActivity {
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                simpan.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
                 requestPermission();
             }
         });
@@ -195,8 +197,6 @@ public class ProfilToko extends AppCompatActivity {
 
     private void inputItem() {
         HashMap<String, String> user = sessionManager.getUserDetails();
-        simpan.setVisibility(View.GONE);
-        loading.setVisibility(View.VISIBLE);
         if (nama.getText().toString().isEmpty()
                 ||alamat.getText().toString().isEmpty()
                 ||kecamatan.getText().toString().isEmpty()){

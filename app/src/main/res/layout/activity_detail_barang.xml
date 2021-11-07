@@ -23,13 +23,38 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:background="@color/primer">
-                <ImageView
-                    android:id="@+id/imgDetailPr"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxHeight="5dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/demo"/>
+                    android:layout_height="wrap_content">
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/imgDetailPr"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:gravity="center"
+                        android:layout_marginBottom="8dp">
+                        <me.relex.circleindicator.CircleIndicator
+                            android:id="@+id/indikatorSlide"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:paddingHorizontal="5dp"
+                            android:background="@drawable/slider_indikator"
+                            android:gravity="center"
+                            android:layout_gravity="bottom"
+                            tools:ignore="MissingClass"
+                            app:ci_gravity="center"/>
+                    </LinearLayout>
+                </FrameLayout>
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgDetailPr"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:maxHeight="5dp"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/demo"/>-->
                 <com.google.android.material.appbar.AppBarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

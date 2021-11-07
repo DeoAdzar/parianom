@@ -166,6 +166,12 @@
                         android:text="@string/resend"
                         android:visibility="gone"
                         style="@style/fontMasuk"/>
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/progress_resend"
+                        android:visibility="gone"/>
                     <TextView
                         android:id="@+id/countdown"
                         android:layout_width="wrap_content"

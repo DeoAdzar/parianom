@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,17 +24,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.parianom.R;
-import com.parianom.activity.DetailTransaksi;
-import com.parianom.activity.GenerateQR;
-import com.parianom.activity.ScanQr;
-import com.parianom.activity.SplashscreenTransaksi;
-import com.parianom.activity.Toko;
 import com.parianom.activity.Transaksi;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
-import com.parianom.model.PenjualanModel;
 import com.parianom.model.TransaksiModel;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;

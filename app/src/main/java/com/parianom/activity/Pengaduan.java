@@ -16,6 +16,8 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -81,6 +83,19 @@ public class Pengaduan extends AppCompatActivity {
         bukti = findViewById(R.id.buktiPengaduan);
         kirim = findViewById(R.id.btnPengaduan);
         loading = findViewById(R.id.progress_pengaduan);
+        TextView custom = findViewById(R.id.custom_dropdown);
+
+//        poinPengaduan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
         bukti.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +131,6 @@ public class Pengaduan extends AppCompatActivity {
             kirim.setVisibility(View.VISIBLE);
             loading.setVisibility(View.GONE);
         }else {
-
             Bitmap fullSizeBitmap = BitmapFactory.decodeFile(mediaPath);
             Bitmap reducedBitmap = ImageResizer.reduceBitmapSize(fullSizeBitmap, 1000000);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

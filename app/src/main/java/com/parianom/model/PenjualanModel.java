@@ -2,11 +2,43 @@ package com.parianom.model;
 
 public class PenjualanModel {
 
-   private String kategori,kategori_sub,nama,foto_produk,timestamp,nama_toko,alamat,kec,deskripsi,status_toko,foto_toko;
+   private String kategori,kategori_sub,nama,foto_produk,foto_produk2,foto_produk3,foto_produk4,foto_produk5,timestamp,nama_toko,alamat,kec,deskripsi,status_toko,foto_toko;
    private int id,id_penjual,harga,stok,id_user,status_deleted;
 
    public String getFoto_toko() {
       return foto_toko;
+   }
+
+   public String getFoto_produk2() {
+      return foto_produk2;
+   }
+
+   public void setFoto_produk2(String foto_produk2) {
+      this.foto_produk2 = foto_produk2;
+   }
+
+   public String getFoto_produk3() {
+      return foto_produk3;
+   }
+
+   public void setFoto_produk3(String foto_produk3) {
+      this.foto_produk3 = foto_produk3;
+   }
+
+   public String getFoto_produk4() {
+      return foto_produk4;
+   }
+
+   public void setFoto_produk4(String foto_produk4) {
+      this.foto_produk4 = foto_produk4;
+   }
+
+   public String getFoto_produk5() {
+      return foto_produk5;
+   }
+
+   public void setFoto_produk5(String foto_produk5) {
+      this.foto_produk5 = foto_produk5;
    }
 
    public void setFoto_toko(String foto_toko) {

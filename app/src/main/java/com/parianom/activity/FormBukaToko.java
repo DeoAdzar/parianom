@@ -147,6 +147,9 @@ public class FormBukaToko extends AppCompatActivity {
         bkToko.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bkToko.setVisibility(View.GONE);
+                before2.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
                 lTahap1.setVisibility(View.GONE);
                 lTahap2.setVisibility(View.GONE);
                 requestPermission();
@@ -287,9 +290,6 @@ public class FormBukaToko extends AppCompatActivity {
         });
     }
     private void inputItem() {
-        bkToko.setVisibility(View.GONE);
-        before2.setVisibility(View.GONE);
-        loading.setVisibility(View.VISIBLE);
         if (namaToko.getText().toString().isEmpty()
                 ||nik.getText().toString().isEmpty()
                 ||alamatToko.getText().toString().isEmpty()

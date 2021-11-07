@@ -3,6 +3,7 @@ package com.parianom.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.parianom.R;
+import com.parianom.adapter.SliderAdapter;
 import com.parianom.api.BaseApiService;
 import com.parianom.api.UtilsApi;
 import com.parianom.utils.SessionManager;
@@ -30,9 +32,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import me.relex.circleindicator.CircleIndicator;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,8 +49,11 @@ public class DetailBarang extends AppCompatActivity {
     int quantity = 1;
     ImageView imgDetailPr, terverif;
     TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda, stok, hargaTotalDetail,deskripsi;
-    String status,foto_toko;
+    String status, foto_toko, foto_p, foto_p2, foto_p3, foto_p4, foto_p5;
     SessionManager sessionManager;
+    ViewPager image;
+    CircleIndicator indikator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +78,9 @@ public class DetailBarang extends AppCompatActivity {
         });
 
         chat = (Button) findViewById(R.id.btnChat);
-        imgDetailPr = (ImageView) findViewById(R.id.imgDetailPr);
+//        imgDetailPr = (ImageView) findViewById(R.id.imgDetailPr);
+        image = findViewById(R.id.imgDetailPr);
+        indikator = findViewById(R.id.indikatorSlide);
         namaProduk = (TextView) findViewById(R.id.namaProduk);
         namaPenjual = (TextView) findViewById(R.id.namaPenjual);
         alamatPrBeranda = (TextView) findViewById(R.id.alamatPrBeranda);
@@ -79,6 +90,7 @@ public class DetailBarang extends AppCompatActivity {
         deskripsi = findViewById(R.id.deskDetailBarang);
         hargaTotalDetail = findViewById(R.id.hargaTotalDetail);
         terverif = findViewById(R.id.terverif);
+
         status = getIntent().getStringExtra("status_toko");
         foto_toko = getIntent().getStringExtra("foto_toko");
         namaProduk.setText(getIntent().getStringExtra("nama_produk"));
@@ -87,9 +99,34 @@ public class DetailBarang extends AppCompatActivity {
         hargaProduk.setText(getIntent().getStringExtra("harga_produk"));
         deskripsi.setText(getIntent().getStringExtra("deskripsi"));
         stok.setText("stok : "+getIntent().getStringExtra("stok"));
-        byte[] decodedString = Base64.decode(getIntent().getStringExtra("foto_produk"), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        imgDetailPr.setImageBitmap(decodedByte);
+
+        foto_p = getIntent().getStringExtra("foto_produk");
+        foto_p2 = getIntent().getStringExtra("foto_produk2");
+        foto_p3 = getIntent().getStringExtra("foto_produk3");
+        foto_p4 = getIntent().getStringExtra("foto_produk4");
+        foto_p5 = getIntent().getStringExtra("foto_produk5");
+
+        List<String> list = new ArrayList<>();
+        if (foto_p != null) {
+            list.add(foto_p);
+            if (foto_p2 !=  null) {
+                list.add(foto_p2);
+            }
+            if (foto_p3 !=  null) {
+                list.add(foto_p3);
+            }
+            if (foto_p4 !=  null) {
+                list.add(foto_p4);
+            }
+            if (foto_p5 !=  null) {
+                list.add(foto_p5);
+            }
+        }
+
+        SliderAdapter adapter = new SliderAdapter(list);
+        image.setAdapter(adapter);
+        indikator.setViewPager(image);
+
         String harga = hargaProduk.getText().toString();
         String resultRupiah = formatRupiah(Double.parseDouble(harga));
         hargaProduk.setText(resultRupiah);
@@ -156,6 +193,8 @@ public class DetailBarang extends AppCompatActivity {
                 }
             }
         });
+
+
 
     }
     //tesssss

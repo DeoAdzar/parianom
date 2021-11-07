@@ -104,9 +104,6 @@
             android:name=".activity.Board"
             android:exported="true" />
         <activity
-            android:name=".activity.SplashscreenTransaksi"
-            android:exported="true" />
-        <activity
             android:name=".activity.Splashscreen"
             android:exported="true">
             <intent-filter>
