@@ -81,7 +81,7 @@ public class PesanRVAdapter extends RecyclerView.Adapter<PesanRVAdapter.MyViewHo
                 intent.putExtra("id_penjual",String.valueOf(rm.getId_penjual()));
                 intent.putExtra("id_room",String.valueOf(rm.getId()));
                 intent.putExtra("penjual", rm.getNama_toko());
-                intent.putExtra("gambar_toko", rm.getFoto_toko());
+                intent.putExtra("gambar_toko",String.valueOf(rm.getFoto_toko()));
                 intent.putExtra("alamat", rm.getAlamat());
                 intent.putExtra("status_chat","1");
                 mContext.startActivity(intent);
