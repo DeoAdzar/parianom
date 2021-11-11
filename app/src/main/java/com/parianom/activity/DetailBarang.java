@@ -51,7 +51,7 @@ public class DetailBarang extends AppCompatActivity {
     int quantity = 1;
     ImageView imgDetailPr, terverif;
     TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda, stok, hargaTotalDetail,deskripsi;
-    String status, foto_toko, foto_p, foto_p2, foto_p3, foto_p4, foto_p5,harga,id_produk,id_penjual;
+    String status, foto_toko, foto_p, foto_p2, foto_p3, foto_p4, foto_p5,harga,id_produk,id_penjual,stok_barang;
     SessionManager sessionManager;
     ViewPager image;
     CircleIndicator indikator;
@@ -194,7 +194,7 @@ public class DetailBarang extends AppCompatActivity {
                             hargaProduk.setText(hargas);
                             deskripsi.setText(deskrip);
                             stok.setText("stok : "+stoks);
-
+                            stok_barang = stoks;
                             foto_p = images;
                             foto_p2 = images2;
                             foto_p3 = images3;
@@ -309,7 +309,7 @@ public class DetailBarang extends AppCompatActivity {
     }
 
     public void increment(View view){//perintah tombol tambah
-        if(quantity==Integer.parseInt(stok.getText().toString())){
+        if(quantity==Integer.parseInt(stok_barang)){
             Toast.makeText(this,"pesanan maximal "+stok.getText().toString(),Toast.LENGTH_SHORT).show();
             return;
         }
