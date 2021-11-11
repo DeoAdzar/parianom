@@ -174,107 +174,92 @@
                         android:text="@string/deskripsi"
                         android:layout_marginBottom="5dp"
                         style="@style/fontTitleContent"/>
-                    <ScrollView
+                    <TextView
+                        android:id="@+id/deskDetailBarang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fadeScrollbars="true">
-                        <TextView
-                            android:id="@+id/deskDetailBarang"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="deskripsi deskripsi deskripsideskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsideskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi"
-                            style="@style/fontMasuk"
-                            android:layout_marginBottom="10dp"/>
-                    </ScrollView>
-
-
+                        android:text="deskripsi deskripsi deskripsideskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsideskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi deskripsi"
+                        style="@style/fontMasuk"
+                        android:layout_marginBottom="10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lokasi"
+                        android:layout_marginBottom="5dp"
+                        style="@style/fontTitleContent"/>
+                    <TextView
+                        android:id="@+id/alamatPrBeranda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_lokasi"
+                        android:drawablePadding="10dp"
+                        style="@style/fontMasuk"
+                        android:text="Alamat" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:gravity="bottom"
             android:paddingHorizontal="20dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lokasi"
-                android:layout_marginBottom="5dp"
-                style="@style/fontTitleContent"/>
-            <TextView
-                android:id="@+id/alamatPrBeranda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_lokasi"
-                android:drawablePadding="10dp"
-                style="@style/fontMasuk"
-                android:text="Alamat" />
+            android:paddingVertical="5dp">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/kurang"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#EEF3FC"
+                    style="@style/fontMasuk"
+                    android:text="-"
+                    android:onClick="decrement"
+                    android:textSize="15dp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/jumlah"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:clickable="false"
+                    android:text="1"
+                    android:gravity="center"
+                    style="@style/fontMasuk"
+                    android:textSize="15dp" />
+                <Button
+                    android:id="@+id/tambah"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#EEF3FC"
+                    style="@style/fontMasuk"
+                    android:text="+"
+                    android:onClick="increment"
+                    android:textStyle="bold"
+                    android:textSize="15dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left|center"
-                android:gravity="bottom"
-                android:paddingVertical="5dp">
-
-                <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingHorizontal="5dp"
+                android:layout_gravity="right">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end">
-                    <Button
-                        android:id="@+id/kurang"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#EEF3FC"
-                        style="@style/fontMasuk"
-                        android:text="-"
-                        android:onClick="decrement"
-                        android:textSize="15dp"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:id="@+id/jumlah"
-                        android:layout_width="40dp"
-                        android:layout_height="35dp"
-                        android:clickable="false"
-                        android:text="1"
-                        android:gravity="center"
-                        style="@style/fontMasuk"
-                        android:textSize="15dp" />
-                    <Button
-                        android:id="@+id/tambah"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#EEF3FC"
-                        style="@style/fontMasuk"
-                        android:text="+"
-                        android:onClick="increment"
-                        android:textStyle="bold"
-                        android:textSize="15dp"/>
-                </LinearLayout>
-                <LinearLayout
+                    android:text="Total Harga"
+                    style="@style/fontMasuk"/>
+                <TextView
+                    android:id="@+id/hargaTotalDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:paddingHorizontal="5dp"
-                    android:layout_gravity="right">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Harga"
-                        style="@style/fontMasuk"/>
-                    <TextView
-                        android:id="@+id/hargaTotalDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="@color/primer"
-                        style="@style/fontTitleContent"/>
-                </LinearLayout>
+                    android:textSize="16dp"
+                    android:textColor="@color/primer"
+                    style="@style/fontTitleContent"/>
             </LinearLayout>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
