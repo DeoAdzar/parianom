@@ -16,9 +16,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.jaeger.library.StatusBarUtil;
 import com.parianom.R;
 import com.parianom.adapter.SliderAdapter;
@@ -49,11 +51,12 @@ public class DetailBarang extends AppCompatActivity {
     int quantity = 1;
     ImageView imgDetailPr, terverif;
     TextView namaProduk, namaPenjual, hargaProduk, jumlah, alamatPrBeranda, stok, hargaTotalDetail,deskripsi;
-    String status, foto_toko, foto_p, foto_p2, foto_p3, foto_p4, foto_p5;
+    String status, foto_toko, foto_p, foto_p2, foto_p3, foto_p4, foto_p5,harga,id_produk,id_penjual;
     SessionManager sessionManager;
     ViewPager image;
     CircleIndicator indikator;
-
+    ShimmerFrameLayout shimmer;
+    LinearLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +80,8 @@ public class DetailBarang extends AppCompatActivity {
                 finish();
             }
         });
-
+        shimmer = findViewById(R.id.shimmerDetailBarang);
+        layout = findViewById(R.id.layout_detail_barang);
         chat = (Button) findViewById(R.id.btnChat);
 //        imgDetailPr = (ImageView) findViewById(R.id.imgDetailPr);
         image = findViewById(R.id.imgDetailPr);
@@ -92,57 +96,7 @@ public class DetailBarang extends AppCompatActivity {
         hargaTotalDetail = findViewById(R.id.hargaTotalDetail);
         terverif = findViewById(R.id.terverif);
 
-        status = getIntent().getStringExtra("status_toko");
-        foto_toko = getIntent().getStringExtra("foto_toko");
-        namaProduk.setText(getIntent().getStringExtra("nama_produk"));
-        namaPenjual.setText(getIntent().getStringExtra("nama"));
-        alamatPrBeranda.setText(getIntent().getStringExtra("alamat"));
-        hargaProduk.setText(getIntent().getStringExtra("harga_produk"));
-        deskripsi.setText(getIntent().getStringExtra("deskripsi"));
-        stok.setText("stok : "+getIntent().getStringExtra("stok"));
-
-        foto_p = getIntent().getStringExtra("foto_produk");
-        foto_p2 = getIntent().getStringExtra("foto_produk2");
-        foto_p3 = getIntent().getStringExtra("foto_produk3");
-        foto_p4 = getIntent().getStringExtra("foto_produk4");
-        foto_p5 = getIntent().getStringExtra("foto_produk5");
-
-        List<String> list = new ArrayList<>();
-        if (foto_p != null) {
-            list.add(foto_p);
-            if (foto_p2 !=  null) {
-                list.add(foto_p2);
-            }
-            if (foto_p3 !=  null) {
-                list.add(foto_p3);
-            }
-            if (foto_p4 !=  null) {
-                list.add(foto_p4);
-            }
-            if (foto_p5 !=  null) {
-                list.add(foto_p5);
-            }
-        }
-
-        SliderAdapter adapter = new SliderAdapter(list);
-        image.setAdapter(adapter);
-
-        if (foto_p2 == null) {
-            indikator.setVisibility(View.GONE);
-        } else {
-            indikator.setViewPager(image);
-        }
-
-
-        String harga = hargaProduk.getText().toString();
-        String resultRupiah = formatRupiah(Double.parseDouble(harga));
-        hargaProduk.setText(resultRupiah);
-        if (status.equals("1")){
-            terverif.setVisibility(View.GONE);
-        }else if (status.equals("2")){
-            terverif.setVisibility(View.VISIBLE);
-        }
-        hargaTotalDetail.setText(formatRupiah(Double.parseDouble(getIntent().getStringExtra("harga_produk"))));
+        getDetail();
 
         HashMap<String,String> user = sessionManager.getUserDetails();
         chat.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +104,7 @@ public class DetailBarang extends AppCompatActivity {
             public void onClick(View view) {
                 if (sessionManager.checkLogin()==1){
                     BaseApiService mApiService = UtilsApi.getApiService();
-                    Call<ResponseBody> cek = mApiService.cekRoom(Integer.parseInt(getIntent().getStringExtra("id_penjual")), Integer.parseInt(user.get(SessionManager.kunci_id_user)));
+                    Call<ResponseBody> cek = mApiService.cekRoom(Integer.parseInt(id_penjual), Integer.parseInt(user.get(SessionManager.kunci_id_user)));
                     cek.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -160,16 +114,16 @@ public class DetailBarang extends AppCompatActivity {
                                     if (jsonResult.getString("message").equals("exist")){
                                         String id_room = jsonResult.getJSONObject("data").getString("id");
                                         Intent intent = new Intent(DetailBarang.this, Chat.class);
-                                        intent.putExtra("id_penjual",getIntent().getStringExtra("id_penjual"));
+                                        intent.putExtra("id_penjual",id_penjual);
                                         intent.putExtra("id_room",id_room);
-                                        intent.putExtra("id_produk",getIntent().getStringExtra("id"));
+                                        intent.putExtra("id_produk",id_produk);
                                         intent.putExtra("penjual", namaPenjual.getText());
                                         intent.putExtra("nama_produk", namaProduk.getText());
                                         intent.putExtra("jumlah", jumlah.getText());
                                         intent.putExtra("harga", harga);
                                         intent.putExtra("alamat", alamatPrBeranda.getText());
-                                        intent.putExtra("gambar", getIntent().getStringExtra("foto_produk"));
-                                        intent.putExtra("gambar_toko", getIntent().getStringExtra("foto_toko"));
+                                        intent.putExtra("gambar", foto_p);
+                                        intent.putExtra("gambar_toko", foto_toko);
                                         intent.putExtra("status_chat","0");
 
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -204,11 +158,115 @@ public class DetailBarang extends AppCompatActivity {
 
 
     }
+
+    private void getDetail() {
+        BaseApiService mApiService = UtilsApi.getApiService();
+        Call<ResponseBody> get = mApiService.getProdukById(Integer.parseInt(getIntent().getStringExtra("id")));
+        get.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonResult = new JSONObject(response.body().string());
+                        if (jsonResult.getString("message").equals("success")) {
+                            String id_penjuals=jsonResult.getJSONObject("data").getString("id_penjual");
+                            String id_produks=jsonResult.getJSONObject("data").getString("id");
+                            String foto_tokos=jsonResult.getJSONObject("data").getString("foto_toko");
+                            String namas = jsonResult.getJSONObject("data").getString("nama");
+                            String nama_toko = jsonResult.getJSONObject("data").getString("nama_toko");
+                            String alamat_toko = jsonResult.getJSONObject("data").getString("alamat");
+                            String hargas = jsonResult.getJSONObject("data").getString("harga");
+                            String stoks = jsonResult.getJSONObject("data").getString("stok");
+                            String images = jsonResult.getJSONObject("data").getString("foto_produk");
+                            String images2 = jsonResult.getJSONObject("data").getString("foto_produk2");
+                            String images3 = jsonResult.getJSONObject("data").getString("foto_produk3");
+                            String images4 = jsonResult.getJSONObject("data").getString("foto_produk4");
+                            String images5 = jsonResult.getJSONObject("data").getString("foto_produk5");
+                            String deskrip = jsonResult.getJSONObject("data").getString("deskripsi");
+                            String status_toko = jsonResult.getJSONObject("data").getString("status_toko");
+                            status = status_toko;
+                            id_produk = id_produks;
+                            id_penjual = id_penjuals;
+                            foto_toko = foto_tokos;
+                            namaProduk.setText(namas);
+                            namaPenjual.setText(nama_toko);
+                            alamatPrBeranda.setText(alamat_toko);
+                            hargaProduk.setText(hargas);
+                            deskripsi.setText(deskrip);
+                            stok.setText("stok : "+stoks);
+
+                            foto_p = images;
+                            foto_p2 = images2;
+                            foto_p3 = images3;
+                            foto_p4 = images4;
+                            foto_p5 = images5;
+
+                            List<String> list = new ArrayList<>();
+                            if (!foto_p.equals("null")) {
+                                list.add(foto_p);
+                                if (!foto_p2.equals("null")) {
+                                    list.add(foto_p2);
+                                }
+                                if (!foto_p3.equals("null")) {
+                                    list.add(foto_p3);
+                                }
+                                if (!foto_p4.equals("null")) {
+                                    list.add(foto_p4);
+                                }
+                                if (!foto_p5.equals("null")) {
+                                    list.add(foto_p5);
+                                }
+                            }
+
+                            SliderAdapter adapter = new SliderAdapter(list);
+                            image.setAdapter(adapter);
+
+                            if (foto_p2 == "null") {
+                                indikator.setVisibility(View.GONE);
+                            } else {
+                                indikator.setViewPager(image);
+                            }
+
+
+                            harga = hargaProduk.getText().toString();
+                            String resultRupiah = formatRupiah(Double.parseDouble(harga));
+                            hargaProduk.setText(resultRupiah);
+                            if (status.equals("1")){
+                                terverif.setVisibility(View.GONE);
+                            }else if (status.equals("2")){
+                                terverif.setVisibility(View.VISIBLE);
+                            }
+                            hargaTotalDetail.setText(formatRupiah(Double.parseDouble(hargas)));
+                            shimmer.stopShimmer();
+                            shimmer.hideShimmer();
+                            shimmer.setVisibility(View.GONE);
+                            layout.setVisibility(View.VISIBLE);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Tidak ada Data", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Cannot Connect server", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
     //tesssss
     private void createRoom() {
         HashMap<String,String> user = sessionManager.getUserDetails();
         BaseApiService mApiService = UtilsApi.getApiService();
-        Call<ResponseBody> cek = mApiService.createRoom(Integer.parseInt(getIntent().getStringExtra("id_penjual")), Integer.parseInt(user.get(SessionManager.kunci_id_user)));
+        Call<ResponseBody> cek = mApiService.createRoom(Integer.parseInt(id_penjual), Integer.parseInt(user.get(SessionManager.kunci_id_user)));
         cek.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -218,16 +276,16 @@ public class DetailBarang extends AppCompatActivity {
                         if (jsonResult.getString("message").equals("success")){
                             String id_room = jsonResult.getString("id");
                             Intent intent = new Intent(DetailBarang.this, Chat.class);
-                            intent.putExtra("id_penjual",getIntent().getStringExtra("id_penjual"));
+                            intent.putExtra("id_penjual",id_penjual);
                             intent.putExtra("id_room",id_room);
-                            intent.putExtra("id_produk",getIntent().getStringExtra("id"));
+                            intent.putExtra("id_produk",id_produk);
                             intent.putExtra("penjual", namaPenjual.getText());
                             intent.putExtra("nama_produk", namaProduk.getText());
                             intent.putExtra("jumlah", jumlah.getText());
                             intent.putExtra("harga", hargaProduk.getText().toString());
                             intent.putExtra("alamat", alamatPrBeranda.getText());
-                            intent.putExtra("gambar", getIntent().getStringExtra("foto_produk"));
-                            intent.putExtra("gambar_toko", getIntent().getStringExtra("foto_toko"));
+                            intent.putExtra("gambar", foto_p);
+                            intent.putExtra("gambar_toko", foto_toko);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
@@ -251,8 +309,8 @@ public class DetailBarang extends AppCompatActivity {
     }
 
     public void increment(View view){//perintah tombol tambah
-        if(quantity==Integer.parseInt(getIntent().getStringExtra("stok"))){
-            Toast.makeText(this,"pesanan maximal "+getIntent().getStringExtra("stok"),Toast.LENGTH_SHORT).show();
+        if(quantity==Integer.parseInt(stok.getText().toString())){
+            Toast.makeText(this,"pesanan maximal "+stok.getText().toString(),Toast.LENGTH_SHORT).show();
             return;
         }
         quantity = quantity+1 ;
@@ -269,7 +327,7 @@ public class DetailBarang extends AppCompatActivity {
 
     private void display(int number) {
         jumlah.setText("" + number);
-        int jumlahHarga = Integer.parseInt(jumlah.getText().toString())*Integer.parseInt(getIntent().getStringExtra("harga_produk"));
+        int jumlahHarga = Integer.parseInt(jumlah.getText().toString())*Integer.parseInt(harga);
         String total = formatRupiah(Double.parseDouble(String.valueOf(jumlahHarga)));
         hargaTotalDetail.setText(String.valueOf(total));
     }

@@ -8,8 +8,10 @@
     tools:context=".activity.DetailBarang">
 
     <LinearLayout
+        android:id="@+id/layout_detail_barang"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -277,4 +279,14 @@
                 android:layout_marginHorizontal="20dp"/>
         </LinearLayout>
     </LinearLayout>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerDetailBarang"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="3dp"
+        android:layout_gravity="center">
+        <include layout="@layout/shimmer_detail_barang"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 </LinearLayout>
