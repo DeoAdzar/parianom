@@ -21,9 +21,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parianom.ImageResizer;
 import com.parianom.R;
 import com.parianom.api.BaseApiService;
@@ -62,6 +64,8 @@ public class ProfilToko extends AppCompatActivity {
     SessionManager sessionManager;
     List<KecamatanModel> kecamatanModelList = new ArrayList<>();
     private ProgressBar loading;
+    private ShimmerFrameLayout shimmer;
+    private LinearLayout layout;
 
     String mediaPath,postPath;
     @Override
@@ -94,6 +98,8 @@ public class ProfilToko extends AppCompatActivity {
         kecamatan = findViewById(R.id.kecamatanProfilToko);
         simpan = (Button) findViewById(R.id.btnSimpanEdtTk);
         loading = findViewById(R.id.progress_edit_profil_toko);
+        shimmer = findViewById(R.id.shimmerProfilToko);
+        layout = findViewById(R.id.lyProfilToko);
 
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +153,11 @@ public class ProfilToko extends AppCompatActivity {
                             nama.setText(nama_toko);
                             alamat.setText(alamat_toko);
                             kecamatan.setText(kec);
+
+                            shimmer.stopShimmer();
+                            shimmer.hideShimmer();
+                            shimmer.setVisibility(View.GONE);
+                            layout.setVisibility(View.VISIBLE);
                         }else{
                             Toast.makeText(ProfilToko.this, "Tidak ada Data", Toast.LENGTH_SHORT).show();
                         }
