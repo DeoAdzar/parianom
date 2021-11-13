@@ -83,6 +83,10 @@ public class Search extends AppCompatActivity {
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                rv.setVisibility(View.GONE);
+                shimmer.showShimmer(true);
+                shimmer.startShimmer();
+                shimmer.setVisibility(View.VISIBLE);
                 String kec = null;
                 kec = spinner.getSelectedItem().toString();
                 if (kec.equals("Pilih Kecamatan")||kec.equals(null)||kec.isEmpty()){
@@ -96,16 +100,21 @@ public class Search extends AppCompatActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                String kec = null;
-                kec = spinner.getSelectedItem().toString();
-                if (kec.equals("Pilih Kecamatan")||kec.equals(null)||kec.isEmpty()){
-                    getData(newText,null);
-                }else if (newText==null){
-                    getData(null,kec);
-                }else{
-                    getData(newText,kec);
-                }
+            public boolean onQueryTextChange(String s) {
+//                rv.setVisibility(View.GONE);
+//                shimmer.showShimmer(true);
+//                shimmer.startShimmer();
+//                shimmer.setVisibility(View.VISIBLE);
+//                String kec = null;
+//                String newText = s;
+//                kec = spinner.getSelectedItem().toString();
+//                if (kec.equals("Pilih Kecamatan")||kec.equals(null)||kec.isEmpty()){
+//                    getData(newText.trim(),null);
+//                }else if (newText.trim()==null){
+//                    getData(null,kec);
+//                }else{
+//                    getData(newText.trim(),kec);
+//                }
                 return false;
             }
         });
