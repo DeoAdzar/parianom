@@ -76,7 +76,7 @@ public class Chat extends AppCompatActivity {
     Calendar calendar;
     Handler handler;
     SimpleDateFormat sdf, sdf2;
-    String harga, namaP, jumlah, namaPr, alamat, gambar, noHp, namaPem, idPr, idPn, mediaPath, postPath,status_chat,roomId;
+    String harga, namaP, jumlah, namaPr, alamat, gambar, noHp, namaPem, idPr,alamatPem, idPn, mediaPath, postPath,status_chat,roomId;
     private static final int REQUEST_PICK_PHOTO = 2;
     boolean first;
     private List<ChatModel> mData;
@@ -163,6 +163,7 @@ public class Chat extends AppCompatActivity {
             String total = formatRupiah(Double.parseDouble(String.valueOf(jumlah)));
             hargaTotal.setText(total);
             String kode_pesanan = sdf.format(calendar.getTime()) + sdf2.format(calendar.getTime()) + idPr + user.get(SessionManager.kunci_id_user);
+
             beli.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -177,6 +178,12 @@ public class Chat extends AppCompatActivity {
                     input.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            String sFormat = "ADA PESANAN MASUK \n" +
+                                    "=============== \n Id Room : " + getIntent().getStringExtra("id_room") +
+                                    "\n Nama Pembeli : " + namaPem +"\n Alamat Pembeli : "+alamatPem+ "\n Nama Produk : " + namaPr + "\n Jumlah Produk : " + jumlahBeli.getText().toString() +
+                                    "\n Harga : " + hargaTotal.getText().toString() +
+                                    "\n =============== \n nb: balas dengan format -> !bls." + getIntent().getStringExtra("id_room") + ".(isi pesan anda) \n Anda juga dapat melihat pesanan ini di aplikasi PARIANOM";
+                            sendPesanan(sFormat);
                             Intent i = new Intent(Chat.this, GenerateQR.class);
                             i.putExtra("kode_pesanan", kode_pesanan);
                             startActivity(i);
@@ -185,6 +192,7 @@ public class Chat extends AppCompatActivity {
                                     + idPr
                                     + idPn
                                     + jumlahBeli.getText().toString() + kode_pesanan + jumlah);
+
                         }
 
                         @Override
@@ -198,6 +206,7 @@ public class Chat extends AppCompatActivity {
         } else {
             produk.setVisibility(View.GONE);
         }
+
         tamlahLampiran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -238,13 +247,29 @@ public class Chat extends AppCompatActivity {
                                 "\n Harga : " + hargaTotal.getText().toString() + "\n Isi Pesan : " + isiPesan.getText().toString() +
                                 "\n =============== \n nb: balas dengan format -> !bls." + getIntent().getStringExtra("id_room") + ".(isi pesan anda)";
                     }else {
-                        sFormat = "Nama Pembeli : " + namaPem + "\nId Room : " + getIntent().getStringExtra("id_room") + " \n->" + isiPesan.getText().toString();
+                        sFormat = "Nama Pembeli : " + namaPem + "\nId Room : " + getIntent().getStringExtra("id_room") + " \n-> " + isiPesan.getText().toString()+"\n =============== \n nb: balas dengan format -> !bls." + getIntent().getStringExtra("id_room") + ".(isi pesan anda)";
                     }
                     sendFormat(sFormat);
                 } else {
-                    sFormat = "Nama Pembeli : " + namaPem + "\nId Room : " + getIntent().getStringExtra("id_room") + " \n->" + isiPesan.getText().toString();
+                    sFormat = "Nama Pembeli : " + namaPem + "\nId Room : " + getIntent().getStringExtra("id_room") + " \n-> " + isiPesan.getText().toString()+"\n =============== \n nb: balas dengan format -> !bls." + getIntent().getStringExtra("id_room") + ".(isi pesan anda)";
                     send(sFormat);
                 }
+            }
+        });
+    }
+
+    private void sendPesanan(String format) {
+        BaseApiService service = UtilsApi.getApiService();
+        Call<ResponseBody> chat = service.send_chat(Phone.getText().toString(), format);
+        chat.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponsePesan: " + Phone.getText().toString() + " " + format);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
     }
@@ -386,7 +411,9 @@ public class Chat extends AppCompatActivity {
                         JSONObject jsonResult = new JSONObject(response.body().string());
                         if (jsonResult.getString("message").equals("success")) {
                             String namas = jsonResult.getJSONObject("data").getString("nama_lengkap");
+                            String alamatPe = jsonResult.getJSONObject("data").getString("alamat");
                             namaPem = namas;
+                            alamatPem = alamatPe;
                         } else {
                             Toast.makeText(getApplicationContext(), "Tidak ada Data", Toast.LENGTH_SHORT).show();
                         }

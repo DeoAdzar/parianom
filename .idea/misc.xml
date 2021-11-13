@@ -14,7 +14,9 @@
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/activity_detail_barang.xml" value="0.22447916666666667" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/activity_edit_produk.xml" value="0.22447916666666667" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/activity_form_buka_toko.xml" value="0.25" />
+        <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/activity_generate_qr.xml" value="0.2203125" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/activity_pengaduan.xml" value="0.22447916666666667" />
+        <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/activity_scan_qr.xml" value="0.10714285714285714" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/activity_search.xml" value="0.22447916666666667" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/activity_tambah_produk.xml" value="0.22447916666666667" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/activity_transaksi.xml" value="0.33" />
@@ -29,7 +31,7 @@
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/item_buat_pesanan.xml" value="0.22447916666666667" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/item_chat.xml" value="0.10208333333333333" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/item_pesan.xml" value="0.22" />
-        <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/item_riwayat.xml" value="0.22447916666666667" />
+        <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/item_riwayat.xml" value="0.34375" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/item_transaksi.xml" value="0.33" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/layout_delete_item.xml" value="0.19270833333333334" />
         <entry key="..\:/---------KULIAH-----------/project/fix/app/src/main/res/layout/shimmer_detail_barang.xml" value="0.2203125" />
