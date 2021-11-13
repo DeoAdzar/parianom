@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -50,39 +52,57 @@ public class Daftar extends AppCompatActivity {
         setContentView(R.layout.activity_daftar);
         setInit();
         setupEditText();
+
         btnDaftar = (Button) findViewById(R.id.btnDaftar);
         btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnDaftar.setVisibility(View.GONE);
-                loading.setVisibility(View.VISIBLE);
-                if (nama_lengkap.getText().toString().isEmpty()
-                        ||username.getText().toString().isEmpty()
-                        ||email.getText().toString().isEmpty()
-                        ||no_hp.getText().toString().isEmpty()
-                        ||alamat.getText().toString().isEmpty()
-                        ||kata_sandi.getText().toString().isEmpty()){
-                    Toast.makeText(Daftar.this, "Mohon isi data", Toast.LENGTH_SHORT).show();
-                    btnDaftar.setVisibility(View.VISIBLE);
-                    loading.setVisibility(View.GONE);
-                }else if (cekPhone==false){
-                    Toast.makeText(Daftar.this, "Nomer HP Sudah digunakan", Toast.LENGTH_SHORT).show();
-                    btnDaftar.setVisibility(View.VISIBLE);
-                    loading.setVisibility(View.GONE);
-                }else if (cekUsername==false){
-                    btnDaftar.setVisibility(View.VISIBLE);
-                    loading.setVisibility(View.GONE);
-                    Toast.makeText(Daftar.this, "Username Sudah digunakan", Toast.LENGTH_SHORT).show();
-                }else if (cekEmail==false){
-                    btnDaftar.setVisibility(View.VISIBLE);
-                    loading.setVisibility(View.GONE);
-                    Toast.makeText(Daftar.this, "email Sudah digunakan", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
+                dialog
+                        .setMessage("Pastikan nomor telepon yang Anda masukkan aktif dan terdaftar WhatsApp!")
+                        .setCancelable(false)
+                        .setPositiveButton("Lanjutkan", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                btnDaftar.setVisibility(View.GONE);
+                                loading.setVisibility(View.VISIBLE);
+                                if (nama_lengkap.getText().toString().isEmpty()
+                                        ||username.getText().toString().isEmpty()
+                                        ||email.getText().toString().isEmpty()
+                                        ||no_hp.getText().toString().isEmpty()
+                                        ||alamat.getText().toString().isEmpty()
+                                        ||kata_sandi.getText().toString().isEmpty()){
+                                    Toast.makeText(Daftar.this, "Mohon isi semua data", Toast.LENGTH_SHORT).show();
+                                    btnDaftar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.GONE);
+                                }else if (cekPhone==false){
+                                    Toast.makeText(Daftar.this, "Nomer HP Sudah digunakan", Toast.LENGTH_SHORT).show();
+                                    btnDaftar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.GONE);
+                                }else if (cekUsername==false){
+                                    btnDaftar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.GONE);
+                                    Toast.makeText(Daftar.this, "Username Sudah digunakan", Toast.LENGTH_SHORT).show();
+                                }else if (cekEmail==false){
+                                    btnDaftar.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.GONE);
+                                    Toast.makeText(Daftar.this, "email Sudah digunakan", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
 
-                    auth();
-                }
-                setupEditText();
+                                    auth();
+                                }
+                                setupEditText();
+                            }
+                        })
+                        .setNegativeButton("Kembali", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialog.setCancelable(true);
+                            }
+                        });
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
             }
         });
 

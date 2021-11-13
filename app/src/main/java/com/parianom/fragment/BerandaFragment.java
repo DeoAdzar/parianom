@@ -91,11 +91,13 @@ public class BerandaFragment extends Fragment {
         jnsHasilKriya = (TextView) v.findViewById(R.id.textHasilKriya);
         jnsBBKriya = (TextView) v.findViewById(R.id.textBBakuKriya);
         shimmer = (ShimmerFrameLayout) v.findViewById(R.id.shimmerBeranda);
+        rvBeranda = (RecyclerView) v.findViewById(R.id.berandaRv);
         searchView = v.findViewById(R.id.searchBeranda);
         int nonAktif = ContextCompat.getColor(getContext(), R.color.label_input);
         int aktif = ContextCompat.getColor(getContext(), R.color.primer);
-        shimmer.showShimmer(true);
+        rvBeranda.setVisibility(View.GONE);
         shimmer.startShimmer();
+        shimmer.showShimmer(true);
         shimmer.setVisibility(View.VISIBLE);
         getMakanan();
 
@@ -118,7 +120,6 @@ public class BerandaFragment extends Fragment {
                 jnsMinuman.setTextColor(nonAktif);
                 jnsCamilan.setTextColor(nonAktif);
                 jnsBBPangan.setTextColor(nonAktif);
-
                 jenisPangan.setVisibility(View.VISIBLE);
                 jenisKriya.setVisibility(View.GONE);
                 getMakanan();
@@ -231,8 +232,6 @@ public class BerandaFragment extends Fragment {
             }
         });
 
-        rvBeranda = (RecyclerView) v.findViewById(R.id.berandaRv);
-
         //Seacrh from beranda
         searchView.setFocusable(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -255,41 +254,12 @@ public class BerandaFragment extends Fragment {
         return v;
     }
 
-
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        setUpViewPager(viewPager);
-//        tabLayout.setupWithViewPager(viewPager);
-//
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-//    }
-//
-//    private void setUpViewPager(ViewPager viewPager) {
-//        BerandaAdapter adapter = new BerandaAdapter(getChildFragmentManager());
-//        adapter.addFragement(new MakananFragment(), "Makanan");
-//        adapter.addFragement(new PanganFragment(), "pangan");
-//    }
-
     public void getMakanan(){
-
+        empty.setVisibility(View.GONE);
+        rvBeranda.setVisibility(View.GONE);
+        shimmer.startShimmer();
+        shimmer.stopShimmer();
+        shimmer.setVisibility(View.VISIBLE);
         BaseApiService mApiService = UtilsApi.getApiService();
         Call<PenjualanResponseModel> get = mApiService.getProduk("Pangan","Makanan");
         get.enqueue(new Callback<PenjualanResponseModel>() {
@@ -299,18 +269,20 @@ public class BerandaFragment extends Fragment {
                 if (penjualanModelList.isEmpty()){
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
                 }else{
                     empty.setVisibility(View.GONE);
                     rvBeranda.setVisibility(View.VISIBLE);
-                        lmBeranda = new GridLayoutManager(getContext(),2);
-                        rvBeranda.setLayoutManager(lmBeranda);
-                        adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
-                        rvBeranda.setAdapter(adBeranda);
-
-                        rvBeranda.setVisibility(View.VISIBLE);
-                        shimmer.stopShimmer();
-                        shimmer.hideShimmer();
-                        shimmer.setVisibility(View.GONE);
+                    lmBeranda = new GridLayoutManager(getContext(),2);
+                    rvBeranda.setLayoutManager(lmBeranda);
+                    adBeranda = new PenjualanRvAdapter(getContext(),penjualanModelList);
+                    rvBeranda.setAdapter(adBeranda);
+                    rvBeranda.setVisibility(View.VISIBLE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
                 }
 
             }
@@ -336,6 +308,9 @@ public class BerandaFragment extends Fragment {
                 if (penjualanModelList.isEmpty()){
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
                 }else{
                     empty.setVisibility(View.GONE);
                     rvBeranda.setVisibility(View.VISIBLE);
@@ -371,6 +346,9 @@ public class BerandaFragment extends Fragment {
                 if (penjualanModelList.isEmpty()){
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
                 }else{
                     empty.setVisibility(View.GONE);
                     rvBeranda.setVisibility(View.VISIBLE);
@@ -406,6 +384,9 @@ public class BerandaFragment extends Fragment {
                 if (penjualanModelList.isEmpty()){
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
                 }else{
                     empty.setVisibility(View.GONE);
                     rvBeranda.setVisibility(View.VISIBLE);
@@ -441,6 +422,9 @@ public class BerandaFragment extends Fragment {
                 if (penjualanModelList.isEmpty()){
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
                 }else{
                     empty.setVisibility(View.GONE);
                     rvBeranda.setVisibility(View.VISIBLE);
@@ -476,6 +460,9 @@ public class BerandaFragment extends Fragment {
                 if (penjualanModelList.isEmpty()){
                     empty.setVisibility(View.VISIBLE);
                     rvBeranda.setVisibility(View.GONE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
+                    shimmer.setVisibility(View.GONE);
                 }else{
                     empty.setVisibility(View.GONE);
                     rvBeranda.setVisibility(View.VISIBLE);

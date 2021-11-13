@@ -21,7 +21,8 @@
             android:windowSoftInputMode="adjustResize|stateUnchanged"/>
         <activity
             android:name=".activity.Pengaduan"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
         <activity
             android:name=".activity.BoardNoConnection"
             android:exported="true" />

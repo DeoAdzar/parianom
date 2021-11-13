@@ -41,7 +41,6 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:background="@drawable/card_profil">
-
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/searchS"
                     android:layout_width="match_parent"
