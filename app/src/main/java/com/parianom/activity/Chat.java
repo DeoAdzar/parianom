@@ -138,12 +138,12 @@ public class Chat extends AppCompatActivity {
         produk = findViewById(R.id.intentPesanan);
         fotoUser = findViewById(R.id.imgUserChat);
         namaPenjual.setText(namaP);
-        if (getIntent().getStringExtra("gambar_toko")!=null) {
+        if (getIntent().getStringExtra("gambar_toko").equals("null")) {
+            fotoUser.setImageResource(R.drawable.ic_person);
+        }else{
             byte[] decodedString = Base64.decode(getIntent().getStringExtra("gambar_toko"), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             fotoUser.setImageBitmap(decodedByte);
-        }else{
-            fotoUser.setImageResource(R.drawable.ic_person);
         }
         kirim = findViewById(R.id.kirimChat);
         if (status_chat.equals("0")) {
@@ -330,6 +330,7 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onResponse(Call<ChatResponseModel> call, Response<ChatResponseModel> response) {
                 mData = response.body().getData();
+                refresh();
                 ChatRVAdapter adapter = new ChatRVAdapter(mData);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
                 rv.setLayoutManager(layoutManager);
@@ -337,7 +338,7 @@ public class Chat extends AppCompatActivity {
                 rv.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 rv.scrollToPosition(mData.size() - 1);
-                refresh();
+
             }
 
             @Override
