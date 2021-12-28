@@ -79,6 +79,7 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
         byte[] decodedString = Base64.decode(pm.getFoto_produk(), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         holder.imgProduk.setImageBitmap(decodedByte);
+        holder.kodePesanan.setText("#"+pm.getKode_pesanan());
         switch (String.valueOf(pm.getStatus())) {
             case "1":
                 holder.layout.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +197,7 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView titleProduk, wktBeli, titleRwyt, alamat, totalHarga;
+        private TextView titleProduk, wktBeli, titleRwyt, alamat, totalHarga,kodePesanan;
         private ImageView imgProduk;
         private LinearLayout layout;
         private Button detail;
@@ -207,6 +208,7 @@ public class RiwayatRVAdapter extends RecyclerView.Adapter<RiwayatRVAdapter.MyVi
             titleRwyt = (TextView) itemView.findViewById(R.id.subNamaProduk);
             alamat = (TextView) itemView.findViewById(R.id.alamatProduk);
             totalHarga = (TextView) itemView.findViewById(R.id.totalHarga);
+            kodePesanan = (TextView) itemView.findViewById(R.id.kode_pesanan_riwayat);
             imgProduk = (ImageView) itemView.findViewById(R.id.imgProduk);
             layout = (LinearLayout) itemView.findViewById(R.id.cardRiwayat);
             detail = (Button) itemView.findViewById(R.id.btnDetailRiwayat);

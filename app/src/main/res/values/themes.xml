@@ -71,6 +71,10 @@
         <item name="android:textColorSecondary">@color/black</item>
     </style>
 
+    <style name="prefix" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">14dp</item>
+    </style>
+
     <style name="Theme.Parianom.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Parianom.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
